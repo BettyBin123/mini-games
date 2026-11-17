@@ -1,0 +1,4093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5efe5">
+  <meta name="description" content="不用懂历史也能玩的趣味人格测试：10个生活化选择，匹配一位与你同频的中国历史女性。">
+  <title>测一测｜你的灵魂对应哪位历史人物 · 中国历史女性专场</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23bb523d'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='serif' font-size='38' fill='%23fff8ee'%3E她%3C/text%3E%3C/svg%3E">
+  <style>
+/* ============ 基础变量 ============ */
+:root {
+  --bg: #f5efe5;
+  --bg-deep: #efe5d8;
+  --paper: #fffaf2;
+  --paper-soft: #fbf4e8;
+  --ink: #2e2924;
+  --ink-soft: #655c51;
+  --muted: #918678;
+  --line: rgba(64, 50, 36, 0.13);
+  --line-strong: rgba(64, 50, 36, 0.23);
+  --cinnabar: #bb523d;
+  --cinnabar-deep: #983b2b;
+  --cinnabar-soft: #f2d7cc;
+  --jade: #6d8976;
+  --jade-deep: #4f6b5a;
+  --jade-soft: #dce7de;
+  --gold: #b89555;
+  --gold-soft: #efe0c2;
+  --shadow-lg: 0 30px 80px rgba(81, 61, 40, 0.14);
+  --shadow-md: 0 16px 42px rgba(81, 61, 40, 0.1);
+  --shadow-sm: 0 8px 24px rgba(81, 61, 40, 0.08);
+  --font-body: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  --font-display: "Songti SC", "STSong", "Noto Serif CJK SC", "Noto Serif SC", "SimSun", serif;
+  --font-kai: "Kaiti SC", "STKaiti", "KaiTi", "FangSong", serif;
+  --radius-xl: 34px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 74% 8%, rgba(216, 175, 148, 0.2), transparent 34%),
+    radial-gradient(circle at 12% 42%, rgba(158, 183, 164, 0.16), transparent 32%),
+    var(--bg);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: radial-gradient(rgba(61, 45, 30, 0.85) 0.6px, transparent 0.6px);
+  background-size: 7px 7px;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--cinnabar);
+  outline-offset: 4px;
+}
+
+::selection {
+  color: #fffaf1;
+  background: var(--cinnabar);
+}
+
+/* ============ 环境装饰 ============ */
+.bg-orb {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.75;
+}
+
+.bg-orb-a {
+  width: clamp(260px, 34vw, 520px);
+  aspect-ratio: 1;
+  top: -13vw;
+  right: -9vw;
+  background: radial-gradient(circle, rgba(218, 168, 143, 0.35), rgba(218, 168, 143, 0) 68%);
+}
+
+.bg-orb-b {
+  width: clamp(220px, 31vw, 460px);
+  aspect-ratio: 1;
+  bottom: -13vw;
+  left: -11vw;
+  background: radial-gradient(circle, rgba(137, 167, 145, 0.22), rgba(137, 167, 145, 0) 70%);
+}
+
+.bg-hairline {
+  position: fixed;
+  z-index: 0;
+  width: min(1240px, 94vw);
+  height: min(1240px, 94vw);
+  top: 7vh;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(122, 99, 73, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.bg-hairline::before,
+.bg-hairline::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  border: 1px dashed rgba(122, 99, 73, 0.09);
+}
+
+.bg-hairline::before { inset: 7%; }
+.bg-hairline::after { inset: 19%; border-style: solid; border-color: rgba(122, 99, 73, 0.055); }
+
+/* ============ 页面与屏幕 ============ */
+#app {
+  position: relative;
+  z-index: 1;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  min-height: 100svh;
+  width: 100%;
+}
+
+.screen.active {
+  display: block;
+  animation: screenIn 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============ 通用按钮 ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.985); }
+
+.btn-primary {
+  color: #fffaf2;
+  background: var(--cinnabar);
+  border-color: var(--cinnabar);
+  box-shadow: 0 13px 28px rgba(155, 61, 43, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.13);
+}
+
+.btn-primary:hover {
+  background: var(--cinnabar-deep);
+  border-color: var(--cinnabar-deep);
+  box-shadow: 0 16px 34px rgba(155, 61, 43, 0.25);
+}
+
+.btn-secondary {
+  color: var(--ink);
+  background: rgba(255, 250, 242, 0.58);
+  border-color: var(--line-strong);
+}
+
+.btn-secondary:hover {
+  background: var(--paper);
+  border-color: rgba(187, 82, 61, 0.38);
+}
+
+.btn-large {
+  min-height: 58px;
+  padding: 16px 30px;
+  font-size: 16px;
+}
+
+.btn-ghost {
+  min-height: 38px;
+  padding: 8px 14px;
+  color: var(--ink-soft);
+  background: transparent;
+  border-color: var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  color: var(--cinnabar);
+  border-color: rgba(187, 82, 61, 0.3);
+}
+
+.btn-link {
+  min-height: 40px;
+  padding: 8px 12px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-link:hover {
+  color: var(--cinnabar);
+  border-color: rgba(187, 82, 61, 0.35);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.22s ease;
+}
+
+.btn:hover .arrow { transform: translateX(4px); }
+
+/* ============ 品牌 ============ */
+.site-head {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 28px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: #fff8ee;
+  background: var(--cinnabar);
+  border-radius: 11px;
+  font-family: var(--font-kai);
+  font-size: 24px;
+  line-height: 1;
+  transform: rotate(-4deg);
+  box-shadow: 2px 3px 0 rgba(139, 55, 39, 0.13);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+}
+
+.brand-text small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.head-note {
+  padding: 8px 14px;
+  color: var(--ink-soft);
+  background: rgba(255, 250, 242, 0.5);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* ============ 启动页 ============ */
+.home-screen.active {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(330px, 0.95fr);
+  align-items: center;
+  gap: clamp(24px, 4.5vw, 62px);
+  width: min(1180px, calc(100% - 48px));
+  margin: auto;
+  padding: clamp(42px, 8vh, 96px) 0 clamp(32px, 6vh, 72px);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0 0 22px;
+  color: var(--cinnabar);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 27px;
+  height: 1px;
+  flex: 0 0 auto;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.hero-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.18;
+}
+
+.title-pre {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ink-soft);
+  font-family: var(--font-kai);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.title-main {
+  display: block;
+  font-size: clamp(44px, 5.9vw, 76px);
+  line-height: 1.16;
+}
+
+.ink-accent {
+  position: relative;
+  display: inline-block;
+  color: var(--cinnabar);
+  z-index: 0;
+}
+
+.ink-accent::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -2%;
+  bottom: 0.06em;
+  left: -1%;
+  height: 0.24em;
+  border-radius: 60% 40% 58% 42%;
+  background: rgba(187, 82, 61, 0.16);
+  transform: rotate(-1.4deg);
+}
+
+.hero-lead {
+  max-width: 490px;
+  margin: 26px 0 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.95;
+  letter-spacing: 0.01em;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 34px;
+}
+
+.hero-micro {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.hero-facts {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 30px;
+  color: var(--ink-soft);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.hero-facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.hero-facts span + span::before {
+  content: "·";
+  margin: 0 10px;
+  color: var(--gold);
+}
+
+.hero-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: var(--jade-deep);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.hero-tagline::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--jade);
+}
+
+/* 启动页人物卡片 */
+.hero-art {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 510px);
+  height: 545px;
+  isolation: isolate;
+}
+
+.hero-aura {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  width: 440px;
+  height: 440px;
+  max-width: 90%;
+  max-height: 90%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(128, 102, 73, 0.13);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(255, 249, 236, 0.9) 0 32%, rgba(239, 220, 196, 0.52) 56%, rgba(245, 239, 229, 0) 72%);
+}
+
+.hero-aura::before {
+  content: "";
+  position: absolute;
+  inset: 32px;
+  border: 1px dashed rgba(128, 102, 73, 0.16);
+  border-radius: inherit;
+}
+
+.hero-aura::after {
+  content: "";
+  position: absolute;
+  inset: 78px;
+  border: 1px solid rgba(128, 102, 73, 0.07);
+  border-radius: inherit;
+}
+
+.hero-vertical {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  writing-mode: vertical-rl;
+}
+
+.hero-vertical::after {
+  content: "";
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(var(--gold), transparent);
+}
+
+.portrait-card {
+  position: absolute;
+  z-index: 3;
+  margin: 0;
+  padding: 9px 9px 11px;
+  background: #fffaf2;
+  border: 1px solid rgba(97, 76, 51, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(88, 62, 40, 0.16);
+}
+
+.portrait-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 9px;
+  border-radius: 12px;
+  background: var(--paper-soft);
+}
+
+.portrait-main {
+  top: 48px;
+  left: 50%;
+  width: 228px;
+  transform: translateX(-50%) rotate(-2.2deg);
+  animation: floatCard 7s ease-in-out infinite;
+}
+
+.portrait-side {
+  width: 146px;
+  padding: 7px 7px 8px;
+  box-shadow: 0 15px 36px rgba(88, 62, 40, 0.13);
+}
+
+.portrait-side .portrait-media {
+  border-radius: 11px;
+}
+
+.portrait-side .portrait-name {
+  font-size: 12px;
+  padding: 7px 3px 1px;
+}
+
+.portrait-side .portrait-name small {
+  display: none;
+}
+
+.portrait-side-left {
+  z-index: 2;
+  left: 2px;
+  top: 258px;
+  transform: rotate(-10deg);
+  animation: floatCard 8s ease-in-out -2s infinite;
+}
+
+.portrait-side-right {
+  z-index: 4;
+  right: -2px;
+  top: 196px;
+  transform: rotate(9deg);
+  animation: floatCard 7.4s ease-in-out -3.4s infinite;
+}
+
+.portrait-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9 / 10;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #f4e4d6, #e7d4c5);
+}
+
+.portrait-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+.portrait-media .soul-avatar {
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.portrait-card:hover .soul-avatar { transform: scale(1.035); }
+
+.portrait-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: rgba(255, 250, 242, 0.82);
+  font-family: var(--font-kai);
+  font-size: 58px;
+}
+
+.portrait-name {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  padding: 9px 5px 1px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+.portrait-name small {
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.art-stamp {
+  position: absolute;
+  z-index: 5;
+  right: 9px;
+  bottom: 44px;
+  display: grid;
+  place-content: center;
+  width: 76px;
+  height: 76px;
+  color: #fff7e9;
+  background: var(--cinnabar);
+  border: 2px solid rgba(255, 250, 242, 0.38);
+  outline: 1px solid var(--cinnabar);
+  outline-offset: 5px;
+  border-radius: 50%;
+  font-family: var(--font-kai);
+  font-size: 17px;
+  line-height: 1.08;
+  text-align: center;
+  transform: rotate(9deg);
+  box-shadow: 0 12px 26px rgba(120, 48, 34, 0.18);
+}
+
+.art-stamp b { font-weight: 500; }
+
+.art-bubble {
+  position: absolute;
+  z-index: 5;
+  padding: 9px 13px;
+  color: var(--ink-soft);
+  background: rgba(255, 250, 242, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 6px 6px 6px 2px;
+  font-family: var(--font-kai);
+  font-size: 12px;
+  line-height: 1.55;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(7px);
+  box-shadow: var(--shadow-sm);
+}
+
+.art-bubble::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cinnabar);
+  opacity: 0.5;
+}
+
+.bubble-a {
+  top: 6px;
+  left: 17px;
+  transform: rotate(-4deg);
+}
+
+.bubble-a::after { right: 12px; bottom: 7px; }
+
+.bubble-b {
+  bottom: 4px;
+  left: 9px;
+  transform: rotate(2deg);
+}
+
+.bubble-b::after { right: 13px; bottom: 8px; }
+
+.art-spark {
+  position: absolute;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.art-spark::before,
+.art-spark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+  transform: translate(-50%, -50%);
+  opacity: 0.55;
+}
+
+.art-spark::after { transform: translate(-50%, -50%) rotate(90deg); }
+.spark-a { top: 40px; left: 32px; }
+.spark-b { top: 86px; right: 31px; width: 5px; height: 5px; opacity: 0.4; }
+.spark-c { bottom: 102px; left: 70px; width: 5px; height: 5px; opacity: 0.35; }
+
+.hero-petal {
+  position: absolute;
+  z-index: 1;
+  width: 11px;
+  height: 6px;
+  border-radius: 100% 0 100% 0;
+  background: rgba(187, 82, 61, 0.3);
+}
+
+.petal-a { top: 138px; left: 35px; transform: rotate(34deg); }
+.petal-b { top: 104px; right: 102px; transform: rotate(-20deg); width: 8px; height: 4px; }
+.petal-c { bottom: 150px; right: 26px; transform: rotate(65deg); width: 7px; height: 4px; }
+
+@keyframes floatCard {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+.home-footer {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 0 0 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.home-quote {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-family: var(--font-kai);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.home-quote::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.home-footer p { margin: 0; }
+
+/* ============ 答题页 ============ */
+.quiz-screen.active {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.quiz-head {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: min(820px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 24px 0 16px;
+}
+
+.quiz-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex: 0 0 auto;
+  color: var(--ink-soft);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.quiz-wordmark .brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  font-size: 18px;
+  box-shadow: 1px 2px 0 rgba(139, 55, 39, 0.11);
+}
+
+.quiz-progress {
+  flex: 1;
+  min-width: 0;
+}
+
+.progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.progress-meta strong {
+  color: var(--ink-soft);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.progress-track {
+  height: 4px;
+  overflow: hidden;
+  background: rgba(78, 61, 43, 0.1);
+  border-radius: 99px;
+}
+
+.progress-fill {
+  display: block;
+  width: 10%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--jade) 0%, var(--cinnabar) 100%);
+  transition: width 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.quiz-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: min(820px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 16px 0 10px;
+}
+
+.question-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(27px, 4.5vw, 48px) clamp(21px, 5vw, 56px) clamp(21px, 3vw, 32px);
+  background: rgba(255, 251, 244, 0.9);
+  border: 1px solid rgba(101, 78, 51, 0.13);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+}
+
+.question-card::before {
+  content: "";
+  position: absolute;
+  top: -88px;
+  right: -70px;
+  width: 230px;
+  height: 230px;
+  border: 1px solid rgba(184, 149, 85, 0.17);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.question-card::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 49px;
+  height: 49px;
+  border-top: 1px solid rgba(184, 149, 85, 0.3);
+  border-right: 1px solid rgba(184, 149, 85, 0.3);
+  border-radius: 0 12px 0 0;
+  pointer-events: none;
+}
+
+.question-card.is-enter {
+  animation: cardIn 0.42s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.q-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.q-kicker {
+  color: var(--cinnabar);
+  font-family: var(--font-kai);
+  font-size: 14px;
+  letter-spacing: 0.09em;
+}
+
+.q-hint {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.question-title {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(23px, 3.3vw, 31px);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1.55;
+  text-wrap: balance;
+}
+
+/* 题目与结果标题会通过脚本获得焦点，仅供读屏定位，不显示默认焦点框 */
+.question-title:focus,
+.result-name:focus {
+  outline: none;
+}
+
+.q-ghost {
+  position: absolute;
+  top: 43px;
+  right: 37px;
+  color: var(--cinnabar);
+  opacity: 0.055;
+  font-family: var(--font-kai);
+  font-size: 112px;
+  font-weight: 600;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.options {
+  display: grid;
+  gap: 11px;
+  margin-top: 28px;
+}
+
+.option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 57px;
+  padding: 11px 15px;
+  color: var(--ink-soft);
+  text-align: left;
+  background: rgba(255, 253, 248, 0.76);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.option:hover {
+  color: var(--ink);
+  background: #fffcf7;
+  border-color: rgba(187, 82, 61, 0.34);
+  box-shadow: 0 8px 20px rgba(87, 62, 38, 0.06);
+  transform: translateX(3px);
+}
+
+.option:active { transform: scale(0.995) translateX(1px); }
+
+.option-letter {
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  color: var(--muted);
+  background: rgba(244, 237, 226, 0.7);
+  border: 1px solid rgba(96, 75, 50, 0.12);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.option-text {
+  font-size: 14px;
+  line-height: 1.65;
+  letter-spacing: 0.005em;
+}
+
+.option-mark {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  color: var(--cinnabar);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.65);
+  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.option-mark svg { width: 11px; height: 11px; }
+
+.option.is-picked {
+  color: var(--ink);
+  background: linear-gradient(105deg, #f8e5db 0%, #fff8ea 100%);
+  border-color: rgba(187, 82, 61, 0.7);
+  box-shadow: 0 0 0 1px var(--cinnabar), 0 10px 24px rgba(151, 76, 54, 0.11);
+  transform: translateX(2px);
+}
+
+.option.is-picked .option-letter {
+  color: #fff9ef;
+  background: var(--cinnabar);
+  border-color: var(--cinnabar);
+  transform: rotate(-5deg) scale(1.03);
+}
+
+.option.is-picked .option-mark {
+  color: #fffaf1;
+  background: var(--cinnabar);
+  border-color: var(--cinnabar);
+  opacity: 1;
+  transform: scale(1);
+}
+
+.option.is-picked .option-text { font-weight: 500; }
+
+.q-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 33px;
+  margin-top: 23px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(93, 72, 48, 0.09);
+}
+
+.q-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 33px;
+  padding: 4px 8px 4px 2px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.q-back:hover:not(:disabled) { color: var(--cinnabar); }
+.q-back:disabled { opacity: 0; pointer-events: none; }
+
+.q-foot-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-align: right;
+}
+
+.q-foot-note strong {
+  color: var(--cinnabar);
+  font-weight: 500;
+}
+
+.quiz-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(820px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 18px 0 26px;
+}
+
+.quiz-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.quiz-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(85, 66, 47, 0.18);
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.quiz-dot.is-done { background: var(--jade); }
+.quiz-dot.is-current { width: 16px; border-radius: 99px; background: var(--cinnabar); }
+
+.keyboard-hint {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.keyboard-hint kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 17px;
+  height: 17px;
+  margin: 0 1px;
+  padding: 0 4px;
+  color: var(--ink-soft);
+  background: rgba(255, 250, 242, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  box-shadow: 0 1px 0 rgba(81, 61, 40, 0.08);
+}
+
+/* ============ 完成页 ============ */
+.finish-screen.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+
+.finish-wrap {
+  position: relative;
+  width: min(680px, 100%);
+  padding: clamp(32px, 6vw, 58px) clamp(20px, 5vw, 62px);
+  overflow: hidden;
+  text-align: center;
+  background: rgba(255, 251, 244, 0.86);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.finish-wrap::before,
+.finish-wrap::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(184, 149, 85, 0.16);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.finish-wrap::before {
+  width: 340px;
+  height: 340px;
+  top: -220px;
+  left: -160px;
+}
+
+.finish-wrap::after {
+  width: 290px;
+  height: 290px;
+  right: -210px;
+  bottom: -190px;
+}
+
+.finish-eyebrow {
+  justify-content: center;
+  margin-bottom: 26px;
+}
+
+.finish-orbit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 168px;
+  height: 168px;
+  margin: 0 auto 27px;
+  border: 1px solid rgba(109, 137, 118, 0.35);
+  border-radius: 50%;
+}
+
+.finish-orbit::before,
+.finish-orbit::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(184, 149, 85, 0.32);
+}
+
+.finish-orbit::before { inset: 13px; }
+.finish-orbit::after { inset: -9px; border-style: solid; border-color: rgba(109, 137, 118, 0.13); }
+
+.finish-seal {
+  display: grid;
+  place-items: center;
+  width: 98px;
+  height: 98px;
+  color: #fff8ef;
+  background: var(--cinnabar);
+  border-radius: 50%;
+  font-family: var(--font-kai);
+  font-size: 26px;
+  line-height: 1.05;
+  letter-spacing: 0.12em;
+  transform: rotate(-6deg);
+  box-shadow: 0 12px 32px rgba(120, 49, 35, 0.2);
+}
+
+.finish-wrap h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(27px, 4.4vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
+}
+
+.finish-wrap h2 em {
+  display: block;
+  color: var(--cinnabar);
+  font-style: normal;
+}
+
+.finish-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 430px;
+  margin: 18px auto 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.finish-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.finish-actions .btn { min-width: 255px; }
+.finish-actions .btn-link { font-size: 12px; }
+
+.finish-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+  padding-top: 20px;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.finish-stats span + span::before {
+  content: "·";
+  margin-right: 20px;
+  color: var(--gold);
+}
+
+/* ============ 结果页 ============ */
+.result-screen.active {
+  display: block;
+  padding-bottom: 48px;
+}
+
+.result-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(1060px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 25px 0 16px;
+}
+
+.result-topbar .brand-mark { width: 34px; height: 34px; font-size: 20px; }
+.result-topbar .brand-text { font-size: 15px; }
+.result-topbar .brand-text small { font-size: 7px; }
+
+.result-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.soul-file-no {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+
+.result-shell {
+  width: min(1060px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.result-introbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 14px 0 17px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.result-introbar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.result-introbar span::before {
+  content: "";
+  width: 16px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.result-introbar .match-pill {
+  color: var(--jade-deep);
+  padding: 5px 11px;
+  background: rgba(220, 231, 222, 0.56);
+  border: 1px solid rgba(109, 137, 118, 0.16);
+  border-radius: 999px;
+  font-size: 9px;
+  letter-spacing: 0.07em;
+}
+
+.result-introbar .match-pill::before { display: none; }
+
+.result-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid rgba(83, 62, 40, 0.14);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  animation: resultRise 0.75s cubic-bezier(0.18, 0.72, 0.22, 1) both;
+}
+
+@keyframes resultRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.result-card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -240px;
+  right: -150px;
+  width: 570px;
+  height: 570px;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.result-card::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -150px;
+  right: -64px;
+  width: 395px;
+  height: 395px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 19%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.result-cover {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 315px minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 62px);
+  align-items: center;
+  padding: clamp(25px, 4.2vw, 48px);
+  background:
+    radial-gradient(circle at 17% 15%, rgba(255, 255, 255, 0.74), transparent 30%),
+    linear-gradient(135deg, var(--soft) 0%, rgba(255, 250, 242, 0.92) 70%);
+  border-bottom: 1px solid var(--line);
+}
+
+.avatar-panel {
+  position: relative;
+  width: 100%;
+  max-width: 315px;
+  justify-self: center;
+}
+
+.avatar-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9 / 10;
+  padding: 9px;
+  background: rgba(255, 250, 242, 0.85);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, #fff);
+  border-radius: 27px;
+  box-shadow: 0 20px 46px color-mix(in srgb, var(--accent) 17%, transparent);
+  transform: rotate(-1.5deg);
+}
+
+.avatar-frame::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.37);
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+.avatar-frame .soul-avatar {
+  border-radius: 20px;
+}
+
+.avatar-badge {
+  position: absolute;
+  right: -8px;
+  bottom: 24px;
+  padding: 7px 11px;
+  color: var(--ink-soft);
+  background: rgba(255, 250, 242, 0.92);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, #fff);
+  border-radius: 999px;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-sm);
+  transform: rotate(2deg);
+}
+
+.avatar-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 13px 0 0;
+  color: var(--muted);
+  font-family: var(--font-kai);
+  font-size: 12px;
+  letter-spacing: 0.09em;
+}
+
+.avatar-caption::before,
+.avatar-caption::after {
+  content: "";
+  width: 17px;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.result-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 13px;
+  color: var(--accent);
+  font-family: var(--font-kai);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+
+.result-label::after {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.full-stop {
+  display: inline-block;
+  margin-left: 8px;
+  color: var(--accent);
+  font-size: 0.42em;
+  vertical-align: 0.8em;
+}
+
+.result-name-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.result-name {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(46px, 6.4vw, 76px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.1;
+}
+
+.name-seal {
+  display: grid;
+  place-items: center;
+  width: 47px;
+  height: 47px;
+  color: #fff8ec;
+  background: var(--accent);
+  border: 2px solid rgba(255, 250, 242, 0.65);
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 9px;
+  font-family: var(--font-kai);
+  font-size: 22px;
+  line-height: 1;
+  transform: rotate(5deg);
+  box-shadow: 0 7px 17px color-mix(in srgb, var(--accent) 21%, transparent);
+}
+
+.result-title {
+  margin: 11px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.65;
+  letter-spacing: 0.015em;
+}
+
+.result-title strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.result-who {
+  max-width: 510px;
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.trait-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 19px;
+}
+
+.trait-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  color: var(--ink-soft);
+  background: rgba(255, 252, 246, 0.62);
+  border: 1px solid color-mix(in srgb, var(--accent) 23%, transparent);
+  border-radius: 999px;
+  font-size: 10px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.trait-chip::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.75;
+}
+
+.result-slogan {
+  position: relative;
+  margin: 25px 0 0;
+  padding: 15px 18px 15px 22px;
+  color: var(--ink);
+  background: rgba(255, 252, 246, 0.48);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  font-family: var(--font-kai);
+  font-size: clamp(16px, 2.2vw, 20px);
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
+
+.result-slogan::before {
+  content: "“";
+  position: absolute;
+  top: -10px;
+  left: 7px;
+  color: color-mix(in srgb, var(--accent) 28%, transparent);
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1;
+}
+
+.result-body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.story-panel {
+  padding: clamp(26px, 4vw, 42px) clamp(25px, 4.2vw, 48px);
+}
+
+.story-panel + .story-panel {
+  border-left: 1px solid var(--line);
+  background: rgba(250, 245, 236, 0.4);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 17px;
+}
+
+.panel-heading .section-index {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.panel-heading h3 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-kai);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.panel-en {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.system-read {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--soft) 72%, #fff);
+  border: 1px solid color-mix(in srgb, var(--accent) 14%, transparent);
+  border-radius: 10px;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.system-read span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.why-copy {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+.why-copy::first-letter {
+  font-family: var(--font-display);
+  font-size: 1.12em;
+}
+
+.secret-list {
+  display: grid;
+  gap: 11px;
+}
+
+.secret-item {
+  position: relative;
+  padding: 13px 14px 13px 17px;
+  background: rgba(255, 250, 242, 0.67);
+  border: 1px solid rgba(94, 73, 49, 0.1);
+  border-radius: 12px;
+}
+
+.secret-item::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 7px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.secret-item span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+}
+
+.secret-item p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.highlight-line {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  color: var(--ink-soft);
+  border-top: 1px dashed rgba(94, 73, 49, 0.18);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.highlight-line strong {
+  margin-right: 6px;
+  color: var(--accent);
+  font-family: var(--font-kai);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* 灵魂配方 */
+.recipe {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(24px, 4vw, 52px);
+  align-items: center;
+  padding: clamp(24px, 3.5vw, 36px) clamp(25px, 4.2vw, 48px);
+  background: rgba(251, 247, 239, 0.72);
+}
+
+.recipe-heading {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-kai);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.recipe-sub {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+.soul-bars {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+}
+
+.soul-bar {
+  display: grid;
+  grid-template-columns: 63px minmax(0, 1fr) 33px;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+}
+
+.soul-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.soul-bar-label::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--bar-color);
+}
+
+.soul-bar-label em {
+  color: var(--muted);
+  font-style: normal;
+  font-size: 8px;
+}
+
+.soul-bar-track {
+  height: 5px;
+  overflow: hidden;
+  background: rgba(70, 55, 38, 0.08);
+  border-radius: 99px;
+}
+
+.soul-bar-track i {
+  display: block;
+  height: 100%;
+  width: var(--bar-width);
+  border-radius: inherit;
+  background: var(--bar-color);
+  opacity: 0.79;
+  transform-origin: left center;
+  animation: barGrow 0.9s 0.25s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+@keyframes barGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.soul-bar-value {
+  color: var(--muted);
+  font-size: 9px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.recipe-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+}
+
+/* 结果页操作区 */
+.result-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 25px auto 0;
+}
+
+.result-actions .btn-primary { min-width: 224px; }
+.result-actions .btn-secondary { min-width: 132px; }
+
+.share-tip {
+  margin: 15px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.share-tip strong {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.result-note {
+  width: min(780px, calc(100% - 48px));
+  margin: 38px auto 0;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.8;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.result-note::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 1px;
+  margin: 0 auto 14px;
+  background: var(--line-strong);
+}
+
+/* ============ 提示浮层 ============ */
+.toast {
+  position: fixed;
+  z-index: 50;
+  left: 50%;
+  bottom: max(26px, env(safe-area-inset-bottom));
+  max-width: min(90vw, 380px);
+  padding: 11px 18px;
+  color: #fffaf1;
+  background: rgba(46, 41, 36, 0.94);
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, 12px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 12px 28px rgba(46, 41, 36, 0.22);
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ============ SVG 头像 ============ */
+.soul-avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.soul-avatar .avatar-star {
+  animation: twinkle 4.5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.8; }
+}
+
+.hero-art .soul-avatar { aspect-ratio: 9 / 10; }
+
+/* ============ 响应式 ============ */
+@media (max-width: 1060px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.85fr);
+    gap: 20px;
+  }
+
+  .hero-art { transform: scale(0.92); transform-origin: center right; }
+  .result-cover { grid-template-columns: 285px minmax(0, 1fr); gap: 30px; }
+  .avatar-panel { max-width: 285px; }
+}
+
+@media (max-width: 900px) {
+  .site-head { padding-top: 21px; }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding-top: 38px;
+  }
+
+  .hero-copy { max-width: 660px; }
+  .hero-art {
+    justify-self: center;
+    width: min(100%, 500px);
+    height: 480px;
+    transform: scale(0.94);
+    transform-origin: center top;
+    margin: -8px auto 0;
+  }
+
+  .home-footer { padding-bottom: 21px; }
+
+  .result-cover {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 28px;
+    padding: 30px;
+  }
+
+  .avatar-panel { max-width: 240px; }
+  .result-name { font-size: clamp(40px, 7vw, 60px); }
+  .result-body { grid-template-columns: 1fr; }
+  .story-panel + .story-panel { border-top: 1px solid var(--line); border-left: 0; }
+  .recipe { grid-template-columns: 1fr; gap: 20px; }
+}
+
+@media (max-width: 680px) {
+  .site-head,
+  .hero,
+  .home-footer,
+  .result-topbar,
+  .result-shell { width: calc(100% - 32px); }
+
+  .site-head { padding-top: 18px; }
+  .head-note { font-size: 9px; padding: 7px 10px; }
+  .brand-text { font-size: 16px; }
+  .brand-mark { width: 35px; height: 35px; font-size: 21px; }
+
+  .hero {
+    padding-top: 31px;
+    padding-bottom: 24px;
+    gap: 25px;
+  }
+
+  .eyebrow { margin-bottom: 16px; font-size: 9px; }
+  .title-pre { font-size: clamp(22px, 6.4vw, 27px); margin-bottom: 5px; }
+  .title-main { font-size: clamp(38px, 11.2vw, 55px); line-height: 1.18; }
+  .hero-lead { margin-top: 19px; font-size: 13.5px; line-height: 1.85; }
+  .hero-actions { margin-top: 27px; gap: 13px; align-items: flex-start; flex-direction: column; }
+  .hero-actions .btn { width: 100%; }
+  .hero-micro { font-size: 10px; }
+  .hero-facts { margin-top: 22px; font-size: 10px; gap: 4px 0; }
+  .hero-facts span + span::before { margin: 0 7px; }
+  .hero-tagline { margin-top: 13px; font-size: 10px; }
+
+  .hero-art {
+    width: 100%;
+    height: 374px;
+    transform: scale(0.95);
+    transform-origin: center top;
+    margin-top: -3px;
+  }
+
+  .hero-aura { width: 340px; height: 340px; top: 21px; }
+  .portrait-main { top: 31px; width: 175px; }
+  .portrait-side { width: 111px; }
+  .portrait-side-left { left: calc(50% - 176px); top: 186px; }
+  .portrait-side-right { right: calc(50% - 178px); top: 158px; }
+  .portrait-main .portrait-name { font-size: 13px; }
+  .portrait-side .portrait-name { font-size: 11px; padding-top: 6px; }
+  .art-stamp { right: calc(50% - 170px); bottom: 15px; width: 62px; height: 62px; font-size: 14px; outline-offset: 3px; }
+  .hero-vertical { right: calc(50% - 168px); font-size: 8px; }
+  .bubble-a { top: 1px; left: calc(50% - 167px); font-size: 10px; padding: 7px 10px; }
+  .bubble-b { display: none; }
+  .art-spark { display: none; }
+
+  .home-footer { display: block; text-align: center; padding-bottom: 20px; }
+  .home-quote { justify-content: center; margin-bottom: 8px; font-size: 12px; }
+  .home-footer p { font-size: 9px; line-height: 1.8; }
+
+  .quiz-head {
+    width: calc(100% - 32px);
+    padding: 17px 0 10px;
+    gap: 14px;
+  }
+
+  .quiz-wordmark { font-size: 12px; gap: 7px; }
+  .quiz-wordmark .brand-mark { width: 27px; height: 27px; font-size: 16px; }
+  .progress-meta { font-size: 9px; }
+  .quiz-stage { width: calc(100% - 24px); padding: 8px 0 2px; }
+  .question-card { padding: 25px 18px 18px; border-radius: 25px; box-shadow: 0 16px 46px rgba(81, 61, 40, 0.12); }
+  .q-meta { margin-bottom: 14px; align-items: flex-start; }
+  .q-kicker { font-size: 13px; }
+  .q-hint { display: none; }
+  .question-title { font-size: clamp(21px, 6vw, 26px); line-height: 1.55; }
+  .q-ghost { top: 35px; right: 21px; font-size: 80px; }
+  .options { margin-top: 21px; gap: 9px; }
+  .option { grid-template-columns: 30px minmax(0, 1fr) 17px; gap: 10px; padding: 11px 11px; min-height: 54px; border-radius: 13px; }
+  .option-letter { width: 28px; height: 28px; font-size: 12px; }
+  .option-text { font-size: 12.8px; line-height: 1.62; }
+  .option-mark { width: 17px; height: 17px; }
+  .q-footer { margin-top: 16px; padding-top: 12px; min-height: 28px; }
+  .q-back { font-size: 10px; }
+  .q-foot-note { font-size: 9px; }
+  .quiz-bottom { width: calc(100% - 32px); padding: 13px 0 18px; }
+  .quiz-dots { gap: 5px; }
+  .keyboard-hint { display: none; }
+
+  .finish-wrap { padding: 31px 20px 28px; border-radius: 25px; }
+  .finish-orbit { width: 132px; height: 132px; margin-bottom: 24px; }
+  .finish-seal { width: 82px; height: 82px; font-size: 22px; }
+  .finish-wrap h2 { font-size: clamp(25px, 7.2vw, 31px); }
+  .finish-copy { font-size: 12px; }
+  .finish-actions { margin-top: 25px; }
+  .finish-actions .btn { width: 100%; min-width: 0; }
+  .finish-stats { margin-top: 23px; gap: 12px; font-size: 9px; }
+  .finish-stats span + span::before { margin-right: 12px; }
+
+  .result-screen.active { padding-bottom: 35px; }
+  .result-topbar { padding: 17px 0 12px; }
+  .result-topbar-right { gap: 7px; }
+  .soul-file-no { display: none; }
+  .result-introbar { margin: 11px 0 12px; font-size: 9px; align-items: flex-start; }
+  .result-introbar span { line-height: 1.6; }
+  .result-introbar span::before { flex: 0 0 auto; margin-top: 0.65em; }
+  .result-introbar .match-pill { flex: 0 0 auto; font-size: 8px; padding: 4px 8px; }
+  .result-card { border-radius: 25px; }
+  .result-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 22px 18px 23px;
+    gap: 22px;
+  }
+
+  .avatar-panel { max-width: 215px; width: 70%; align-self: center; }
+  .avatar-frame { padding: 7px; border-radius: 21px; }
+  .avatar-frame::before { inset: 7px; border-radius: 15px; }
+  .avatar-frame .soul-avatar { border-radius: 15px; }
+  .avatar-badge { right: -17px; bottom: 15px; font-size: 8px; padding: 5px 9px; }
+  .avatar-caption { font-size: 10px; margin-top: 9px; }
+  .result-label { font-size: 12px; margin-bottom: 8px; }
+  .result-name-row { gap: 11px; }
+  .result-name { font-size: clamp(43px, 13vw, 56px); }
+  .name-seal { width: 37px; height: 37px; font-size: 18px; outline-offset: 3px; }
+  .result-title { margin-top: 8px; font-size: 11.5px; }
+  .result-who { margin-top: 6px; font-size: 10px; }
+  .trait-row { margin-top: 15px; gap: 6px; }
+  .trait-chip { font-size: 9px; padding: 5px 8px; }
+  .result-slogan { margin-top: 18px; padding: 11px 13px 11px 18px; font-size: 15px; }
+  .story-panel { padding: 25px 19px; }
+  .panel-heading { margin-bottom: 13px; gap: 7px; }
+  .panel-heading h3 { font-size: 17px; }
+  .panel-en { font-size: 7px; }
+  .why-copy { font-size: 12.5px; line-height: 1.9; }
+  .system-read { font-size: 10px; padding: 10px 11px; margin-bottom: 13px; }
+  .secret-item { padding: 11px 11px 11px 15px; }
+  .secret-item p { font-size: 11px; line-height: 1.7; }
+  .highlight-line { font-size: 10px; line-height: 1.7; }
+  .highlight-line strong { font-size: 12px; }
+  .recipe { padding: 22px 19px; gap: 16px; }
+  .recipe-heading { font-size: 16px; }
+  .soul-bar { grid-template-columns: 59px minmax(0, 1fr) 28px; gap: 8px; font-size: 9px; }
+  .soul-bar-label em { display: none; }
+  .result-actions { flex-direction: column; align-items: stretch; margin-top: 20px; }
+  .result-actions .btn { width: 100%; min-width: 0; }
+  .share-tip { font-size: 9px; line-height: 1.8; margin-top: 12px; }
+  .result-note { margin-top: 28px; font-size: 8px; }
+}
+
+@media (max-width: 390px) {
+  .hero-art { transform: scale(0.88); margin-bottom: -24px; }
+  .title-main { font-size: 36px; }
+  .portrait-side-left { left: calc(50% - 162px); }
+  .portrait-side-right { right: calc(50% - 164px); }
+  .option-text { font-size: 12.2px; }
+  .question-card { padding-left: 15px; padding-right: 15px; }
+  .result-cover { padding-left: 15px; padding-right: 15px; }
+  .avatar-caption { display: none; }
+  .avatar-badge { right: -7px; }
+  .story-panel { padding-left: 16px; padding-right: 16px; }
+  .panel-en { display: none; }
+  .panel-heading h3 { font-size: 16px; letter-spacing: 0.035em; }
+  .recipe { padding-left: 16px; padding-right: 16px; }
+}
+
+@media (hover: none) {
+  .option:hover { transform: none; box-shadow: none; }
+  .btn:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .btn:hover { transform: none; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="bg-orb bg-orb-a" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-b" aria-hidden="true"></div>
+  <div class="bg-hairline" aria-hidden="true"></div>
+
+  <main id="app">
+    <!-- 启动页 -->
+    <section class="screen home-screen active" id="screen-home" aria-label="测试首页">
+      <header class="site-head">
+        <a class="brand" href="#" data-home-link>
+          <span class="brand-mark">她</span>
+          <span class="brand-text">她 · 灵<small>Her Soul Archive</small></span>
+        </a>
+        <span class="head-note">中国历史女性 · 人格图鉴</span>
+      </header>
+
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">She · Archive / 中国历史女性专场</p>
+          <h1 class="hero-title">
+            <span class="title-pre">测一测｜</span>
+            <span class="title-main">你的灵魂<br>对应哪位<span class="ink-accent">历史人物</span></span>
+          </h1>
+          <p class="hero-lead">不用背历史，也不考年代。<br>10 个下意识的日常选择，帮你认出身体里住着的那位中国女性。</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-large" id="startBtn" type="button">
+              开始灵魂对号 <span class="arrow" aria-hidden="true">→</span>
+            </button>
+            <span class="hero-micro">凭第一反应选 · 不纠结 · 没标准答案</span>
+          </div>
+          <div class="hero-facts" aria-label="测试信息">
+            <span>10 道生活题</span>
+            <span>约 2 分钟</span>
+            <span>12 位她</span>
+            <span>做完直出结果</span>
+          </div>
+          <p class="hero-tagline">完全不需要历史知识，只测你的下意识。</p>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-aura"></div>
+          <span class="hero-vertical">SHE · 12 SOULS</span>
+          <span class="art-spark spark-a"></span>
+          <span class="art-spark spark-b"></span>
+          <span class="art-spark spark-c"></span>
+          <span class="hero-petal petal-a"></span>
+          <span class="hero-petal petal-b"></span>
+          <span class="hero-petal petal-c"></span>
+
+          <div class="portrait-card portrait-side portrait-side-left">
+            <div class="portrait-media" id="heroPortraitLeft">
+              <span class="portrait-fallback">兰</span>
+            </div>
+            <p class="portrait-name">花木兰 <small>传说巾帼</small></p>
+          </div>
+
+          <div class="portrait-card portrait-main">
+            <div class="portrait-media" id="heroPortraitMain">
+              <span class="portrait-fallback">清</span>
+            </div>
+            <p class="portrait-name">李清照 <small>宋代词人</small></p>
+          </div>
+
+          <div class="portrait-card portrait-side portrait-side-right">
+            <div class="portrait-media" id="heroPortraitRight">
+              <span class="portrait-fallback">曌</span>
+            </div>
+            <p class="portrait-name">武则天 <small>盛唐气象</small></p>
+          </div>
+
+          <div class="art-bubble bubble-a">不是历史题，<br>是性格题。</div>
+          <div class="art-bubble bubble-b">十二种她，<br>等一个同频的你。</div>
+          <div class="art-stamp">灵魂<br><b>对号</b></div>
+        </div>
+      </div>
+
+      <footer class="home-footer">
+        <div class="home-quote">历史不是标准答案，你才是。</div>
+        <p>本测试只取人物气质与行事风格，不对历史人物作功过评价。</p>
+      </footer>
+    </section>
+
+    <!-- 答题页 -->
+    <section class="screen quiz-screen" id="screen-quiz" aria-label="答题页">
+      <header class="quiz-head">
+        <div class="quiz-wordmark">
+          <span class="brand-mark">她</span>
+          <span>灵魂对号</span>
+        </div>
+        <div class="quiz-progress">
+          <div class="progress-meta">
+            <strong id="quizStepText">01 / 10</strong>
+            <span>第 <span id="quizQuestionNo">01</span> 题</span>
+          </div>
+          <div class="progress-track" id="progressBar" role="progressbar" aria-label="答题进度" aria-valuemin="0" aria-valuemax="10" aria-valuenow="1">
+            <span class="progress-fill" id="progressFill"></span>
+          </div>
+        </div>
+      </header>
+
+      <div class="quiz-stage">
+        <article class="question-card" id="questionCard" aria-labelledby="questionTitle">
+          <span class="q-ghost" id="qGhost" aria-hidden="true">壹</span>
+          <div class="q-meta">
+            <span class="q-kicker" id="qKicker">第 01 幕 · 自动反应</span>
+            <span class="q-hint">别想太久，第一反应最准</span>
+          </div>
+          <h2 class="question-title" id="questionTitle" tabindex="-1">清晨闹钟响到第三遍，你的大脑在做什么？</h2>
+          <div class="options" id="optionsList" role="group" aria-labelledby="questionTitle"></div>
+          <div class="q-footer">
+            <button class="q-back" id="prevBtn" type="button">
+              <span aria-hidden="true">←</span> 上一题
+            </button>
+            <p class="q-foot-note" id="qFootNote">选完自动进入下一题</p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="quiz-bottom">
+        <div class="quiz-dots" id="quizDots" aria-hidden="true"></div>
+        <span class="keyboard-hint">也可以按 <kbd>A</kbd><kbd>B</kbd><kbd>C</kbd><kbd>D</kbd> 作答</span>
+      </footer>
+    </section>
+
+    <!-- 完成页 -->
+    <section class="screen finish-screen" id="screen-finish" aria-label="答题完成">
+      <div class="finish-wrap">
+        <p class="eyebrow finish-eyebrow">10 / 10 · Soul Map Complete</p>
+        <div class="finish-orbit">
+          <div class="finish-seal">集<br>齐</div>
+        </div>
+        <h2>十次下意识的选择，<br><em>已经拼出你的灵魂轮廓。</em></h2>
+        <p class="finish-copy">最后一步，把自己交给直觉。<br>看看哪位她，正和你共享同一束光。</p>
+        <div class="finish-actions">
+          <button class="btn btn-primary btn-large" id="revealBtn" type="button">
+            一键揭晓我的本命女性 <span aria-hidden="true">✦</span>
+          </button>
+          <button class="btn-link" id="reviewBtn" type="button">返回检查答案</button>
+        </div>
+        <div class="finish-stats">
+          <span>10 道题已完成</span>
+          <span>答案已集齐</span>
+          <span>结果即点即出</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 结果页 -->
+    <section class="screen result-screen" id="screen-result" aria-label="测试结果">
+      <header class="result-topbar">
+        <a class="brand" href="#" data-home-link>
+          <span class="brand-mark">她</span>
+          <span class="brand-text">灵魂档案<small>Her Soul Archive</small></span>
+        </a>
+        <div class="result-topbar-right">
+          <span class="soul-file-no" id="soulFileNo">SOUL FILE · NO. 01</span>
+          <button class="btn-ghost" id="retakeTopBtn" type="button">再测一次 ↻</button>
+        </div>
+      </header>
+
+      <div class="result-shell">
+        <div id="resultContent"></div>
+
+        <div class="result-actions">
+          <button class="btn btn-primary" id="copyResultBtn" type="button">
+            复制我的结果，去问朋友 <span aria-hidden="true">↗</span>
+          </button>
+          <button class="btn btn-secondary" id="retakeBtn" type="button">重新测试 ↻</button>
+        </div>
+        <p class="share-tip">截图这张结果卡发出去，配一句：<strong>“你测出来是谁？”</strong></p>
+        <p class="result-note">本测试为趣味人格向内容，仅提取历史人物在文化传播中的气质意象，不对任何历史人物作功过评价。花木兰为文学传说中的经典女性形象。结果仅供娱乐，不构成任何专业判断。</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div style="max-width:600px;margin:20vh auto;padding:24px;text-align:center;font-family:sans-serif;background:#fffaf2;border-radius:20px;">
+      这个小测试需要开启 JavaScript 才能运行哦，请在浏览器设置中允许脚本后重新打开。
+    </div>
+  </noscript>
+
+  <script>
+/* 测试数据：8 个性格维度、10 道生活题、12 位历史女性结果 */
+
+const DIMENSIONS = [
+  {
+    key: 'strategy',
+    name: '谋略',
+    label: '脑内预演家',
+    color: '#657e6c',
+    read: '先看三步，再决定要不要出手。'
+  },
+  {
+    key: 'courage',
+    name: '胆识',
+    label: '先做再说派',
+    color: '#bf624c',
+    read: '先迈一步，脑子会自己追上来。'
+  },
+  {
+    key: 'empathy',
+    name: '共情',
+    label: '情绪感应器',
+    color: '#c9877e',
+    read: '先接住别人的情绪，再处理事情。'
+  },
+  {
+    key: 'art',
+    name: '才情',
+    label: '氛围收藏家',
+    color: '#a77b9f',
+    read: '把普通瞬间过成作品，是你的本能。'
+  },
+  {
+    key: 'grit',
+    name: '定力',
+    label: '长期主义选手',
+    color: '#9d845d',
+    read: '一旦认真，你会把时间变成队友。'
+  },
+  {
+    key: 'free',
+    name: '自在',
+    label: '风系自由人',
+    color: '#6f91b0',
+    read: '永远给生活留一条别的路。'
+  },
+  {
+    key: 'lead',
+    name: '掌局',
+    label: '天生主心骨',
+    color: '#b38f4e',
+    read: '进入任何局，先找到方向盘。'
+  },
+  {
+    key: 'calm',
+    name: '静气',
+    label: '精神留白师',
+    color: '#7f9997',
+    read: '先把世界调成静音，才听得到自己的声音。'
+  }
+];
+
+const QUESTIONS = [
+  {
+    kicker: '第 01 幕 · 自动反应',
+    title: '清晨闹钟响到第三遍，你的大脑在做什么？',
+    options: [
+      { text: '再躺两分钟，但已经在脑内排好了今天的流程。', weights: { strategy: 3, lead: 2, grit: 1 } },
+      { text: '一骨碌起来先出门，路线可以边跑边想。', weights: { courage: 3, free: 2, strategy: 1 } },
+      { text: '摸到手机先回昨晚的消息，顺便惦记一下对方的事。', weights: { empathy: 3, lead: 2, art: 1 } },
+      { text: '盯着天花板放空，等一个莫名其妙但很妙的念头。', weights: { calm: 3, art: 2, free: 1 } }
+    ]
+  },
+  {
+    kicker: '第 02 幕 · 临场选择',
+    title: '便利店结账，前面的人付款卡住了，队伍越来越长。你：',
+    options: [
+      { text: '顺手帮对方把付款码找出来，语气很自然。', weights: { empathy: 3, calm: 2, courage: 1 } },
+      { text: '换一条队，并默默判断出哪条队最快。', weights: { strategy: 3, courage: 2, grit: 1 } },
+      { text: '提醒店员再开一个收银口，顺手把队伍捋顺。', weights: { lead: 3, empathy: 2, courage: 1 } },
+      { text: '退到旁边刷手机，顺便观察每个人应对尴尬的方式。', weights: { calm: 3, free: 2, art: 1 } }
+    ]
+  },
+  {
+    kicker: '第 03 幕 · 突然空闲',
+    title: '朋友临时放了鸽子，你空出来的下午会：',
+    options: [
+      { text: '立刻出门，去一条没走过的小街找新鲜感。', weights: { free: 3, courage: 2, art: 1 } },
+      { text: '回家窝着，把收藏夹里攒了很久的片子看完。', weights: { calm: 3, grit: 2, art: 1 } },
+      { text: '把拖了很久的小事一件件清掉，心情会变好。', weights: { grit: 3, lead: 2, strategy: 1 } },
+      { text: '再约另一个人出来，快乐不能浪费。', weights: { empathy: 3, free: 2, lead: 1 } }
+    ]
+  },
+  {
+    kicker: '第 04 幕 · 领地布置',
+    title: '搬进一个新房间或新工位，你第一件事是：',
+    options: [
+      { text: '先研究动线、插座和黄金位，一次布置到位。', weights: { lead: 3, strategy: 2, grit: 1 } },
+      { text: '摆上让自己安心的小物，先把气场养起来。', weights: { art: 3, calm: 2, empathy: 1 } },
+      { text: '先坐下开干，用着用着自然会顺手。', weights: { courage: 3, free: 2, grit: 1 } },
+      { text: '留白，等日常慢慢长出自己的秩序。', weights: { calm: 3, free: 2, art: 1 } }
+    ]
+  },
+  {
+    kicker: '第 05 幕 · 群聊观察',
+    title: '群里突然聊起一个你完全不懂的话题，你的第一反应：',
+    options: [
+      { text: '先潜水观察，三分钟后已经看出谁是真懂，谁在气氛组。', weights: { strategy: 3, calm: 2, lead: 1 } },
+      { text: '发个表情包加入快乐，不懂也不妨碍一起热闹。', weights: { free: 3, empathy: 2, courage: 1 } },
+      { text: '快速补个课再发言，不想讲没把握的话。', weights: { grit: 3, strategy: 2, calm: 1 } },
+      { text: '顺势把话题拐去一个更好玩的地方。', weights: { art: 3, lead: 2, courage: 1 } }
+    ]
+  },
+  {
+    kicker: '第 06 幕 · 天气插曲',
+    title: '一场毫无预报的大雨，把你困在陌生街角：',
+    options: [
+      { text: '心情反而变好，索性在雨里走一段。', weights: { free: 3, courage: 2, art: 1 } },
+      { text: '打开地图，先找到最短的避雨和回家路线。', weights: { strategy: 3, grit: 2, lead: 1 } },
+      { text: '看看有没有同样在躲雨的人，顺口聊两句。', weights: { empathy: 3, courage: 2, art: 1 } },
+      { text: '找家店点杯热饮，享受这个被按下来的暂停键。', weights: { calm: 3, art: 2, free: 1 } }
+    ]
+  },
+  {
+    kicker: '第 07 幕 · 未知任务',
+    title: '面对一件没做过、也没把握的事，你通常：',
+    options: [
+      { text: '先在脑内彩排三遍，把可能的翻车点都过一遍。', weights: { strategy: 3, grit: 2, courage: 1 } },
+      { text: '先做最小的一步，边做边找手感。', weights: { courage: 3, grit: 2, strategy: 1 } },
+      { text: '拉上一个人一起，边聊边把事推进。', weights: { empathy: 3, lead: 2, free: 1 } },
+      { text: '等一个“就是现在”的直觉瞬间，然后一口气冲。', weights: { free: 3, art: 2, courage: 1 } }
+    ]
+  },
+  {
+    kicker: '第 08 幕 · 他人视角',
+    title: '第一次见面的人说：“你看起来不太好惹。”你内心：',
+    options: [
+      { text: '有点得意：确实能省下很多无效解释。', weights: { calm: 3, lead: 2, grit: 1 } },
+      { text: '差点笑出来：我只是在放空，真的。', weights: { art: 3, calm: 2, empathy: 1 } },
+      { text: '赶紧解释：熟了就知道我话多又黏人。', weights: { empathy: 3, free: 2, art: 1 } },
+      { text: '无所谓，懂我的人自然懂。', weights: { grit: 3, calm: 2, free: 1 } }
+    ]
+  },
+  {
+    kicker: '第 09 幕 · 深夜冲浪',
+    title: '深夜刷到一条特别戳你的内容，你会：',
+    options: [
+      { text: '反复看几遍，默默收藏，心里已经写了一篇小作文。', weights: { art: 3, calm: 2, empathy: 1 } },
+      { text: '立刻转给最懂你那个点的人。', weights: { empathy: 3, art: 2, free: 1 } },
+      { text: '去评论区认真输出一段自己的看法。', weights: { courage: 3, art: 2, lead: 1 } },
+      { text: '关掉手机，告诉自己明早醒来再处理。', weights: { grit: 3, calm: 2, free: 1 } }
+    ]
+  },
+  {
+    kicker: '第 10 幕 · 神秘小店',
+    title: '你走进一家神秘小店，店主送你一件小物，你会选：',
+    options: [
+      { text: '一面能映出别人真实心情的镜子。', weights: { empathy: 3, calm: 2, strategy: 1 } },
+      { text: '一枚永远指向最短路径的罗盘。', weights: { strategy: 3, lead: 2, grit: 1 } },
+      { text: '一根能在低谷时瞬间回血的红绳。', weights: { grit: 3, free: 2, courage: 1 } },
+      { text: '一支永远不会枯竭的灵感笔。', weights: { art: 3, free: 2, calm: 1 } }
+    ]
+  }
+];
+
+const RESULTS = [
+  {
+    id: 'wu',
+    name: '武则天',
+    seal: '曌',
+    title: '唐代政治家 · 中国历史上唯一的女皇帝',
+    role: '破局型掌舵者',
+    who: '唐代女政治家，中国历史上唯一一位正统女皇帝。',
+    prototype: [9, 9, 4, 7, 9, 6, 10, 5],
+    tags: ['天生的主心骨', '越乱越稳', '反差柔软'],
+    why: '你身上有一种不太爱解释的掌控力。别人还在纠结规则，你已经把下一步悄悄走完了。你不是非要赢，只是受不了把人生的方向盘交给别人。你看上去刀枪不入，其实心软得很挑人。',
+    hidden: '反差萌：场面越大越冷静，越亲近越会偷偷撒娇。',
+    easter: '你的群聊人设：平时潜水，一开口就能定调。',
+    highlight: '全场都说“算了吧”的时候，你偏要再试一次。',
+    slogan: '不必借光，我自己就是光源。',
+    theme: { accent: '#a94232', soft: '#f6e1d3', deep: '#713029' }
+  },
+  {
+    id: 'shangguan',
+    name: '上官婉儿',
+    seal: '婉',
+    title: '唐代女官与诗人 · 以文采和机敏留名',
+    role: '才思型局面大脑',
+    who: '唐代女官、诗人，以才思敏捷、文采出众留名。',
+    prototype: [10, 6, 5, 9, 7, 5, 7, 6],
+    tags: ['高敏读心', '场面救星', '外圆内清'],
+    why: '你的脑袋像开着一万个标签页，却能随时调出最合适的那一个。你读空气、接话、收场，几乎都是下意识完成。你看起来圆融，其实底线清楚得很——只是懒得把聪明写在脸上。',
+    hidden: '高敏体质：别人停顿半秒，你能读出三种情绪。',
+    easter: '你的备忘录里，大概藏着一份《人类沟通使用说明》。',
+    highlight: '把一场尴尬，轻轻翻译成一个玩笑。',
+    slogan: '脑子转得快的人，连风都追不上。',
+    theme: { accent: '#557966', soft: '#e4ede3', deep: '#375442' }
+  },
+  {
+    id: 'qingzhao',
+    name: '李清照',
+    seal: '清',
+    title: '宋代词人 · 易安居士',
+    role: '清醒的浪漫派',
+    who: '宋代词人，号易安居士，留下许多清丽又锋利的词句。',
+    prototype: [6, 5, 7, 10, 6, 8, 4, 7],
+    tags: ['高分辨率感受', '审美雷达', '骨子里的不将就'],
+    why: '你的感受力是高清的：一片落叶、一句没说完的话，都能在心里回响很久。你看起来随和，其实标准很高，不愿意为了合群降低自己的分辨率。你宁可独处，也不肯将就。',
+    hidden: '深夜灵感型选手，情绪和文采总在半夜一起上线。',
+    easter: '她爱酒、爱花、爱打马（古代桌游），还会写攻略。文艺和好玩，本来就可以同时成立。',
+    highlight: '不用抢话，也能靠观点被记住。',
+    slogan: '感性是天赋，清醒是底气。',
+    theme: { accent: '#b96e66', soft: '#f6e5dc', deep: '#814c49' }
+  },
+  {
+    id: 'daoyun',
+    name: '谢道韫',
+    seal: '韫',
+    title: '东晋才女 · 咏絮之才',
+    role: '清冷智性派',
+    who: '东晋才女，以“未若柳絮因风起”的咏雪名句闻名。',
+    prototype: [8, 5, 5, 9, 8, 7, 4, 10],
+    tags: ['清冷智感', '一语中的', '自带精神留白'],
+    why: '你身上有一种不费力的清冷感。不是不理人，而是不急着证明自己。你先看、先想，确认值得再开口。多数时候你懒得争论，可一旦开口，往往一句就把重点钉住。',
+    hidden: '慢热但护短，认定的人会被你默默放进重点保护名单。',
+    easter: '历史彩蛋：一句“未若柳絮因风起”让她出圈千年。你的金句库存，估计也不相上下。',
+    highlight: '众人争论半天，你一句话总结全场。',
+    slogan: '不争不抢，一开口就是主场。',
+    theme: { accent: '#668d88', soft: '#e2eeeb', deep: '#446560' }
+  },
+  {
+    id: 'mulan',
+    name: '花木兰',
+    seal: '兰',
+    title: '《木兰诗》里的传奇女性 · 代父从军',
+    role: '行动派守护者',
+    who: '花木兰是《木兰诗》中的传奇女性，代父从军的故事流传千年（文学传说形象）。',
+    prototype: [5, 10, 8, 5, 10, 6, 5, 4],
+    tags: ['先做再说', '超强守护欲', '嘴硬心软'],
+    why: '你是“事情来了先上”的人。不是不害怕，只是脚比犹豫快。你不喜欢把在乎挂在嘴边，却总在关键时刻站在别人前面。大家以为你什么都能扛，其实你只是习惯把难的那部分留给自己。',
+    hidden: '嘴硬心软资深会员，关心起人来全靠行动。',
+    easter: '购物车一半是实用装备，一半是毛绒治愈系——铠甲和软肋，你都要。',
+    highlight: '别人还在犹豫，你已经把第一步踩实了。',
+    slogan: '披上自己的铠甲，也守住自己的柔软。',
+    theme: { accent: '#9b5546', soft: '#ece9dc', deep: '#693d35' }
+  },
+  {
+    id: 'hongyu',
+    name: '梁红玉',
+    seal: '玉',
+    title: '南宋女性 · 擂鼓助阵的故事广为流传',
+    role: '热血领队型',
+    who: '南宋女性，擂鼓助阵的故事在民间广为流传，是许多人心中的女将形象。',
+    prototype: [7, 9, 6, 6, 8, 7, 10, 5],
+    tags: ['燃场王者', '义气担当', '行动领队'],
+    why: '你有一种能把场子稳住的能量。人一多、事一乱，你反而更来劲。你说话直、讲义气，不太会绕弯子，也不喜欢在关键时刻掉链子。别人看到的是你的飒，其实你只是知道：总得有人先站出来。',
+    hidden: '外放型安全感，朋友遇事第一个想到的就是你。',
+    easter: '小彩蛋：走路自带鼓点，KTV 里负责把场子点燃的那一个。',
+    highlight: '所有人慌了，你说“跟我来”。',
+    slogan: '我负责一往无前，也负责照亮同行的人。',
+    theme: { accent: '#b24635', soft: '#f2ddd2', deep: '#7a2d25' }
+  },
+  {
+    id: 'banzhao',
+    name: '班昭',
+    seal: '昭',
+    title: '东汉史学家、文学家 · 续成《汉书》',
+    role: '长期主义学者型',
+    who: '东汉史学家、文学家，参与并续成《汉书》。',
+    prototype: [9, 5, 6, 8, 10, 4, 6, 8],
+    tags: ['细节控', '超长待机', '靠谱本谱'],
+    why: '你对“做完”和“做好”之间的那条线特别敏感。别人三分钟热度，你能把一件难事拆成一格一格慢慢填满。你不一定站在聚光灯中央，却是大家最放心的那一个。你相信时间会把认真变成答案。',
+    hidden: '表面云淡风轻，内心其实在安静地赶进度。',
+    easter: '你的文件夹命名整齐到让强迫症感动，连收纳都自带目录。',
+    highlight: '大家散了以后，你还在把最后一行收好。',
+    slogan: '时间，会奖励把事做深的人。',
+    theme: { accent: '#6e7d5e', soft: '#ececdf', deep: '#4b5a40' }
+  },
+  {
+    id: 'zhaojun',
+    name: '王昭君',
+    seal: '昭',
+    title: '西汉远行者 · 出塞故事流传千年',
+    role: '温柔连接者',
+    who: '西汉女性，出塞的故事流传千年，成为远行与温柔的文化符号。',
+    prototype: [5, 7, 9, 8, 9, 7, 4, 7],
+    tags: ['润物无声', '高适应力', '温柔有骨'],
+    why: '你的温柔里带着适应力。到一个新环境，你很少先抱怨，而是先看懂这里的空气，再把自己安放进去。你对别人的情绪很敏感，常常是人群里的润滑剂。别把温柔误解成没主见——你只是用更体面的方式坚持。',
+    hidden: '安静生长型，不声张，但每次出现都比上次更稳。',
+    easter: '换一座城市，你也能在第一天摸清便利店和好吃的。',
+    highlight: '陌生的局里，你总能找到让所有人舒服的接话点。',
+    slogan: '温柔不是退让，是让世界多一种可能。',
+    theme: { accent: '#6c8299', soft: '#e6edf1', deep: '#465d73' }
+  },
+  {
+    id: 'wenji',
+    name: '蔡文姬',
+    seal: '琰',
+    title: '东汉末年才女、音乐家 · 文姬归汉',
+    role: '深情洞察者',
+    who: '东汉末年才女，通音律、善诗文，后世常以“文姬归汉”讲述她的故事。',
+    prototype: [5, 4, 10, 9, 9, 3, 5, 7],
+    tags: ['深度共情', '音乐体质', '韧性柔光'],
+    why: '你心里像藏着一台高精度收音机，能听见别人没说出口的情绪。你习惯把难过调成静音，再慢慢消化成文字、旋律或理解。你不是玻璃心，你只是把经历过的东西，都长成了感受力。',
+    hidden: '情绪收纳大师：表面没事，心里已经写好一整张专辑。',
+    easter: '耳机是移动避难所，切歌速度就是你的心情天气预报。',
+    highlight: '你一句话，刚好接住别人掉在地上的情绪。',
+    slogan: '世界有风，你有自己的音准。',
+    theme: { accent: '#9a6656', soft: '#f1e2d8', deep: '#6d473b' }
+  },
+  {
+    id: 'wenjun',
+    name: '卓文君',
+    seal: '君',
+    title: '西汉才女 · 当垆卖酒的传说',
+    role: '自由浪漫实干家',
+    who: '西汉才女，与司马相如的故事以及“当垆卖酒”的传说流传至今。',
+    prototype: [6, 8, 7, 8, 6, 10, 5, 5],
+    tags: ['浪漫实干家', '自由灵魂', '心动即出发'],
+    why: '你心里有一个很亮的“我想”。喜欢一个人、一个念头、一座城市，你不会先算十遍得失，而是先听心跳有没有变快。你浪漫，但不悬浮，真要做，你卷起袖子也能把日子过得热气腾腾。你怕的从来不是从零开始，而是失去选择权。',
+    hidden: '看似被心动推着走，其实心里有一本很清楚的账。',
+    easter: '旅行攻略收藏得比行李快，看到好吃的地方会立刻标星。',
+    highlight: '把一间不起眼的小店，经营成朋友们的快乐据点。',
+    slogan: '我的人生 CP，我自己选。',
+    theme: { accent: '#a36f49', soft: '#f4e6d3', deep: '#775337' }
+  },
+  {
+    id: 'wencheng',
+    name: '文成公主',
+    seal: '成',
+    title: '唐代远行者 · 连接与交流的文化符号',
+    role: '桥梁型安定者',
+    who: '唐朝远行吐蕃的文成公主，后世常把她视作连接与交流的象征。',
+    prototype: [7, 8, 9, 6, 9, 8, 7, 5],
+    tags: ['桥梁人格', '温柔有原则', '安定气场'],
+    why: '你到哪儿都能把日子安顿下来，这是很稀缺的能力。面对不同的人和环境，你很少先分出对错，而是先找共同点。你温和，却不是没脾气，你只是把力气花在解决问题上。你走进一个房间，大家会莫名觉得：好像也没那么难。',
+    hidden: '看起来好说话，原则却藏在最硬的地方，触线没得商量。',
+    easter: '你的行李箱总会留一点空间，装给别人的小礼物。',
+    highlight: '一桌陌生人，因为你开始有说有笑。',
+    slogan: '走到哪里，就把光带到哪里。',
+    theme: { accent: '#94723e', soft: '#eee7d6', deep: '#6d542b' }
+  },
+  {
+    id: 'guandao',
+    name: '管道昇',
+    seal: '昇',
+    title: '元代女书画家、词人 · 画竹高手',
+    role: '生活艺术家',
+    who: '元代女书画家、词人，擅画墨竹，与赵孟頫并称“管赵”。',
+    prototype: [6, 4, 8, 10, 9, 9, 4, 9],
+    tags: ['松弛有轴', '审美在线', '心流爱好者'],
+    why: '你外表松弛，内心却有自己的轴。无效社交会自动被你过滤，喜欢的事却能让你一头扎进去很久。你擅长把普通日子过出审美：一杯茶、一盆绿植、几笔画，都是你的回血装置。你不跟风，因为你有自己的节奏。',
+    hidden: '安静有趣型：话不多，但每次开口都有一点奇妙的幽默。',
+    easter: '历史彩蛋：她画竹一绝，相传还写下“你侬我侬”的甜句——独立和柔软可以同时成立。',
+    highlight: '你随手玩出的小爱好，最后总变成别人羡慕的生活感。',
+    slogan: '把喜欢的事做久，就是我的主角剧本。',
+    theme: { accent: '#728b6e', soft: '#e8eee2', deep: '#4f674d' }
+  }
+];
+
+
+/* 原创 Q 版人物插画：全部由页面内的 SVG 绘制，无外部图片 */
+
+let avatarCounter = 0;
+
+function blossom(x, y, scale, petal, core, opacity) {
+  const petals = [0, 72, 144, 216, 288].map((angle) => (
+    `<ellipse cx="0" cy="-8" rx="5.5" ry="9.5" transform="rotate(${angle})" fill="${petal}"/>`
+  )).join('');
+  return `<g transform="translate(${x} ${y}) scale(${scale})" opacity="${opacity == null ? '.9' : opacity}">${petals}<circle r="3.6" fill="${core}"/></g>`;
+}
+
+function snowflake(x, y, scale, color, opacity) {
+  return `<g transform="translate(${x} ${y}) scale(${scale})" stroke="${color}" stroke-width="1.4" stroke-linecap="round" opacity="${opacity == null ? '.7' : opacity}">
+    <path d="M0 -8 V8 M-7 -4 L7 4 M-7 4 L7 -4"/>
+    <circle cx="0" cy="0" r="1.7" fill="${color}" stroke="none"/>
+  </g>`;
+}
+
+function starSpark(x, y, scale, color, opacity) {
+  return `<path d="M0 -7 L2 -2 L7 0 L2 2 L0 7 L-2 2 L-7 0 L-2 -2Z" transform="translate(${x} ${y}) scale(${scale})" fill="${color}" opacity="${opacity == null ? '.55' : opacity}"/>`;
+}
+
+function petalShape(x, y, rotate, color, opacity) {
+  return `<ellipse cx="${x}" cy="${y}" rx="5.5" ry="3" transform="rotate(${rotate} ${x} ${y})" fill="${color}" opacity="${opacity == null ? '.45' : opacity}"/>`;
+}
+
+function leaf(x, y, rotate, scale, color) {
+  return `<path d="M0 0 C9 -8 20 -6 25 2 C16 12 5 11 0 0Z" transform="translate(${x} ${y}) rotate(${rotate}) scale(${scale})" fill="${color}"/>`;
+}
+
+function baseBackdrop() {
+  return `<circle cx="180" cy="176" r="133" fill="#fffaf0" opacity=".23"/>
+    <g fill="none" stroke="#b49b78" stroke-width="1.1" opacity=".2">
+      <path d="M42 139 C89 78 267 76 318 139"/>
+      <path d="M68 101 C111 65 249 65 292 101"/>
+    </g>`;
+}
+
+function baseHairBack(c) {
+  return `<path d="M92 205 C78 121 122 72 180 72 C238 72 282 121 268 205 L277 331 C247 350 214 356 180 356 C146 356 113 350 83 331Z" fill="${c.hair}"/>
+    <path d="M106 171 C118 113 146 91 180 91 C214 91 242 113 254 171 C241 128 214 104 180 104 C146 104 119 128 106 171Z" fill="${c.hairShine}" opacity=".28"/>`;
+}
+
+function baseHairFront(c) {
+  return `<path d="M108 188 C99 129 130 89 180 89 C230 89 261 129 252 188 C244 158 226 134 204 127 C193 150 176 162 154 164 C135 166 118 177 108 188Z" fill="${c.hair}"/>
+    <path d="M111 163 C102 199 102 236 111 270 C121 241 123 214 125 189Z" fill="${c.hair}"/>
+    <path d="M249 163 C258 199 258 236 249 270 C239 241 237 214 235 189Z" fill="${c.hair}"/>
+    <path d="M124 142 C146 111 208 102 240 139" fill="none" stroke="${c.hairShine}" stroke-width="7" stroke-linecap="round" opacity=".28"/>
+    <path d="M180 89 C174 101 173 113 174 124" fill="none" stroke="${c.hairShine}" stroke-width="3" stroke-linecap="round" opacity=".24"/>`;
+}
+
+function baseBody(uid, c) {
+  return `<path d="M47 400 C57 355 95 327 143 313 L159 303 L201 303 L217 313 C265 327 303 355 313 400Z" fill="url(#${uid}Robe)"/>
+    <path d="M143 313 L180 370 L217 313 L232 321 L193 397 L180 383 L167 397 L128 321Z" fill="${c.collar}"/>
+    <path d="M143 313 L180 370 L217 313" fill="none" stroke="${c.robeDeep}" stroke-width="1.6" opacity=".22"/>
+    <path d="M180 370 L180 400" stroke="${c.robeDeep}" stroke-width="2" opacity=".3"/>
+    <path d="M92 359 C111 342 132 334 151 330" fill="none" stroke="${c.accent}" stroke-width="2" opacity=".45"/>
+    <path d="M268 359 C249 342 228 334 209 330" fill="none" stroke="${c.accent}" stroke-width="2" opacity=".45"/>
+    <g fill="${c.accent}" opacity=".38">
+      <circle cx="101" cy="366" r="2"/><circle cx="120" cy="352" r="1.5"/>
+      <circle cx="259" cy="366" r="2"/><circle cx="240" cy="352" r="1.5"/>
+    </g>`;
+}
+
+function faceBase(c) {
+  return `<path d="M157 263 L153 307 C168 319 192 319 207 307 L203 263Z" fill="${c.skinShade}"/>
+    <ellipse cx="105" cy="220" rx="15" ry="20" fill="${c.skin}"/>
+    <ellipse cx="255" cy="220" rx="15" ry="20" fill="${c.skin}"/>
+    <path d="M99 215 C104 218 105 227 102 233" fill="none" stroke="${c.skinShade}" stroke-width="1.6" opacity=".65"/>
+    <path d="M261 215 C256 218 255 227 258 233" fill="none" stroke="${c.skinShade}" stroke-width="1.6" opacity=".65"/>
+    <path d="M180 112 C232 112 253 150 251 202 C249 250 222 284 180 284 C138 284 111 250 109 202 C107 150 128 112 180 112Z" fill="${c.skin}"/>
+    <path d="M113 170 C128 129 152 113 180 113 C208 113 232 129 247 170 C229 151 207 141 180 141 C153 141 131 151 113 170Z" fill="${c.hair}" opacity=".08"/>
+    <path d="M156 279 Q180 292 204 279" fill="none" stroke="${c.skinShade}" stroke-width="2" opacity=".45"/>
+    <path d="M126 223 C132 214 139 211 146 212" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".12"/>`;
+}
+
+function faceFeatures(c) {
+  const style = c.eyeStyle || 'soft';
+  const eyeRy = style === 'cool' ? 16.5 : 17.5;
+  const brow = c.brow || c.hair;
+
+  let brows = `<path d="M131 192 Q149 184 168 190"/><path d="M192 190 Q211 184 229 192"/>`;
+  if (style === 'sharp') {
+    brows = `<path d="M129 189 Q149 181 168 190"/><path d="M192 190 Q211 181 231 189"/>`;
+  } else if (style === 'cool') {
+    brows = `<path d="M132 191 Q150 186 168 190"/><path d="M192 190 Q210 186 228 191"/>`;
+  } else if (style === 'serene') {
+    brows = `<path d="M132 193 Q150 187 168 192"/><path d="M192 192 Q210 187 228 193"/>`;
+  } else if (style === 'bright') {
+    brows = `<path d="M131 190 Q150 182 168 189"/><path d="M192 189 Q210 182 229 190"/>`;
+  }
+
+  let lashes = `<path d="M134 207 Q150 195 166 205"/><path d="M194 205 Q210 195 226 207"/>`;
+  if (style === 'sharp') {
+    lashes = `<path d="M134 207 Q150 195 166 205 L172 200"/><path d="M230 207 Q214 195 194 205 L188 200"/>`;
+  } else if (style === 'cool') {
+    lashes = `<path d="M136 207 Q150 198 164 205"/><path d="M224 205 Q210 198 196 207"/>`;
+  } else if (style === 'bright') {
+    lashes = `<path d="M133 207 Q150 193 167 205 L173 200"/><path d="M193 205 Q210 193 227 207 L221 200"/>`;
+  }
+
+  let mouth = `<path d="M171 250 Q180 255 189 250" fill="none" stroke="${c.lip}" stroke-width="2.2" stroke-linecap="round"/>`;
+  if (style === 'sharp') {
+    mouth = `<path d="M170 250 Q180 256 191 248" fill="none" stroke="${c.lip}" stroke-width="2.2" stroke-linecap="round"/>`;
+  } else if (style === 'cool' || style === 'serene') {
+    mouth = `<path d="M173 250 Q180 252 187 250" fill="none" stroke="${c.lip}" stroke-width="2" stroke-linecap="round"/>`;
+  } else if (style === 'bright') {
+    mouth = `<path d="M170 248 Q180 258 190 248 Q180 252 170 248Z" fill="${c.lip}" opacity=".78"/>`;
+  }
+
+  return `<g class="brows" fill="none" stroke="${brow}" stroke-width="3.2" stroke-linecap="round">${brows}</g>
+    <g class="eyes">
+      <ellipse cx="150" cy="216" rx="15.5" ry="${eyeRy}" fill="#fffaf3"/>
+      <ellipse cx="210" cy="216" rx="15.5" ry="${eyeRy}" fill="#fffaf3"/>
+      <ellipse cx="152" cy="219" rx="10.5" ry="13.6" fill="${c.eye}"/>
+      <ellipse cx="208" cy="219" rx="10.5" ry="13.6" fill="${c.eye}"/>
+      <ellipse cx="152" cy="221" rx="8" ry="9.5" fill="${c.eyeDeep || '#3a2927'}" opacity=".6"/>
+      <ellipse cx="208" cy="221" rx="8" ry="9.5" fill="${c.eyeDeep || '#3a2927'}" opacity=".6"/>
+      <circle cx="147" cy="214" r="4.4" fill="#fff"/>
+      <circle cx="205" cy="214" r="4.4" fill="#fff"/>
+      <circle cx="156" cy="225" r="1.9" fill="#fff" opacity=".82"/>
+      <circle cx="214" cy="225" r="1.9" fill="#fff" opacity=".82"/>
+      <path d="M137 230 Q150 237 164 230" fill="none" stroke="${c.skinShade}" stroke-width="2" opacity=".42"/>
+      <path d="M196 230 Q210 237 223 230" fill="none" stroke="${c.skinShade}" stroke-width="2" opacity=".42"/>
+      ${lashes.replaceAll('<path ', `<path stroke="${c.lash || '#392829'}" stroke-width="3.4" stroke-linecap="round" fill="none" `)}
+    </g>
+    <path d="M176 239 Q180 241 184 239" fill="none" stroke="${c.skinShade}" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+    ${mouth}
+    <ellipse cx="127" cy="237" rx="15" ry="5.5" fill="#ed9d91" opacity=".2"/>
+    <ellipse cx="233" cy="237" rx="15" ry="5.5" fill="#ed9d91" opacity=".2"/>
+    <path d="M118 242 Q127 245 136 242" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".17"/>
+    <path d="M224 242 Q233 245 242 242" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".17"/>`;
+}
+
+function buildAvatar(result, extraClass) {
+  const art = AVATAR_ART[result.id];
+  if (!art) return '';
+  const uid = `soul${++avatarCounter}`;
+  const c = {
+    skin: art.skin || '#ffe5d2',
+    skinShade: art.skinShade || '#ebc0a8',
+    hair: art.hair || '#322525',
+    hairShine: art.hairShine || '#543e3a',
+    robe: art.robe || '#a84c3f',
+    robeDeep: art.robeDeep || art.deep || '#7c332a',
+    collar: art.collar || '#f4e5c9',
+    accent: art.accent || '#c49a57',
+    eye: art.eye || '#573a32',
+    eyeDeep: art.eyeDeep || '#352322',
+    lip: art.lip || '#c66e63',
+    lash: art.lash || '#392829',
+    brow: art.brow || art.hair || '#322525',
+    eyeStyle: art.eyeStyle || 'soft'
+  };
+
+  return `<svg class="soul-avatar ${extraClass || ''}" viewBox="0 0 360 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${result.name}的原创Q版动漫形象">
+    <defs>
+      <linearGradient id="${uid}Bg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="${art.bg[0]}"/>
+        <stop offset="1" stop-color="${art.bg[1]}"/>
+      </linearGradient>
+      <linearGradient id="${uid}Robe" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="${c.robe}"/>
+        <stop offset="1" stop-color="${c.robeDeep}"/>
+      </linearGradient>
+      <radialGradient id="${uid}Halo" cx="50%" cy="46%" r="58%">
+        <stop offset="0" stop-color="#fffdf7" stop-opacity=".82"/>
+        <stop offset="1" stop-color="#fffdf7" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="360" height="400" fill="url(#${uid}Bg)"/>
+    <circle cx="180" cy="182" r="148" fill="url(#${uid}Halo)" opacity=".66"/>
+    ${art.backdrop || baseBackdrop()}
+    ${art.hairBack || baseHairBack(c)}
+    ${baseBody(uid, c)}
+    ${art.shoulders || ''}
+    ${faceBase(c)}
+    ${art.hairFront || baseHairFront(c)}
+    ${faceFeatures(c)}
+    ${art.headpiece || ''}
+    ${art.prop || ''}
+  </svg>`;
+}
+
+/* 每位人物的专属配色、发型、头饰与小道具 */
+const AVATAR_ART = {
+  wu: {
+    bg: ['#f6dfcd', '#ebbea7'],
+    skin: '#ffe4d1', skinShade: '#e8b79f',
+    hair: '#2f2224', hairShine: '#503837',
+    robe: '#ad4033', robeDeep: '#79261f', collar: '#f4dfb4',
+    accent: '#d4a94f', eye: '#59332e', eyeDeep: '#34201e', lip: '#c7655b',
+    eyeStyle: 'sharp',
+    backdrop: `<circle cx="180" cy="177" r="134" fill="#fff3e4" opacity=".27"/>
+      <g fill="none" stroke="#b37a5b" stroke-width="1.2" opacity=".28">
+        <path d="M35 165 C79 103 281 103 325 165"/>
+        <path d="M56 199 C103 148 257 148 304 199"/>
+      </g>
+      ${petalShape(52, 286, -30, '#bd7459', '.38')}
+      ${petalShape(313, 241, 24, '#bd7459', '.35')}
+      ${starSpark(70, 75, .9, '#c49656', '.55')}`,
+    hairFront: `<path d="M108 188 C100 129 130 90 180 89 C230 90 260 129 252 188 C244 155 225 132 204 125 C196 148 178 162 156 164 C135 166 118 174 108 188Z" fill="#2f2224"/>
+      <path d="M110 160 C101 196 102 233 111 269 C121 240 123 211 125 185Z" fill="#2f2224"/>
+      <path d="M250 160 C259 196 258 233 249 269 C239 240 237 211 235 185Z" fill="#2f2224"/>
+      <ellipse cx="180" cy="73" rx="48" ry="26" fill="#2f2224"/>
+      <ellipse cx="141" cy="82" rx="27" ry="17" transform="rotate(-20 141 82)" fill="#2f2224"/>
+      <ellipse cx="219" cy="82" rx="27" ry="17" transform="rotate(20 219 82)" fill="#2f2224"/>
+      <path d="M140 57 C151 46 168 46 180 58 C192 46 211 48 220 61" fill="none" stroke="#503837" stroke-width="5" stroke-linecap="round" opacity=".42"/>`,
+    headpiece: `<g fill="none" stroke="#d4a94f" stroke-linecap="round">
+        <path d="M135 92 Q147 66 160 89 M173 78 Q180 53 188 79 M200 89 Q214 66 225 92" stroke-width="4"/>
+        <path d="M137 96 Q180 114 223 96" stroke-width="2.5"/>
+      </g>
+      <circle cx="180" cy="78" r="8" fill="#ad4033" stroke="#d4a94f" stroke-width="2.5"/>
+      <g fill="#d4a94f"><circle cx="142" cy="102" r="4"/><circle cx="162" cy="107" r="3"/><circle cx="198" cy="107" r="3"/><circle cx="218" cy="102" r="4"/></g>
+      <path d="M131 104 C127 121 126 132 130 141" stroke="#d4a94f" stroke-width="2" fill="none"/>
+      <circle cx="130" cy="146" r="4" fill="#ad4033"/>
+      <path d="M229 104 C233 121 234 132 230 141" stroke="#d4a94f" stroke-width="2" fill="none"/>
+      <circle cx="230" cy="146" r="4" fill="#ad4033"/>
+      <g fill="#ad4033"><circle cx="124" cy="230" r="4"/><circle cx="236" cy="230" r="4"/></g>
+      <path d="M180 170 l4 5 6 -3 -3 6 5 4 -6 1 -1 6 -4 -5 -6 3 3 -6 -5 -4 6 -1z" fill="#ad4033" opacity=".8"/>`,
+    shoulders: `<path d="M58 376 C69 344 96 322 140 312 L148 330 L116 353 L103 400Z" fill="#f0d9a6" opacity=".45"/>
+      <path d="M302 376 C291 344 264 322 220 312 L212 330 L244 353 L257 400Z" fill="#f0d9a6" opacity=".45"/>
+      <g fill="none" stroke="#d4a94f" stroke-width="2" opacity=".78">
+        <path d="M110 345 q13 -9 27 0 q-13 9 -27 0"/>
+        <path d="M223 345 q13 -9 27 0 q-13 9 -27 0"/>
+      </g>`,
+    prop: `<g transform="translate(71 366)">
+        <path d="M0 58 C15 28 33 13 58 4" fill="none" stroke="#5e7c69" stroke-width="3.5" stroke-linecap="round"/>
+        <g fill="#d3776b">
+          <ellipse cx="-12" cy="-4" rx="20" ry="12" transform="rotate(-28 -12 -4)"/>
+          <ellipse cx="12" cy="-10" rx="20" ry="12" transform="rotate(24 12 -10)"/>
+          <ellipse cx="-6" cy="-22" rx="18" ry="11" transform="rotate(-58 -6 -22)"/>
+          <ellipse cx="16" cy="-26" rx="17" ry="10" transform="rotate(62 16 -26)"/>
+          <ellipse cx="4" cy="-7" rx="16" ry="12" transform="rotate(15 4 -7)"/>
+        </g>
+        <circle cx="3" cy="-11" r="7" fill="#f2d290"/>
+        <path d="M-18 30 Q-31 17 -45 15 Q-31 4 -16 17Z" fill="#718b70"/>
+      </g>`
+  },
+
+  shangguan: {
+    bg: ['#eaf0e5', '#cfdfd3'],
+    skin: '#ffe7d4', skinShade: '#eac0a9',
+    hair: '#2f2824', hairShine: '#51413a',
+    robe: '#527861', robeDeep: '#375442', collar: '#f7eedb',
+    accent: '#c9a45c', eye: '#4d3a31', eyeDeep: '#32241f', lip: '#c56f63',
+    eyeStyle: 'bright',
+    backdrop: `<circle cx="180" cy="176" r="132" fill="#ffffff" opacity=".15"/>
+      <g opacity=".24" stroke="#5e7b68" fill="none" stroke-width="1.3">
+        <path d="M34 124 Q103 59 177 89 Q260 119 327 65"/>
+        <path d="M50 351 Q118 288 181 315 Q246 343 314 299"/>
+      </g>
+      <rect x="300" y="56" width="28" height="28" rx="3" fill="#b24a3e" opacity=".68"/>
+      <g stroke="#f4e7d5" opacity=".72"><path d="M306 65 h16"/><path d="M306 73 h10"/><path d="M306 81 h14"/></g>
+      <g fill="#b9cdbb" opacity=".7"><circle cx="56" cy="254" r="4"/><circle cx="309" cy="213" r="3.5"/><circle cx="88" cy="70" r="2.5"/></g>
+      ${starSpark(92, 155, .8, '#c9a45c', '.45')}`,
+    hairFront: `<path d="M111 186 C102 128 132 94 180 92 C228 94 258 128 249 186 C236 150 217 128 196 124 C188 148 168 160 146 162 C132 164 120 173 111 186Z" fill="#2f2824"/>
+      <path d="M112 163 C103 199 103 236 112 269 C121 241 123 214 125 190Z" fill="#2f2824"/>
+      <path d="M248 163 C257 199 257 236 248 269 C239 241 237 214 235 190Z" fill="#2f2824"/>
+      <ellipse cx="222" cy="78" rx="29" ry="22" transform="rotate(-20 222 78)" fill="#2f2824"/>
+      <path d="M125 142 C150 105 207 102 239 133" fill="none" stroke="#51413a" stroke-width="6" stroke-linecap="round" opacity=".3"/>`,
+    headpiece: `<path d="M205 88 L282 67" stroke="#c9a45c" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="284" cy="66" r="5" fill="#f2e1b9"/>
+      <path d="M214 79 L228 98" stroke="#c9a45c" stroke-width="2" opacity=".75"/>
+      <g transform="translate(236 103)">
+        <g fill="#d77a6b">${[0, 60, 120, 180, 240, 300].map((a) => `<ellipse cx="0" cy="-7" rx="4.5" ry="7" transform="rotate(${a})"/>`).join('')}</g>
+        <circle r="3.5" fill="#f2dfb6"/>
+      </g>
+      <path d="M175 171 l4 5 6 -3 -3 6 5 4 -6 1 -1 6 -4 -5 -6 3 3 -6 -5 -4 6 -1z" fill="#b34a3f" opacity=".8"/>
+      <circle cx="106" cy="230" r="4" fill="#c9a45c"/><circle cx="254" cy="230" r="4" fill="#c9a45c"/>`,
+    shoulders: `<path d="M102 365 Q136 334 180 386 Q224 334 258 365" fill="none" stroke="#c9a45c" stroke-width="2.5" opacity=".7"/>
+      <path d="M122 331 Q180 365 238 331" fill="none" stroke="#edf0df" stroke-width="1.5" opacity=".75"/>`,
+    prop: `<g transform="translate(39 341) rotate(-8)">
+        <rect width="115" height="58" rx="4" fill="#efe2c8" stroke="#b99d71" stroke-width="1.5"/>
+        <g stroke="#b3a080" stroke-width="1" opacity=".75">
+          <path d="M10 13 H101 M10 23 H91 M10 33 H105 M10 43 H82"/>
+        </g>
+        <path d="M15 52 Q57 46 101 51" stroke="#c6b79d" fill="none" opacity=".8"/>
+      </g>
+      <g transform="translate(293 346) rotate(18)">
+        <path d="M0 0 L5 -72" stroke="#7b5d3d" stroke-width="7" stroke-linecap="round"/>
+        <path d="M2 -72 C8 -90 20 -91 23 -101 C13 -99 4 -88 2 -72Z" fill="#3f4e41"/>
+        <path d="M0 0 L-2 13" stroke="#c9a45c" stroke-width="3" stroke-linecap="round"/>
+      </g>`
+  },
+
+  qingzhao: {
+    bg: ['#f8e7dc', '#e9c6c2'],
+    skin: '#ffe6d4', skinShade: '#eac0aa',
+    hair: '#382729', hairShine: '#5b403d',
+    robe: '#bf8178', robeDeep: '#8e5953', collar: '#fbf0dd',
+    accent: '#c79a69', eye: '#5b4038', eyeDeep: '#38251f', lip: '#c97368',
+    eyeStyle: 'soft',
+    backdrop: `<circle cx="274" cy="97" r="57" fill="#fff8ec" opacity=".68"/>
+      <path d="M17 314 C64 295 92 265 116 226" fill="none" stroke="#7f8d75" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+      ${blossom(112, 226, .9, '#e8b0af', '#d8b362')}
+      ${blossom(145, 247, .7, '#efc0bf', '#d8b362', '.75')}
+      ${petalShape(67, 292, -20, '#d58e93', '.55')}
+      ${petalShape(293, 162, 25, '#d58e93', '.45')}
+      ${petalShape(83, 160, 44, '#d58e93', '.4')}
+      ${starSpark(81, 87, .8, '#c9a16e', '.5')}`,
+    hairFront: `<path d="M109 186 C100 129 132 91 180 90 C228 91 258 129 251 186 C238 155 218 136 194 130 C184 156 160 168 138 168 C126 168 116 175 109 186Z" fill="#382729"/>
+      <path d="M111 163 C102 199 103 238 114 274 C124 244 126 216 127 190Z" fill="#382729"/>
+      <path d="M249 163 C258 199 257 236 246 272 C236 242 234 214 233 190Z" fill="#382729"/>
+      <ellipse cx="204" cy="77" rx="34" ry="22" transform="rotate(12 204 77)" fill="#382729"/>
+      <path d="M127 141 C155 108 207 101 238 132" fill="none" stroke="#5b403d" stroke-width="6" stroke-linecap="round" opacity=".28"/>
+      <path d="M176 93 C164 125 145 150 128 165" fill="none" stroke="#382729" stroke-width="7" stroke-linecap="round" opacity=".75"/>`,
+    headpiece: `<g transform="translate(184 105)">
+        ${blossom(-68, -1, 1.1, '#f2d6d2', '#d6ae67', '1')}
+        ${blossom(-53, -17, .72, '#e7b5b6', '#d6ae67', '1')}
+        <path d="M-84 17 C-70 24 -56 28 -42 24" fill="none" stroke="#6e816b" stroke-width="2"/>
+      </g>
+      <path d="M214 91 L270 76" stroke="#c79a69" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="272" cy="75" r="3.5" fill="#f1ddaf"/>
+      <path d="M117 225 C109 236 109 246 114 253" stroke="#c79a69" stroke-width="1.5" fill="none"/>
+      <g fill="#ead5a5"><circle cx="114" cy="258" r="3.5"/><circle cx="247" cy="232" r="3.5"/></g>`,
+    shoulders: `<path d="M88 400 C102 349 136 321 166 319 C145 342 133 370 129 400Z" fill="#f6e1d7" opacity=".38"/>
+      <path d="M272 400 C258 353 230 326 204 319 C226 345 237 372 240 400Z" fill="#f6e1d7" opacity=".28"/>`,
+    prop: `<g transform="translate(245 336)">
+        <path d="M0 0 H44 L37 34 H7Z" fill="#f4e9d7" stroke="#b9a388" stroke-width="1.5"/>
+        <ellipse cx="22" cy="0" rx="22" ry="6" fill="#8fae98"/>
+        <path d="M8 12 Q22 19 36 12" fill="none" stroke="#d7c6a7" stroke-width="1.3"/>
+      </g>
+      <path d="M36 371 C72 334 113 324 154 344" fill="none" stroke="#6d826b" stroke-width="2.8" stroke-linecap="round"/>
+      ${blossom(47, 350, .7, '#f1c5c3', '#d8b26a')}
+      ${blossom(78, 332, .85, '#efc0bf', '#d8b26a')}
+      ${blossom(110, 325, .65, '#f3d2cf', '#d8b26a')}
+      ${petalShape(157, 349, -15, '#d9999c', '.6')}`
+  },
+
+  daoyun: {
+    bg: ['#e9f0ed', '#d2e1df'],
+    skin: '#ffe8d6', skinShade: '#eac2ac',
+    hair: '#2c2727', hairShine: '#4b403e',
+    robe: '#89a8a0', robeDeep: '#5f7e77', collar: '#fbf7ed',
+    accent: '#b5c7c2', eye: '#4e3c37', eyeDeep: '#302321', lip: '#c27c73',
+    eyeStyle: 'cool',
+    backdrop: `<circle cx="253" cy="101" r="71" fill="#fdfaf1" opacity=".64"/>
+      <circle cx="253" cy="101" r="57" fill="none" stroke="#acc1bb" stroke-width="1" opacity=".35"/>
+      <g fill="#fff" opacity=".55">
+        <circle cx="49" cy="97" r="4"/><circle cx="75" cy="137" r="2.5"/><circle cx="299" cy="173" r="3.5"/>
+        <circle cx="322" cy="236" r="2.5"/><circle cx="118" cy="74" r="2.5"/><circle cx="63" cy="274" r="2"/>
+      </g>
+      <g fill="none" stroke="#8ba49c" stroke-width="1.2" opacity=".22">
+        <path d="M22 310 C75 282 102 312 154 295 C206 278 254 310 338 276"/>
+        <path d="M39 325 C92 302 130 326 176 312"/>
+      </g>
+      ${petalShape(65, 206, -34, '#ffffff', '.6')}
+      ${petalShape(306, 300, 30, '#ffffff', '.45')}
+      ${starSpark(87, 174, .8, '#a9bfba', '.55')}`,
+    hairFront: `<path d="M107 188 C100 128 130 92 180 91 C230 92 260 128 253 188 C246 152 226 124 204 117 C191 135 184 149 180 166 C176 148 168 134 154 117 C132 124 114 152 107 188Z" fill="#2c2727"/>
+      <path d="M111 163 C103 200 104 238 113 274 C122 244 124 214 126 190Z" fill="#2c2727"/>
+      <path d="M249 163 C257 200 256 238 247 274 C238 244 236 214 234 190Z" fill="#2c2727"/>
+      <ellipse cx="180" cy="78" rx="37" ry="23" fill="#2c2727"/>
+      <path d="M180 91 C179 115 178 139 180 160" fill="none" stroke="#4b403e" stroke-width="2.5" opacity=".45"/>`,
+    headpiece: `<path d="M207 93 C235 82 254 94 252 111 C239 103 225 105 211 114Z" fill="#f8f5ea" opacity=".92"/>
+      <path d="M246 108 C270 130 273 169 258 198" fill="none" stroke="#f8f5ea" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+      <path d="M238 112 C260 139 259 176 247 199" fill="none" stroke="#f8f5ea" stroke-width="4" stroke-linecap="round" opacity=".58"/>
+      <circle cx="212" cy="95" r="4" fill="#a8beb7" stroke="#f7f4e9" stroke-width="1.5"/>
+      <g fill="#b6c9c2"><circle cx="108" cy="230" r="3.5"/><circle cx="252" cy="230" r="3.5"/></g>
+      ${snowflake(114, 126, .55, '#ffffff', '.8')}`,
+    shoulders: `<path d="M103 340 C131 352 153 369 180 397 C207 369 229 352 257 340 L265 355 C237 382 211 399 180 399 C149 399 123 382 95 355Z" fill="#f8f5ea" opacity=".52"/>`,
+    prop: `<g transform="translate(286 333) rotate(13)">
+        <rect width="41" height="72" rx="5" fill="#f2ead9" stroke="#b8aa8e" stroke-width="1.5"/>
+        <path d="M8 13 H33 M8 24 H29 M8 35 H33 M8 46 H24" stroke="#b7a78b" stroke-width="1.1" opacity=".7"/>
+        <path d="M0 8 C-12 12 -13 22 -3 25 C11 29 18 17 43 16" fill="none" stroke="#c6b99f" stroke-width="2"/>
+      </g>
+      <g transform="translate(34 365)">
+        <path d="M0 23 C47 2 100 1 151 24" fill="none" stroke="#718a7a" stroke-width="2.5" stroke-linecap="round"/>
+        ${leaf(46, 14, -20, .7, '#8aa18f')}
+        ${leaf(74, 11, 14, .6, '#8aa18f')}
+        <g fill="#f9f4e9" opacity=".9">
+          <ellipse cx="120" cy="17" rx="4" ry="8" transform="rotate(-30 120 17)"/>
+          <ellipse cx="134" cy="25" rx="3.5" ry="7" transform="rotate(20 134 25)"/>
+          <ellipse cx="105" cy="28" rx="3" ry="6" transform="rotate(40 105 28)"/>
+        </g>
+      </g>`
+  },
+
+  mulan: {
+    bg: ['#e9e8dd', '#cfd6c6'],
+    skin: '#ffe6d3', skinShade: '#e9bda7',
+    hair: '#2b2222', hairShine: '#4d3b36',
+    robe: '#5e6c5b', robeDeep: '#40493d', collar: '#e7dbc4',
+    accent: '#b84b3d', eye: '#493630', eyeDeep: '#2d201e', lip: '#c6655b',
+    eyeStyle: 'sharp',
+    backdrop: `<path d="M0 286 L71 219 L119 258 L186 194 L251 261 L314 209 L360 268 V400 H0Z" fill="#d9dfd0" opacity=".48"/>
+      <path d="M0 337 L86 269 L156 335 L231 251 L312 337 L360 305 V400 H0Z" fill="#e6eadf" opacity=".55"/>
+      <g stroke="#f7f3e8" opacity=".55" fill="none" stroke-width="1.5">
+        <path d="M31 108 Q77 82 126 106"/>
+        <path d="M231 81 Q277 57 322 80"/>
+      </g>
+      ${petalShape(318, 142, 24, '#b75b4b', '.55')}
+      ${petalShape(47, 166, -22, '#b75b4b', '.4')}
+      ${starSpark(304, 55, .8, '#c9a45c', '.4')}`,
+    hairBack: `<path d="M95 202 C83 119 123 76 180 76 C239 76 280 119 268 201 L276 322 C247 341 214 347 180 347 C146 347 113 341 84 322Z" fill="#2b2222"/>
+      <path d="M236 107 C289 91 321 120 309 158 C300 186 326 217 343 242 C321 235 297 235 282 211 C270 190 258 176 235 169Z" fill="#2b2222"/>
+      <path d="M105 170 C122 107 151 88 180 88 C209 88 239 107 256 170 C242 127 213 104 180 104 C147 104 118 127 105 170Z" fill="#4d3b36" opacity=".28"/>`,
+    hairFront: `<path d="M109 187 C101 128 131 92 180 91 C228 92 258 127 250 186 C237 151 218 132 197 126 C204 146 193 160 174 166 C151 172 123 174 109 187Z" fill="#2b2222"/>
+      <path d="M110 164 C101 200 102 238 112 273 C122 243 124 214 125 190Z" fill="#2b2222"/>
+      <path d="M250 163 C259 199 258 238 249 271 C240 242 238 214 236 190Z" fill="#2b2222"/>
+      <ellipse cx="198" cy="73" rx="43" ry="24" transform="rotate(-10 198 73)" fill="#2b2222"/>
+      <path d="M214 76 C235 60 256 70 254 88 C242 79 230 81 219 90Z" fill="#2b2222"/>
+      <path d="M128 140 C154 108 207 101 238 130" fill="none" stroke="#4d3b36" stroke-width="6" stroke-linecap="round" opacity=".27"/>`,
+    headpiece: `<path d="M191 83 C217 61 244 68 252 86 C233 82 218 91 203 104Z" fill="#b84b3d"/>
+      <path d="M237 77 C245 50 264 47 274 61 C257 58 249 73 253 89Z" fill="#a94437"/>
+      <path d="M220 83 C211 107 202 121 202 137" stroke="#c9a45c" stroke-width="2" fill="none" opacity=".8"/>
+      <g fill="#c9a45c"><circle cx="111" cy="232" r="3.2"/><circle cx="249" cy="232" r="3.2"/></g>`,
+    shoulders: `<path d="M92 347 C106 321 134 309 156 310 L161 336 L132 352 L120 400Z" fill="#aeb4a6"/>
+      <path d="M268 347 C254 321 226 309 204 310 L199 336 L228 352 L240 400Z" fill="#aeb4a6"/>
+      <path d="M98 359 L154 330 M262 359 L206 330" stroke="#dee0cf" stroke-width="2.5" opacity=".75"/>
+      <path d="M148 312 C164 335 196 335 212 312 C224 318 231 326 236 336 C206 348 154 348 124 336 C129 326 136 318 148 312Z" fill="#a64135"/>
+      <path d="M124 336 C154 348 206 348 236 336" fill="none" stroke="#c9a45c" stroke-width="1.5" opacity=".7"/>`,
+    prop: `<g transform="translate(47 313) rotate(18)">
+        <path d="M0 92 L65 -7" stroke="#aeb5ac" stroke-width="7" stroke-linecap="round"/>
+        <path d="M63 -7 L78 -24" stroke="#7c857b" stroke-width="10" stroke-linecap="round"/>
+        <path d="M55 0 L73 14" stroke="#c9a45c" stroke-width="5" stroke-linecap="round"/>
+        <path d="M0 92 L-13 108" stroke="#7c4b3d" stroke-width="9" stroke-linecap="round"/>
+        <path d="M-15 109 L-25 124" stroke="#b84b3d" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="-11" cy="112" r="4" fill="#c9a45c"/>
+      </g>`
+  },
+
+  hongyu: {
+    bg: ['#f0d9ca', '#d8a795'],
+    skin: '#ffe4cf', skinShade: '#e7b49e',
+    hair: '#302321', hairShine: '#523a34',
+    robe: '#8f3d34', robeDeep: '#66251f', collar: '#f1dcc1',
+    accent: '#c7a258', eye: '#54312c', eyeDeep: '#331f1d', lip: '#c45f54',
+    eyeStyle: 'bright',
+    backdrop: `<circle cx="180" cy="162" r="128" fill="none" stroke="#b56e58" stroke-width="1.5" opacity=".24"/>
+      <circle cx="180" cy="162" r="92" fill="none" stroke="#b56e58" stroke-width="1" stroke-dasharray="3 7" opacity=".3"/>
+      <g fill="#b34c3b" opacity=".35">
+        <circle cx="61" cy="119" r="4"/><circle cx="303" cy="95" r="3"/><circle cx="314" cy="260" r="4"/><circle cx="43" cy="246" r="3"/>
+      </g>
+      <g fill="none" stroke="#c29a5d" stroke-width="1.5" opacity=".38">
+        <path d="M32 175 Q80 143 128 165"/><path d="M239 120 Q276 97 321 121"/>
+      </g>
+      ${starSpark(313, 53, .9, '#c7a258', '.5')}
+      ${petalShape(47, 310, -28, '#b34c3b', '.4')}`,
+    hairFront: `<path d="M109 187 C100 128 131 92 180 91 C229 92 259 128 251 187 C238 154 220 132 200 127 C205 150 192 163 173 168 C151 173 121 174 109 187Z" fill="#302321"/>
+      <path d="M111 163 C102 200 103 238 114 274 C124 245 126 216 127 190Z" fill="#302321"/>
+      <ellipse cx="246" cy="100" rx="27" ry="21" transform="rotate(-18 246 100)" fill="#302321"/>
+      <path d="M127 142 C154 108 207 102 239 132" fill="none" stroke="#523a34" stroke-width="6" stroke-linecap="round" opacity=".27"/>`,
+    headpiece: `<path d="M233 91 C251 74 268 82 265 99 C255 91 244 95 238 104Z" fill="#b24536"/>
+      <path d="M238 98 C224 92 218 102 223 112 C228 103 236 105 243 111Z" fill="#a23c30"/>
+      <path d="M231 101 L193 83" stroke="#c7a258" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="191" cy="82" r="4" fill="#f1deb3"/>
+      <g fill="#c7a258"><circle cx="108" cy="231" r="4"/><circle cx="252" cy="231" r="4"/></g>
+      <path d="M180 168 l4 5 6 -3 -3 6 5 4 -6 1 -1 6 -4 -5 -6 3 3 -6 -5 -4 6 -1z" fill="#a94437" opacity=".72"/>`,
+    shoulders: `<path d="M66 400 C78 349 109 321 139 308 L153 331 L126 355 L119 400Z" fill="#a43f33"/>
+      <path d="M294 400 C282 349 251 321 221 308 L207 331 L234 355 L241 400Z" fill="#a43f33"/>
+      <path d="M92 349 C106 325 133 314 156 314 L160 338 L133 354 L124 400Z" fill="#a8987d"/>
+      <path d="M268 349 C254 325 227 314 204 314 L200 338 L227 354 L236 400Z" fill="#a8987d"/>
+      <path d="M98 362 L154 334 M262 362 L206 334" stroke="#e2c68e" stroke-width="2.2" opacity=".7"/>
+      <path d="M131 337 L151 331 L156 347 L137 353Z M229 337 L209 331 L204 347 L223 353Z" fill="#c7a258" opacity=".45"/>`,
+    prop: `<g transform="translate(281 338)">
+        <circle r="44" fill="#b34c3b" stroke="#e2c38d" stroke-width="4"/>
+        <circle r="32" fill="#e6d3ad"/>
+        <circle r="27" fill="none" stroke="#b34c3b" stroke-width="1.2" opacity=".55"/>
+        <g fill="#c69e59">
+          <circle cx="0" cy="-36" r="2.5"/><circle cx="31" cy="-18" r="2.5"/><circle cx="31" cy="18" r="2.5"/>
+          <circle cx="0" cy="36" r="2.5"/><circle cx="-31" cy="18" r="2.5"/><circle cx="-31" cy="-18" r="2.5"/>
+        </g>
+        <path d="M-8 -12 Q0 -22 8 -12 Q16 0 8 12 Q0 21 -8 12 Q-16 0 -8 -12Z" fill="#b34c3b" opacity=".62"/>
+      </g>
+      <g stroke="#8b5c3a" stroke-width="4" stroke-linecap="round">
+        <path d="M226 290 L260 326"/><path d="M321 283 L287 326"/>
+      </g>
+      <g fill="#c7a258"><circle cx="226" cy="290" r="4"/><circle cx="321" cy="283" r="4"/></g>`
+  },
+
+  banzhao: {
+    bg: ['#f0ebdd', '#d8dcca'],
+    skin: '#ffe7d5', skinShade: '#e9c2ab',
+    hair: '#302723', hairShine: '#4d4038',
+    robe: '#5b6b5c', robeDeep: '#3e4c40', collar: '#f5ebd7',
+    accent: '#a78b59', eye: '#4a3a30', eyeDeep: '#2e231e', lip: '#bd7468',
+    eyeStyle: 'serene',
+    backdrop: `<circle cx="180" cy="175" r="130" fill="#fbf7ed" opacity=".28"/>
+      <g fill="#d8cdb7" opacity=".43">
+        <rect x="34" y="98" width="15" height="154" rx="3"/>
+        <rect x="55" y="78" width="15" height="174" rx="3"/>
+        <rect x="76" y="108" width="15" height="144" rx="3"/>
+      </g>
+      <g stroke="#8c7c61" opacity=".22"><path d="M38 136 H85 M43 158 H79 M48 200 H82"/></g>
+      <g fill="none" stroke="#6f816f" stroke-width="1.2" opacity=".22">
+        <path d="M230 343 C250 300 292 278 335 287"/>
+        <path d="M253 352 C270 315 304 294 334 300"/>
+      </g>
+      ${leaf(312, 83, 28, .8, '#9cac93')}
+      ${leaf(325, 106, 58, .6, '#b3c0a8')}
+      ${petalShape(295, 243, -25, '#b79a72', '.35')}`,
+    hairFront: `<path d="M108 188 C101 128 130 93 180 91 C230 93 259 128 252 188 C244 151 225 128 199 120 C187 140 173 148 180 164 C187 148 173 140 161 120 C135 128 116 151 108 188Z" fill="#302723"/>
+      <path d="M112 164 C103 200 104 236 114 269 C123 241 124 214 126 191Z" fill="#302723"/>
+      <path d="M248 164 C257 200 256 236 246 269 C237 241 236 214 234 191Z" fill="#302723"/>
+      <ellipse cx="180" cy="77" rx="35" ry="21" fill="#302723"/>
+      <path d="M180 91 C179 111 178 127 180 145" fill="none" stroke="#4d4038" stroke-width="2.2" opacity=".5"/>
+      <path d="M131 142 C157 112 205 104 232 131" fill="none" stroke="#4d4038" stroke-width="5.5" stroke-linecap="round" opacity=".25"/>`,
+    headpiece: `<path d="M190 76 L267 89" stroke="#b2a179" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="269" cy="89" r="4.5" fill="#a9bba4" stroke="#f7f2e5" stroke-width="1.5"/>
+      <path d="M188 77 L172 87" stroke="#b2a179" stroke-width="2.5" stroke-linecap="round"/>
+      <g fill="#a78b59"><circle cx="107" cy="232" r="3.2"/><circle cx="253" cy="232" r="3.2"/></g>
+      <path d="M148 99 C170 94 192 95 211 103" fill="none" stroke="#a78b59" stroke-width="1.8" opacity=".58"/>`,
+    shoulders: `<path d="M121 326 Q180 366 239 326" fill="none" stroke="#e8dec8" stroke-width="2" opacity=".8"/>
+      <path d="M91 400 C102 366 123 344 148 333 L160 354 L127 400Z" fill="#f1e8d5" opacity=".22"/>
+      <path d="M269 400 C258 366 237 344 212 333 L200 354 L233 400Z" fill="#f1e8d5" opacity=".18"/>`,
+    prop: `<g transform="translate(39 345) rotate(3)">
+        <rect width="102" height="57" rx="3" fill="#ddd1b8" stroke="#ac9673" stroke-width="1.4"/>
+        <g stroke="#9f8c6d" stroke-width="1.2" opacity=".68">
+          <path d="M13 8 V49 M28 8 V49 M43 8 V49 M58 8 V49 M73 8 V49 M88 8 V49"/>
+          <path d="M13 17 H88 M13 28 H88 M13 39 H88"/>
+        </g>
+        <path d="M8 52 Q50 46 96 52" fill="none" stroke="#b9a685" stroke-width="2"/>
+      </g>
+      <g transform="translate(292 349) rotate(-17)">
+        <path d="M0 0 L4 -70" stroke="#7b5d3d" stroke-width="6" stroke-linecap="round"/>
+        <path d="M2 -70 C9 -88 20 -91 24 -101 C12 -97 4 -86 2 -70Z" fill="#3f4e41"/>
+        <path d="M0 0 L-2 12" stroke="#a78b59" stroke-width="2.5" stroke-linecap="round"/>
+      </g>`
+  },
+
+  zhaojun: {
+    bg: ['#e9eaf1', '#ccd5e4'],
+    skin: '#ffe7d6', skinShade: '#e9c0ae',
+    hair: '#2e2526', hairShine: '#4e3b3d',
+    robe: '#9caabf', robeDeep: '#6f7e94', collar: '#f4eee2',
+    accent: '#b99b6d', eye: '#51404a', eyeDeep: '#33262d', lip: '#c27c7e',
+    eyeStyle: 'gentle',
+    backdrop: `<circle cx="251" cy="105" r="71" fill="#fbf8ee" opacity=".65"/>
+      <path d="M0 328 L88 229 L155 306 L232 209 L312 306 L360 267 V400 H0Z" fill="#c8d3dc" opacity=".52"/>
+      <path d="M0 353 L97 272 L164 343 L242 251 L316 337 L360 302 V400 H0Z" fill="#dde4e9" opacity=".68"/>
+      <g fill="#ffffff" opacity=".8">
+        <circle cx="49" cy="84" r="3.5"/><circle cx="99" cy="137" r="2"/><circle cx="318" cy="166" r="3"/>
+        <circle cx="294" cy="235" r="2"/><circle cx="72" cy="218" r="2.5"/><circle cx="334" cy="83" r="2"/>
+      </g>
+      ${snowflake(74, 146, .8, '#ffffff', '.8')}
+      ${snowflake(307, 114, .65, '#ffffff', '.7')}
+      ${snowflake(42, 286, .65, '#f7f5ef', '.6')}`,
+    hairBack: `<path d="M94 204 C80 121 123 73 180 73 C237 73 280 121 266 204 L273 331 C245 350 213 356 180 356 C147 356 115 350 87 331Z" fill="#2e2526"/>
+      <path d="M106 170 C120 110 148 90 180 90 C212 90 240 110 254 170 C240 127 213 103 180 103 C147 103 120 127 106 170Z" fill="#4e3b3d" opacity=".27"/>`,
+    hairFront: `<path d="M107 188 C100 128 130 92 180 91 C230 92 260 128 253 188 C246 152 226 124 204 117 C191 135 184 149 180 166 C176 148 168 134 154 117 C132 124 114 152 107 188Z" fill="#2e2526"/>
+      <path d="M111 163 C103 201 106 240 117 274 C125 244 125 214 127 190Z" fill="#2e2526"/>
+      <path d="M249 163 C257 201 254 240 243 274 C235 244 235 214 233 190Z" fill="#2e2526"/>
+      <ellipse cx="180" cy="78" rx="36" ry="22" fill="#2e2526"/>
+      <path d="M224 215 C251 237 265 277 259 322" fill="none" stroke="#2e2526" stroke-width="17" stroke-linecap="round"/>
+      <path d="M232 225 C250 250 252 280 249 307 M240 232 C257 256 257 283 253 315" fill="none" stroke="#4e3b3d" stroke-width="2.3" opacity=".6"/>
+      <circle cx="260" cy="321" r="5" fill="#b99b6d"/>`,
+    headpiece: `<path d="M152 102 L120 79" stroke="#c5b598" stroke-width="2.5" stroke-linecap="round"/>
+      ${snowflake(117, 77, .9, '#f3f0e7', '.95')}
+      <circle cx="117" cy="77" r="3" fill="#b99b6d"/>
+      <g fill="#f0e7d7"><circle cx="108" cy="230" r="3.5"/><circle cx="252" cy="230" r="3.5"/></g>
+      <path d="M151 111 C166 102 181 98 195 102" fill="none" stroke="#d6c7af" stroke-width="2" opacity=".7"/>`,
+    shoulders: `<path d="M118 312 C139 329 159 338 180 339 C201 338 221 329 242 312 C249 320 254 328 257 337 C230 350 203 357 180 357 C157 357 130 350 103 337 C106 328 111 320 118 312Z" fill="#f6f2e8" opacity=".94"/>
+      <g stroke="#d9d6cc" stroke-width="1.2" opacity=".8" fill="none">
+        <path d="M116 318 Q124 331 135 338"/><path d="M143 311 Q147 328 158 339"/>
+        <path d="M171 309 Q171 327 180 339"/><path d="M190 309 Q190 327 200 339"/>
+        <path d="M216 312 Q211 328 202 339"/><path d="M245 318 Q235 331 223 339"/>
+      </g>
+      <path d="M98 399 C105 365 119 343 139 331 L154 350 L128 399Z" fill="#a9b7c8" opacity=".55"/>
+      <path d="M262 399 C255 365 241 343 221 331 L206 350 L232 399Z" fill="#a9b7c8" opacity=".55"/>`,
+    prop: `<g transform="translate(287 327) rotate(-22)">
+        <path d="M0 -54 C-14 -54 -16 -28 -2 -18 L-28 10 C-45 32 -28 61 0 64 C28 61 45 32 28 10 L2 -18 C16 -28 14 -54 0 -54Z" fill="#d8b184" stroke="#9c744f" stroke-width="2"/>
+        <path d="M-8 -52 H8" stroke="#7d5d42" stroke-width="3" stroke-linecap="round"/>
+        <g stroke="#7f5c3f" stroke-width="1.1" opacity=".75">
+          <path d="M-8 -44 L-8 48"/><path d="M-3 -44 L-3 52"/><path d="M3 -44 L3 52"/><path d="M8 -44 L8 48"/>
+        </g>
+        <circle cx="0" cy="33" r="7" fill="#f0dfc6" stroke="#9c744f" stroke-width="1.5"/>
+        <path d="M-25 74 Q-35 83 -43 94" stroke="#7f5c3f" stroke-width="2" fill="none"/>
+      </g>
+      ${snowflake(44, 353, .7, '#ffffff', '.85')}`
+  },
+
+  wenji: {
+    bg: ['#f0e1d7', '#d8b9aa'],
+    skin: '#ffe5d2', skinShade: '#e8bca5',
+    hair: '#2f2423', hairShine: '#503b36',
+    robe: '#9f6152', robeDeep: '#6f3d35', collar: '#f1e3d2',
+    accent: '#b48a58', eye: '#513b34', eyeDeep: '#32231f', lip: '#bf6c61',
+    eyeStyle: 'soft',
+    backdrop: `<path d="M273 63 A47 47 0 1 0 289 139 A37 37 0 1 1 273 63Z" fill="#f7ead8" opacity=".72"/>
+      <g stroke="#c4a58c" opacity=".3" fill="none" stroke-width="1.4">
+        <path d="M24 136 C75 101 118 148 172 118 C219 92 266 121 335 87"/>
+        <path d="M18 298 C76 265 117 310 168 284 C224 255 281 288 344 254"/>
+      </g>
+      <path d="M0 350 C52 331 107 340 157 359 C220 382 288 370 360 341 V400 H0Z" fill="#e8d5c6" opacity=".55"/>
+      <g fill="#bb7a58" opacity=".5">
+        <ellipse cx="62" cy="97" rx="6" ry="3.5" transform="rotate(-28 62 97)"/>
+        <ellipse cx="310" cy="178" rx="5" ry="3" transform="rotate(25 310 178)"/>
+        <ellipse cx="274" cy="55" rx="4.5" ry="2.5" transform="rotate(-20 274 55)"/>
+      </g>
+      ${starSpark(79, 173, .8, '#b48a58', '.4')}`,
+    hairFront: `<path d="M109 186 C101 128 132 91 180 90 C229 91 258 128 251 186 C238 153 218 132 195 126 C188 152 168 166 144 168 C130 170 117 176 109 186Z" fill="#2f2423"/>
+      <path d="M111 162 C99 204 100 250 118 288 C126 251 125 218 126 189Z" fill="#2f2423"/>
+      <path d="M249 162 C263 198 267 244 256 286 C242 250 237 212 234 189Z" fill="#2f2423"/>
+      <path d="M129 140 C156 108 207 102 238 132" fill="none" stroke="#503b36" stroke-width="6" stroke-linecap="round" opacity=".26"/>
+      <path d="M217 143 C238 166 247 203 243 239" fill="none" stroke="#2f2423" stroke-width="7" stroke-linecap="round" opacity=".85"/>`,
+    headpiece: `<path d="M139 111 C160 102 179 101 198 108" fill="none" stroke="#b48a58" stroke-width="2.2"/>
+      ${blossom(138, 112, .65, '#d6a094', '#d8b06a')}
+      <path d="M190 102 L218 88" stroke="#b48a58" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="219" cy="87" r="3.2" fill="#efddae"/>
+      <g fill="#b48a58"><circle cx="106" cy="232" r="3.2"/><circle cx="255" cy="232" r="3.2"/></g>
+      <path d="M173 172 l4 5 6 -3 -3 6 5 4 -6 1 -1 6 -4 -5 -6 3 3 -6 -5 -4 6 -1z" fill="#b35c50" opacity=".62"/>`,
+    shoulders: `<path d="M91 400 C101 356 132 327 168 317 L179 337 L141 366 L126 400Z" fill="#d8aa96" opacity=".4"/>
+      <path d="M269 400 C259 356 228 327 192 317 L181 337 L219 366 L234 400Z" fill="#d8aa96" opacity=".33"/>
+      <path d="M122 333 Q180 363 238 333" fill="none" stroke="#b48a58" stroke-width="1.7" opacity=".6"/>`,
+    prop: `<g transform="translate(76 339) rotate(5)">
+        <path d="M0 27 C43 7 158 7 203 27 L198 54 C152 37 48 37 4 54Z" fill="#8d6047" stroke="#5f4133" stroke-width="2"/>
+        <path d="M14 27 C50 13 157 14 192 27" fill="none" stroke="#c5a884" stroke-width="2" opacity=".7"/>
+        <g stroke="#eadbc2" stroke-width=".9" opacity=".7">
+          <path d="M24 35 L180 35"/><path d="M23 40 L182 40"/><path d="M22 45 L184 45"/>
+        </g>
+        <path d="M189 31 Q204 33 214 43" stroke="#5f4133" stroke-width="2" fill="none"/>
+      </g>
+      ${leaf(29, 327, -20, .8, '#b27a5e')}
+      ${leaf(305, 305, 36, .7, '#c28b68')}
+      ${leaf(323, 331, 10, .45, '#b27a5e')}`
+  },
+
+  wenjun: {
+    bg: ['#f3e2d1', '#e2c39e'],
+    skin: '#ffe7d4', skinShade: '#e9c0a8',
+    hair: '#332421', hairShine: '#573b32',
+    robe: '#5f7969', robeDeep: '#40584b', collar: '#f8eddb',
+    accent: '#caa161', eye: '#503831', eyeDeep: '#32211d', lip: '#c46a5c',
+    eyeStyle: 'bright',
+    backdrop: `<circle cx="77" cy="103" r="54" fill="#f9e9c9" opacity=".62"/>
+      <g stroke="#8e9b75" stroke-width="2" opacity=".33" fill="none">
+        <path d="M314 68 C295 140 302 232 286 355"/>
+        <path d="M330 82 C316 159 323 245 311 328"/>
+      </g>
+      ${leaf(303, 105, -52, .9, '#879879')}
+      ${leaf(320, 140, 35, .75, '#879879')}
+      ${leaf(293, 171, -28, .65, '#9caa88')}
+      <g fill="#c47b63" opacity=".38">
+        <circle cx="54" cy="251" r="4"/><circle cx="330" cy="250" r="3"/><circle cx="118" cy="72" r="2.5"/>
+      </g>
+      ${starSpark(264, 62, .8, '#c9a45c', '.5')}`,
+    hairFront: `<path d="M109 186 C101 128 132 92 180 91 C229 92 258 128 250 186 C236 153 216 132 195 126 C199 148 187 162 168 166 C147 170 121 174 109 186Z" fill="#332421"/>
+      <path d="M111 163 C101 201 102 241 113 277 C123 247 125 216 126 190Z" fill="#332421"/>
+      <path d="M249 163 C258 199 258 235 249 268 C239 240 237 214 235 190Z" fill="#332421"/>
+      <ellipse cx="234" cy="83" rx="32" ry="24" transform="rotate(18 234 83)" fill="#332421"/>
+      <path d="M197 95 C217 96 238 109 251 129" fill="none" stroke="#573b32" stroke-width="6" stroke-linecap="round" opacity=".34"/>
+      <path d="M128 141 C155 108 207 101 238 130" fill="none" stroke="#573b32" stroke-width="6" stroke-linecap="round" opacity=".25"/>`,
+    headpiece: `<g transform="translate(155 119)">
+        <g fill="#d36f66">${[0, 72, 144, 216, 288].map((a) => `<ellipse cx="0" cy="-12" rx="8" ry="15" transform="rotate(${a})"/>`).join('')}</g>
+        <circle r="6" fill="#ecc978"/><circle r="3" fill="#a94a3e"/>
+      </g>
+      <path d="M151 120 C134 106 118 101 101 106" fill="none" stroke="#7d8c6d" stroke-width="2.3" stroke-linecap="round"/>
+      <path d="M246 86 L294 75" stroke="#caa161" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="296" cy="74" r="3.5" fill="#f0dcad"/>
+      <g fill="#caa161"><circle cx="108" cy="232" r="3.4"/><circle cx="253" cy="232" r="3.4"/></g>`,
+    shoulders: `<path d="M105 332 C146 360 214 360 255 332 L260 350 C215 378 145 378 100 350Z" fill="#d39786" opacity=".72"/>
+      <path d="M101 349 C145 375 215 375 259 349" fill="none" stroke="#e6b39f" stroke-width="1.5" opacity=".8"/>
+      <path d="M92 400 C100 362 119 338 143 324 L157 345 L127 400Z" fill="#486353" opacity=".5"/>
+      <path d="M268 400 C260 362 241 338 217 324 L203 345 L233 400Z" fill="#486353" opacity=".45"/>`,
+    prop: `<g transform="translate(255 342)">
+        <path d="M-22 0 C-36 20 -28 58 0 60 C28 58 36 20 22 0Z" fill="#8f6b50" stroke="#634b3b" stroke-width="2"/>
+        <path d="M-20 0 Q0 -8 20 0" fill="#f0ddd0" stroke="#634b3b" stroke-width="1.5"/>
+        <path d="M-21 2 Q0 -5 21 2 L20 14 Q0 8 -20 14Z" fill="#b05344"/>
+        <path d="M-13 25 H13" stroke="#d5bb94" stroke-width="1.5"/>
+        <path d="M-8 33 H8" stroke="#d5bb94" stroke-width="1"/>
+      </g>
+      <g transform="translate(222 321)">
+        <path d="M-13 0 H13 L9 18 H-9Z" fill="#e9d9c1" stroke="#b99a74" stroke-width="1.3"/>
+        <ellipse cx="0" cy="0" rx="13" ry="4" fill="#9f8870"/>
+      </g>
+      <g fill="#c47b63" opacity=".45">
+        <ellipse cx="68" cy="352" rx="6" ry="3" transform="rotate(-25 68 352)"/>
+        <ellipse cx="95" cy="372" rx="4.5" ry="2.5" transform="rotate(20 95 372)"/>
+      </g>`
+  },
+
+  wencheng: {
+    bg: ['#e5eee7', '#cadbd0'],
+    skin: '#ffe7d4', skinShade: '#e9c1a9',
+    hair: '#2d2322', hairShine: '#4d3937',
+    robe: '#b65144', robeDeep: '#82352c', collar: '#f7efdf',
+    accent: '#d3ab5c', eye: '#4e3934', eyeDeep: '#31221f', lip: '#c56b61',
+    eyeStyle: 'gentle',
+    backdrop: `<circle cx="179" cy="128" r="93" fill="#f4e3bb" opacity=".3"/>
+      <path d="M-20 322 L70 224 L132 298 L218 195 L300 296 L380 250 V400 H-20Z" fill="#d6e1d7" opacity=".68"/>
+      <path d="M0 347 L92 270 L161 340 L244 249 L316 330 L360 300 V400 H0Z" fill="#e6ede3" opacity=".72"/>
+      <g fill="none" stroke="#b9a87e" stroke-width="1.2" opacity=".32">
+        <path d="M33 106 C87 84 121 103 164 89"/><path d="M239 124 C277 105 312 113 340 95"/>
+      </g>
+      <g fill="#d2ab5c" opacity=".4"><circle cx="56" cy="72" r="2.7"/><circle cx="303" cy="78" r="3.2"/><circle cx="323" cy="191" r="2"/></g>
+      ${starSpark(280, 63, .9, '#c8a35b', '.55')}`,
+    hairFront: `<path d="M108 187 C100 128 131 91 180 90 C229 91 260 128 252 187 C243 154 224 131 201 125 C192 149 174 161 154 164 C135 166 118 175 108 187Z" fill="#2d2322"/>
+      <path d="M111 163 C102 200 103 238 113 274 C123 244 125 215 126 189Z" fill="#2d2322"/>
+      <path d="M249 163 C258 200 257 238 247 274 C237 244 235 215 234 189Z" fill="#2d2322"/>
+      <ellipse cx="141" cy="81" rx="32" ry="23" transform="rotate(-16 141 81)" fill="#2d2322"/>
+      <ellipse cx="219" cy="80" rx="32" ry="23" transform="rotate(16 219 80)" fill="#2d2322"/>
+      <ellipse cx="180" cy="69" rx="33" ry="24" fill="#2d2322"/>
+      <path d="M125 143 C153 108 206 101 237 131" fill="none" stroke="#4d3937" stroke-width="6" stroke-linecap="round" opacity=".26"/>`,
+    headpiece: `<path d="M130 94 Q180 64 230 94" fill="none" stroke="#d3ab5c" stroke-width="4" stroke-linecap="round"/>
+      <path d="M139 100 Q180 82 221 100" fill="none" stroke="#d3ab5c" stroke-width="2.2"/>
+      <g fill="#c14f42">
+        <circle cx="137" cy="100" r="4"/><circle cx="160" cy="109" r="3"/><circle cx="180" cy="113" r="4.2"/>
+        <circle cx="200" cy="109" r="3"/><circle cx="223" cy="100" r="4"/>
+      </g>
+      <path d="M129 106 C123 126 124 141 130 151" stroke="#d3ab5c" stroke-width="2" fill="none"/>
+      <circle cx="130" cy="156" r="4" fill="#b65144"/>
+      <path d="M231 106 C237 126 236 141 230 151" stroke="#d3ab5c" stroke-width="2" fill="none"/>
+      <circle cx="230" cy="156" r="4" fill="#b65144"/>
+      <circle cx="105" cy="228" r="5" fill="#f0ddb4" stroke="#d3ab5c" stroke-width="1.5"/>
+      <circle cx="255" cy="228" r="5" fill="#f0ddb4" stroke="#d3ab5c" stroke-width="1.5"/>`,
+    shoulders: `<path d="M110 319 C142 347 218 347 250 319 L260 338 C224 366 136 366 100 338Z" fill="#f7f2e8" opacity=".88"/>
+      <path d="M109 325 C143 352 217 352 251 325" fill="none" stroke="#d3ab5c" stroke-width="2" opacity=".65"/>
+      <path d="M61 400 C72 355 97 329 130 313 L144 333 L116 361 L106 400Z" fill="#a43f34" opacity=".8"/>
+      <path d="M299 400 C288 355 263 329 230 313 L216 333 L244 361 L254 400Z" fill="#a43f34" opacity=".8"/>
+      <path d="M77 374 Q95 350 119 339" fill="none" stroke="#d3ab5c" stroke-width="2" opacity=".65"/>
+      <path d="M283 374 Q265 350 241 339" fill="none" stroke="#d3ab5c" stroke-width="2" opacity=".65"/>`,
+    prop: `<g transform="translate(298 351)">
+        <ellipse cx="0" cy="0" rx="41" ry="18" fill="#f8ead7" stroke="#cdb17d" stroke-width="1.5"/>
+        <g fill="#f4d8c1">
+          <ellipse cx="-25" cy="-6" rx="15" ry="8" transform="rotate(-30 -25 -6)"/>
+          <ellipse cx="-9" cy="-12" rx="15" ry="8" transform="rotate(-8 -9 -12)"/>
+          <ellipse cx="10" cy="-12" rx="15" ry="8" transform="rotate(8 10 -12)"/>
+          <ellipse cx="26" cy="-6" rx="15" ry="8" transform="rotate(30 26 -6)"/>
+        </g>
+        <ellipse cx="0" cy="-3" rx="12" ry="7" fill="#d8a759"/>
+        <path d="M0 11 V37" stroke="#b89555" stroke-width="3" stroke-linecap="round"/>
+        <path d="M0 22 C-11 26 -12 35 -4 39 C3 42 12 35 10 27" fill="none" stroke="#d8c09b" stroke-width="2"/>
+      </g>
+      ${starSpark(55, 299, .8, '#f2d796', '.65')}`
+  },
+
+  guandao: {
+    bg: ['#e9eee4', '#d4e0ce'],
+    skin: '#ffe7d5', skinShade: '#e9c2ac',
+    hair: '#332823', hairShine: '#59443b',
+    robe: '#8ca590', robeDeep: '#657f6b', collar: '#f8f2e4',
+    accent: '#a3a56e', eye: '#4b3b33', eyeDeep: '#2f241f', lip: '#bd7569',
+    eyeStyle: 'cool',
+    backdrop: `<circle cx="180" cy="170" r="130" fill="#f9f7eb" opacity=".27"/>
+      <g stroke="#7e937c" stroke-width="2" opacity=".2" fill="none">
+        <path d="M292 34 C264 101 266 269 291 365"/>
+        <path d="M319 53 C295 127 300 263 320 347"/>
+      </g>
+      <g fill="none" stroke="#6f8674" stroke-width="1.2" opacity=".19">
+        <path d="M35 262 C75 230 120 255 163 225 C204 197 257 222 323 190"/>
+        <path d="M27 320 C75 294 118 317 157 295 C207 267 261 292 328 263"/>
+      </g>
+      ${leaf(285, 95, -68, .9, '#8ba18b')}
+      ${leaf(313, 132, 30, .75, '#9db09a')}
+      ${leaf(52, 158, 150, .65, '#9db09a')}
+      <g fill="#a9b9a4" opacity=".5"><circle cx="59" cy="230" r="4"/><circle cx="306" cy="228" r="3"/><circle cx="86" cy="91" r="2.2"/></g>
+      ${starSpark(294, 72, .8, '#a3a56e', '.5')}`,
+    hairBack: `<path d="M94 205 C81 121 123 74 180 74 C237 74 279 121 266 205 L273 330 C244 349 212 355 180 355 C148 355 116 349 87 330Z" fill="#332823"/>
+      <path d="M105 169 C121 109 149 90 180 90 C211 90 239 109 255 169 C241 126 212 103 180 103 C148 103 119 126 105 169Z" fill="#59443b" opacity=".26"/>`,
+    hairFront: `<path d="M108 188 C101 128 130 92 180 91 C230 92 259 128 252 188 C245 151 226 129 201 121 C190 141 178 150 180 166 C182 150 170 141 159 121 C134 129 115 151 108 188Z" fill="#332823"/>
+      <path d="M112 164 C103 201 104 239 114 272 C123 244 125 214 126 190Z" fill="#332823"/>
+      <ellipse cx="94" cy="239" rx="26" ry="33" transform="rotate(10 94 239)" fill="#332823"/>
+      <path d="M81 222 C72 241 72 261 82 276" fill="none" stroke="#59443b" stroke-width="4" stroke-linecap="round" opacity=".34"/>
+      <path d="M130 141 C157 110 206 102 235 130" fill="none" stroke="#59443b" stroke-width="5.5" stroke-linecap="round" opacity=".24"/>`,
+    headpiece: `<path d="M82 232 L37 211" stroke="#83936e" stroke-width="5" stroke-linecap="round"/>
+      <path d="M78 224 L69 204" stroke="#83936e" stroke-width="3.5" stroke-linecap="round"/>
+      ${leaf(54, 207, -25, .58, '#899e78')}
+      ${leaf(77, 198, 22, .45, '#a2b18d')}
+      <path d="M187 97 L242 83" stroke="#a3a56e" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="244" cy="82" r="3.2" fill="#f0e4c4"/>
+      <g fill="#a3a56e"><circle cx="254" cy="232" r="3.2"/><circle cx="109" cy="232" r="2.5"/></g>`,
+    shoulders: `<path d="M111 331 C150 355 210 355 249 331" fill="none" stroke="#f4eddd" stroke-width="2.2" opacity=".56"/>
+      <path d="M88 400 C98 358 122 332 153 320 L165 341 L132 400Z" fill="#7e997f" opacity=".28"/>
+      <path d="M272 400 C262 358 238 332 207 320 L195 341 L228 400Z" fill="#7e997f" opacity=".24"/>
+      <g fill="#6f8266" opacity=".35">
+        <circle cx="281" cy="352" r="10"/><circle cx="296" cy="342" r="5"/><circle cx="272" cy="337" r="3.5"/>
+      </g>`,
+    prop: `<g transform="translate(38 364)">
+        <path d="M0 27 C33 1 81 -2 131 18" fill="none" stroke="#6c856f" stroke-width="3.2" stroke-linecap="round"/>
+        ${leaf(23, 15, -35, .8, '#718b70')}
+        ${leaf(47, 6, 22, .65, '#859b81')}
+        ${leaf(92, 8, -28, .7, '#718b70')}
+        ${leaf(118, 17, 24, .58, '#859b81')}
+      </g>
+      <g transform="translate(291 371) rotate(-24)">
+        <path d="M0 0 L5 -75" stroke="#7f664b" stroke-width="6" stroke-linecap="round"/>
+        <path d="M2 -75 C8 -92 20 -95 24 -105 C12 -100 4 -89 2 -75Z" fill="#3f4e41"/>
+        <path d="M0 0 L-2 11" stroke="#a3a56e" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(266 368)">
+        <ellipse cx="0" cy="0" rx="23" ry="9" fill="#e8e3d4" stroke="#9faf97" stroke-width="1.6"/>
+        <ellipse cx="0" cy="-1" rx="15" ry="5" fill="#a9bdad" opacity=".55"/>
+      </g>`
+  }
+};
+
+
+/* 交互逻辑：逐题作答、自动翻页、维度匹配、结果与重测 */
+
+const BASE_TITLE = '测一测｜你的灵魂对应哪位历史人物 · 中国历史女性专场';
+const OPTION_LETTERS = ['A', 'B', 'C', 'D'];
+const CN_NUMERALS = ['壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖', '拾'];
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const state = {
+  screen: 'home',
+  current: 0,
+  answers: Array(QUESTIONS.length).fill(null),
+  result: null,
+  scores: null,
+  affinity: null,
+  advanceTimer: null
+};
+
+const el = {
+  startBtn: document.getElementById('startBtn'),
+  optionsList: document.getElementById('optionsList'),
+  questionCard: document.getElementById('questionCard'),
+  questionTitle: document.getElementById('questionTitle'),
+  qKicker: document.getElementById('qKicker'),
+  qGhost: document.getElementById('qGhost'),
+  qFootNote: document.getElementById('qFootNote'),
+  prevBtn: document.getElementById('prevBtn'),
+  progressFill: document.getElementById('progressFill'),
+  progressBar: document.getElementById('progressBar'),
+  quizStepText: document.getElementById('quizStepText'),
+  quizQuestionNo: document.getElementById('quizQuestionNo'),
+  quizDots: document.getElementById('quizDots'),
+  revealBtn: document.getElementById('revealBtn'),
+  reviewBtn: document.getElementById('reviewBtn'),
+  resultContent: document.getElementById('resultContent'),
+  soulFileNo: document.getElementById('soulFileNo'),
+  copyResultBtn: document.getElementById('copyResultBtn'),
+  retakeBtn: document.getElementById('retakeBtn'),
+  retakeTopBtn: document.getElementById('retakeTopBtn'),
+  toast: document.getElementById('toast'),
+  heroPortraitMain: document.getElementById('heroPortraitMain'),
+  heroPortraitLeft: document.getElementById('heroPortraitLeft'),
+  heroPortraitRight: document.getElementById('heroPortraitRight')
+};
+
+let toastTimer = null;
+
+function getResultById(id) {
+  return RESULTS.find((item) => item.id === id);
+}
+
+function showScreen(name) {
+  state.screen = name;
+  document.querySelectorAll('.screen').forEach((screen) => {
+    screen.classList.toggle('active', screen.id === `screen-${name}`);
+  });
+  if (name === 'home') {
+    document.title = BASE_TITLE;
+  }
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function clearAdvanceTimer() {
+  if (state.advanceTimer) {
+    window.clearTimeout(state.advanceTimer);
+    state.advanceTimer = null;
+  }
+}
+
+function resetAnswers() {
+  clearAdvanceTimer();
+  state.current = 0;
+  state.answers = Array(QUESTIONS.length).fill(null);
+  state.result = null;
+  state.scores = null;
+  state.affinity = null;
+}
+
+function startQuiz() {
+  resetAnswers();
+  showScreen('quiz');
+  document.title = '答题中｜灵魂对号 · 中国历史女性专场';
+  renderQuestion(0, false);
+}
+
+function goHome() {
+  clearAdvanceTimer();
+  showScreen('home');
+}
+
+function showToast(message) {
+  window.clearTimeout(toastTimer);
+  el.toast.textContent = message;
+  el.toast.classList.add('is-visible');
+  toastTimer = window.setTimeout(() => {
+    el.toast.classList.remove('is-visible');
+  }, 2600);
+}
+
+function padNumber(value) {
+  return String(value).padStart(2, '0');
+}
+
+function updateProgress(step) {
+  const total = QUESTIONS.length;
+  const safeStep = Math.max(1, Math.min(step, total));
+  const percentage = Math.round((safeStep / total) * 100);
+  el.progressFill.style.width = `${percentage}%`;
+  el.progressBar.setAttribute('aria-valuenow', String(safeStep));
+  el.quizStepText.textContent = `${padNumber(safeStep)} / ${padNumber(total)}`;
+  el.quizQuestionNo.textContent = padNumber(safeStep);
+}
+
+function updateDots() {
+  el.quizDots.innerHTML = QUESTIONS.map((_, index) => {
+    const isDone = state.answers[index] !== null;
+    const isCurrent = index === state.current && state.screen === 'quiz';
+    return `<span class="quiz-dot ${isDone ? 'is-done' : ''} ${isCurrent ? 'is-current' : ''}"></span>`;
+  }).join('');
+}
+
+function renderOptions() {
+  const question = QUESTIONS[state.current];
+  const selected = state.answers[state.current];
+  el.optionsList.innerHTML = question.options.map((option, index) => {
+    const isPicked = selected === index;
+    return `<button class="option ${isPicked ? 'is-picked' : ''}" type="button" data-option="${index}" aria-pressed="${isPicked}">
+      <span class="option-letter" aria-hidden="true">${OPTION_LETTERS[index]}</span>
+      <span class="option-text">${option.text}</span>
+      <span class="option-mark" aria-hidden="true">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3.2 8.3l3.1 3.1 6.5-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </button>`;
+  }).join('');
+}
+
+function animateQuestionCard() {
+  if (prefersReducedMotion || !el.questionCard.animate) return;
+  el.questionCard.classList.remove('is-enter');
+  // 强制重排，让每次切换都能重播入场动画
+  void el.questionCard.offsetWidth;
+  el.questionCard.classList.add('is-enter');
+}
+
+function renderQuestion(index, animate) {
+  clearAdvanceTimer();
+  state.current = index;
+  const question = QUESTIONS[index];
+  el.qKicker.textContent = question.kicker;
+  el.questionTitle.textContent = question.title;
+  el.qGhost.textContent = CN_NUMERALS[index] || '';
+  el.prevBtn.disabled = index === 0;
+  el.qFootNote.textContent = index === QUESTIONS.length - 1
+    ? '最后一题 · 选完就能揭晓'
+    : '选完自动进入下一题';
+  renderOptions();
+  updateProgress(index + 1);
+  updateDots();
+  if (animate !== false) animateQuestionCard();
+  window.setTimeout(() => {
+    el.questionTitle.focus({ preventScroll: true });
+  }, prefersReducedMotion ? 0 : 220);
+}
+
+function paintSelectedOption() {
+  el.optionsList.querySelectorAll('.option').forEach((button, index) => {
+    const isPicked = state.answers[state.current] === index;
+    button.classList.toggle('is-picked', isPicked);
+    button.setAttribute('aria-pressed', String(isPicked));
+  });
+}
+
+function chooseOption(optionIndex) {
+  if (state.screen !== 'quiz') return;
+  const question = QUESTIONS[state.current];
+  if (!question || !question.options[optionIndex]) return;
+
+  clearAdvanceTimer();
+  state.answers[state.current] = optionIndex;
+  paintSelectedOption();
+  updateDots();
+  updateProgress(state.current + 1);
+
+  const isLast = state.current === QUESTIONS.length - 1;
+  const delay = prefersReducedMotion ? 140 : 420;
+
+  state.advanceTimer = window.setTimeout(() => {
+    state.advanceTimer = null;
+    if (isLast) {
+      if (state.answers.every((answer) => answer !== null)) {
+        showFinish();
+      } else {
+        const firstUnanswered = state.answers.findIndex((answer) => answer === null);
+        renderQuestion(firstUnanswered >= 0 ? firstUnanswered : 0, true);
+      }
+    } else {
+      renderQuestion(state.current + 1, true);
+    }
+  }, delay);
+}
+
+function goPrevious() {
+  clearAdvanceTimer();
+  if (state.current === 0) return;
+  renderQuestion(state.current - 1, true);
+}
+
+function showFinish() {
+  clearAdvanceTimer();
+  updateProgress(QUESTIONS.length);
+  updateDots();
+  state.screen = 'finish';
+  showScreen('finish');
+  document.title = '答案已集齐｜灵魂对号 · 中国历史女性专场';
+}
+
+function calculateScores() {
+  const raw = {};
+  DIMENSIONS.forEach((dimension) => {
+    raw[dimension.key] = 0;
+  });
+
+  state.answers.forEach((optionIndex, questionIndex) => {
+    if (optionIndex === null) return;
+    const weights = QUESTIONS[questionIndex].options[optionIndex].weights;
+    Object.keys(weights).forEach((key) => {
+      raw[key] += weights[key];
+    });
+  });
+
+  return raw;
+}
+
+function normalizeVector(vector) {
+  const total = vector.reduce((sum, value) => sum + value, 0) || 1;
+  return vector.map((value) => value / total);
+}
+
+function findBestMatch(rawScores) {
+  const vector = DIMENSIONS.map((dimension) => rawScores[dimension.key] || 0);
+  const profile = normalizeVector(vector);
+  const mean = 1 / DIMENSIONS.length;
+
+  // 更重视用户自己最突出的维度，匹配会更有“被说中”的感觉
+  const weights = profile.map((value) => 1 + 1.3 * Math.max(0, value - mean));
+
+  const ranked = RESULTS.map((result) => {
+    const resultProfile = normalizeVector(result.prototype);
+    const distance = Math.sqrt(
+      profile.reduce((sum, value, index) => {
+        const delta = value - resultProfile[index];
+        return sum + weights[index] * delta * delta;
+      }, 0)
+    );
+    return { result, distance };
+  }).sort((a, b) => a.distance - b.distance);
+
+  const best = ranked[0];
+  const affinity = Math.max(91, Math.min(98, Math.round(99 - best.distance * 20)));
+  return { result: best.result, affinity, distance: best.distance };
+}
+
+function buildSoulBars(rawScores) {
+  const total = Object.values(rawScores).reduce((sum, value) => sum + value, 0) || 1;
+  const ranked = DIMENSIONS.map((dimension) => {
+    const score = rawScores[dimension.key] || 0;
+    return {
+      ...dimension,
+      score,
+      percent: Math.round((score / total) * 100)
+    };
+  }).sort((a, b) => b.score - a.score);
+
+  const topFour = ranked.slice(0, 4);
+  const maxScore = topFour[0] ? topFour[0].score : 1;
+  const shownPercent = topFour.reduce((sum, dimension) => sum + dimension.percent, 0);
+  const remainingPercent = Math.max(0, 100 - shownPercent);
+
+  const bars = topFour.map((dimension) => {
+    const width = Math.max(8, Math.round((dimension.score / maxScore) * 100));
+    return `<div class="soul-bar">
+      <span class="soul-bar-label" style="--bar-color:${dimension.color}"><span style="color:${dimension.color}">${dimension.name}</span><em>${dimension.label}</em></span>
+      <span class="soul-bar-track"><i style="--bar-color:${dimension.color};--bar-width:${width}%"></i></span>
+      <span class="soul-bar-value">${dimension.percent}%</span>
+    </div>`;
+  }).join('');
+
+  return { ranked, bars, remainingPercent };
+}
+
+function resultCardHTML(result, affinity, rawScores) {
+  const { ranked, bars, remainingPercent } = buildSoulBars(rawScores);
+  const topDimension = ranked[0];
+  const topThreeTags = ranked.slice(0, 3).map((dimension) => dimension.label);
+  const badges = result.tags;
+
+  return `<div class="result-introbar">
+      <span>SOUL MATCH · 你的灵魂档案已生成</span>
+      <span class="match-pill">同频指数 ${affinity}%</span>
+    </div>
+
+    <article class="result-card" style="--accent:${result.theme.accent};--soft:${result.theme.soft};--deep:${result.theme.deep};">
+      <div class="result-cover">
+        <div class="avatar-panel">
+          <div class="avatar-frame">${buildAvatar(result)}</div>
+          <span class="avatar-badge">原创Q版形象 · ${result.seal}</span>
+          <p class="avatar-caption">The original soul portrait</p>
+        </div>
+
+        <div class="result-copy">
+          <p class="result-label">【你的本命历史人物 · 动漫形象】</p>
+          <div class="result-name-row">
+            <h2 class="result-name" id="resultTitle" tabindex="-1">${result.name}</h2>
+            <span class="name-seal" aria-hidden="true">${result.seal}</span>
+          </div>
+          <p class="result-title">${result.title} <strong>／ ${result.role}</strong></p>
+          <p class="result-who">她是谁：${result.who}</p>
+          <div class="trait-row">
+            ${badges.map((tag) => `<span class="trait-chip">${tag}</span>`).join('')}
+          </div>
+          <blockquote class="result-slogan">${result.slogan}</blockquote>
+        </div>
+      </div>
+
+      <div class="result-body">
+        <section class="story-panel">
+          <div class="panel-heading">
+            <span class="section-index">01</span>
+            <h3>【为什么是你】</h3>
+            <span class="panel-en">It's so you</span>
+          </div>
+          <div class="system-read">
+            <span>系统从 10 个选择里读到</span>
+            ${topDimension.read}
+          </div>
+          <p class="why-copy">${result.why}</p>
+        </section>
+
+        <section class="story-panel">
+          <div class="panel-heading">
+            <span class="section-index">02</span>
+            <h3>【你的隐藏特质 ＆ 小彩蛋】</h3>
+            <span class="panel-en">Secret file</span>
+          </div>
+          <div class="secret-list">
+            <div class="secret-item">
+              <span>隐藏特质</span>
+              <p>${result.hidden}</p>
+            </div>
+            <div class="secret-item">
+              <span>小彩蛋</span>
+              <p>${result.easter}</p>
+            </div>
+          </div>
+          <p class="highlight-line"><strong>你的高光时刻</strong>${result.highlight}</p>
+        </section>
+      </div>
+
+      <section class="recipe" aria-label="灵魂成分">
+        <div>
+          <h3 class="recipe-heading">你的灵魂配方</h3>
+          <p class="recipe-sub">由 10 个下意识选择生成<br>高浓度成分 Top ${ranked.length > 4 ? 4 : ranked.length}</p>
+          <p class="recipe-note">还有约 ${remainingPercent}% 的隐藏成分，留给懂你的人慢慢发现。</p>
+        </div>
+        <div class="soul-bars">${bars}</div>
+      </section>
+    </article>
+
+    <span class="sr-only" id="resultSummary">你的本命历史女性是${result.name}，灵魂关键词：${topThreeTags.join('、')}。</span>`;
+}
+
+function revealResult() {
+  clearAdvanceTimer();
+  if (state.answers.some((answer) => answer === null)) {
+    showToast('还有题目没有回答，先回去补上吧');
+    return;
+  }
+
+  state.scores = calculateScores();
+  const match = findBestMatch(state.scores);
+  state.result = match.result;
+  state.affinity = match.affinity;
+  const result = state.result;
+  const fileIndex = RESULTS.findIndex((item) => item.id === result.id);
+  el.soulFileNo.textContent = `SOUL FILE · NO. ${padNumber(fileIndex + 1)}`;
+  el.resultContent.innerHTML = resultCardHTML(result, state.affinity, state.scores);
+  document.title = `我的本命历史女性是${result.name}｜灵魂对号`;
+  showScreen('result');
+  state.screen = 'result';
+  el.copyResultBtn.innerHTML = '复制我的结果，去问朋友 <span aria-hidden="true">↗</span>';
+  window.setTimeout(() => {
+    const title = document.getElementById('resultTitle');
+    if (title) title.focus({ preventScroll: true });
+  }, prefersReducedMotion ? 0 : 420);
+}
+
+function backToReview() {
+  showScreen('quiz');
+  state.screen = 'quiz';
+  document.title = '检查答案｜灵魂对号 · 中国历史女性专场';
+  renderQuestion(QUESTIONS.length - 1, true);
+}
+
+function getShareText() {
+  if (!state.result) return '';
+  const { ranked } = buildSoulBars(state.scores);
+  const traits = ranked.slice(0, 3).map((dimension) => dimension.label).join(' × ');
+  const shareUrl = 'https://bettybin123.github.io/mini-games/';
+  return `📜 我的本命历史女性是【${state.result.name}】\n${state.result.title}｜${state.result.role}\n「${state.result.slogan}」\n我的灵魂成分：${traits}\n你也来测测，看看灵魂和哪位她同频？\n${shareUrl}`;
+}
+
+async function copyResult() {
+  if (!state.result) return;
+  const text = getShareText();
+  let copied = false;
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      copied = true;
+    }
+  } catch (error) {
+    copied = false;
+  }
+
+  if (!copied) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      copied = document.execCommand('copy');
+    } catch (error) {
+      copied = false;
+    }
+    textarea.remove();
+  }
+
+  if (copied) {
+    showToast('结果文案已复制，去发给朋友吧');
+    el.copyResultBtn.innerHTML = '已复制，去问朋友 <span aria-hidden="true">✓</span>';
+    window.setTimeout(() => {
+      el.copyResultBtn.innerHTML = '复制我的结果，去问朋友 <span aria-hidden="true">↗</span>';
+    }, 2200);
+  } else {
+    showToast('复制没成功，截图这张结果卡也很有排面');
+  }
+}
+
+function retake() {
+  startQuiz();
+  showToast('新的一轮开始，这次也凭第一感觉');
+}
+
+function handleKeyboard(event) {
+  if (state.screen !== 'quiz') return;
+  if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+  const keyMap = {
+    '1': 0, '2': 1, '3': 2, '4': 3,
+    a: 0, b: 1, c: 2, d: 3,
+    A: 0, B: 1, C: 2, D: 3
+  };
+
+  if (Object.prototype.hasOwnProperty.call(keyMap, event.key)) {
+    event.preventDefault();
+    chooseOption(keyMap[event.key]);
+    return;
+  }
+
+  if (event.key === 'ArrowLeft' || event.key === 'Backspace') {
+    if (state.current > 0) {
+      event.preventDefault();
+      goPrevious();
+    }
+  }
+}
+
+function initHeroAvatars() {
+  const map = [
+    [el.heroPortraitMain, 'qingzhao'],
+    [el.heroPortraitLeft, 'mulan'],
+    [el.heroPortraitRight, 'wu']
+  ];
+
+  map.forEach(([container, id]) => {
+    if (!container) return;
+    const result = getResultById(id);
+    if (result) container.innerHTML = buildAvatar(result, 'hero-avatar');
+  });
+}
+
+function initEvents() {
+  el.startBtn.addEventListener('click', startQuiz);
+  el.revealBtn.addEventListener('click', revealResult);
+  el.reviewBtn.addEventListener('click', backToReview);
+  el.prevBtn.addEventListener('click', goPrevious);
+  el.copyResultBtn.addEventListener('click', copyResult);
+  el.retakeBtn.addEventListener('click', retake);
+  el.retakeTopBtn.addEventListener('click', retake);
+
+  el.optionsList.addEventListener('click', (event) => {
+    const button = event.target.closest('.option');
+    if (!button) return;
+    const optionIndex = Number(button.dataset.option);
+    if (Number.isNaN(optionIndex)) return;
+    chooseOption(optionIndex);
+  });
+
+  document.querySelectorAll('[data-home-link]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      goHome();
+    });
+  });
+
+  document.addEventListener('keydown', handleKeyboard);
+}
+
+function init() {
+  initHeroAvatars();
+  initEvents();
+  updateProgress(1);
+  updateDots();
+  document.title = BASE_TITLE;
+}
+
+init();
+
+  </script>
+</body>
+</html>
