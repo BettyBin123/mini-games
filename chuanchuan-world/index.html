@@ -1,0 +1,3575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#8FBC8F">
+<meta name="description" content="穿越串串世界：一个关于鸡爪、串子和一只鸡的荒诞互动视觉小说。六轮对话，五个结局，测测你的串商。">
+<meta property="og:title" content="穿越串串世界">
+<meta property="og:description" content="敢不敢测测你的串商：六轮对话，五个结局，一只鸡。">
+<meta property="og:type" content="website">
+<title>穿越串串世界 | 串商测试</title>
+<style>
+  :root {
+    --green-deep: #2E4A27;
+    --green-dark: #3E6232;
+    --green: #527D3E;
+    --green-mid: #6E9E4E;
+    --green-light: #93BC61;
+    --green-pale: #C7DA8A;
+    --parchment: #F7E3A1;
+    --parchment-light: #FFF3C4;
+    --parchment-dark: #D9B86A;
+    --yellow: #F4C542;
+    --yellow-light: #FFE58A;
+    --orange: #C66A2B;
+    --orange-dark: #8F3F1C;
+    --leaf: #5E8C3A;
+    --leaf-dark: #355C25;
+    --wood: #6B3F1F;
+    --wood-light: #A9672E;
+    --wood-dark: #3A2414;
+    --ink: #3A2414;
+    --cream: #FFF9E6;
+    --red: #B84A3A;
+    --blue: #5F9EA0;
+    --pink: #E88BA0;
+    --purple: #7B4B8A;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { min-height: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    color: var(--ink);
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", "Heiti SC", sans-serif;
+    font-weight: 700;
+    background-color: var(--green);
+    background-image:
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(0,0,0,.045) 1px, transparent 1px),
+      repeating-linear-gradient(45deg, transparent 0 14px, rgba(255,255,255,.022) 14px 15px);
+    background-size: 8px 8px, 8px 8px, 28px 28px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button { font: inherit; }
+
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 4px solid var(--yellow-light);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--yellow);
+    color: var(--wood-dark);
+  }
+
+  [hidden] { display: none !important; }
+
+  svg { shape-rendering: crispEdges; }
+
+  .pixel-sprite {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+  }
+
+  .sprite-sheet {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  #app { position: relative; width: 100%; }
+
+  .screen { display: none; width: 100%; }
+  .screen.active { display: block; animation: screenIn .18s steps(3) both; }
+
+  /* ============ 启动界面 ============ */
+
+  .start-screen {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--green);
+  }
+
+  .start-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background-color: var(--green);
+  }
+
+  .claw-layer {
+    position: absolute;
+    inset: -24%;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIiB2aWV3Qm94PSIwIDAgMjQwIDI0MCIgc2hhcGUtcmVuZGVyaW5nPSJjcmlzcEVkZ2VzIj48ZGVmcz48ZyBpZD0iY2xhdyI+PHJlY3QgeD0iNyIgeT0iMCIgd2lkdGg9IjIiIGhlaWdodD0iNSIgZmlsbD0iI0Y0QzU0MiIvPjxyZWN0IHg9IjYiIHk9IjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjMiIGZpbGw9IiNFNkEyM0MiLz48cmVjdCB4PSIzIiB5PSI4IiB3aWR0aD0iMiIgaGVpZ2h0PSI1IiBmaWxsPSIjRjRDNTQyIi8+PHJlY3QgeD0iNyIgeT0iOCIgd2lkdGg9IjIiIGhlaWdodD0iNiIgZmlsbD0iI0Y0QzU0MiIvPjxyZWN0IHg9IjExIiB5PSI4IiB3aWR0aD0iMiIgaGVpZ2h0PSI1IiBmaWxsPSIjRjRDNTQyIi8+PHJlY3QgeD0iMiIgeT0iMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiNDNjZBMkIiLz48cmVjdCB4PSI2IiB5PSIxMyIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iI0M2NkEyQiIvPjxyZWN0IHg9IjEwIiB5PSIxMiIgd2lkdGg9IjIiIGhlaWdodD0iMiIgZmlsbD0iI0M2NkEyQiIvPjxyZWN0IHg9IjciIHk9IjE1IiB3aWR0aD0iMiIgaGVpZ2h0PSIxIiBmaWxsPSIjQzY2QTJCIi8+PHJlY3QgeD0iOCIgeT0iMyIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0iI0ZGRjNDNCIvPjwvZz48L2RlZnM+PGcgb3BhY2l0eT0iMC45Ij48dXNlIGhyZWY9IiNjbGF3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxOCAxNikgc2NhbGUoMi41KSByb3RhdGUoLTE2KSIvPjx1c2UgaHJlZj0iI2NsYXciIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0MiAxMikgc2NhbGUoMi4xKSByb3RhdGUoMTgpIi8+PHVzZSBocmVmPSIjY2xhdyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzggOTIpIHNjYWxlKDIuNykgcm90YXRlKDM0KSIvPjx1c2UgaHJlZj0iI2NsYXciIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE4OCAxMDgpIHNjYWxlKDEuOCkgcm90YXRlKC0yOCkiLz48dXNlIGhyZWY9IiNjbGF3IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyOCAxNjgpIHNjYWxlKDIuMikgcm90YXRlKDkpIi8+PHVzZSBocmVmPSIjY2xhdyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ2IDE4OCkgc2NhbGUoMi4zKSByb3RhdGUoLTcpIi8+PC9nPjwvc3ZnPg==");
+    background-repeat: repeat;
+    image-rendering: pixelated;
+    will-change: background-position;
+  }
+
+  .claw-layer-1 {
+    background-size: 240px 240px;
+    opacity: .33;
+    animation: clawFallA 18s linear infinite;
+  }
+
+  .claw-layer-2 {
+    background-size: 300px 300px;
+    opacity: .21;
+    animation: clawFallB 24s linear infinite;
+    animation-delay: -8s;
+  }
+
+  .claw-layer-3 {
+    background-size: 180px 180px;
+    opacity: .15;
+    animation: clawFallC 13s linear infinite;
+    animation-delay: -4s;
+  }
+
+  .start-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(45deg, rgba(58,36,20,.07) 25%, transparent 25%, transparent 75%, rgba(58,36,20,.07) 75%);
+    background-size: 8px 8px;
+    opacity: .38;
+  }
+
+  .start-content {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    padding: clamp(18px, 4vw, 42px);
+  }
+
+  .start-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 2vh;
+  }
+
+  .start-title-card {
+    width: min(920px, 94vw);
+    padding: clamp(20px, 4vw, 42px) clamp(18px, 4vw, 46px);
+    background: rgba(46, 74, 39, .82);
+    border: 4px solid var(--wood-dark);
+    box-shadow:
+      inset 0 0 0 4px var(--wood-light),
+      0 8px 0 rgba(58, 36, 20, .65);
+    text-align: center;
+  }
+
+  .start-kicker {
+    display: inline-block;
+    padding: 6px 12px;
+    color: var(--yellow);
+    background: var(--green-deep);
+    border: 2px solid var(--wood-dark);
+    box-shadow: 0 3px 0 var(--wood-dark);
+    font-family: "Courier New", monospace;
+    font-size: clamp(9px, 1.2vw, 11px);
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .start-title {
+    margin: 16px 0 0;
+    color: var(--yellow);
+    font-size: clamp(40px, 7.4vw, 88px);
+    line-height: 1.08;
+    letter-spacing: .08em;
+    font-weight: 900;
+    text-shadow:
+      4px 4px 0 var(--orange-dark),
+      8px 8px 0 rgba(58, 36, 20, .4);
+  }
+
+  .start-subtitle {
+    margin: 14px 0 0;
+    color: var(--yellow-light);
+    font-size: clamp(17px, 2.6vw, 29px);
+    line-height: 1.5;
+    letter-spacing: .04em;
+    font-weight: 900;
+    text-shadow: 2px 2px 0 var(--orange-dark);
+  }
+
+  .start-mascot {
+    width: clamp(52px, 8vw, 80px);
+    height: clamp(52px, 8vw, 80px);
+    margin: 18px auto 0;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 6px 0 rgba(58, 36, 20, .35));
+    animation: bob 2.4s steps(2) infinite;
+  }
+
+  .start-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 4vh;
+  }
+
+  .start-btn-main,
+  .start-btn-share {
+    width: min(440px, 86vw);
+    min-height: 56px;
+    font-size: clamp(18px, 2.4vw, 22px);
+    font-weight: 900;
+    letter-spacing: .08em;
+    padding: 15px 20px;
+  }
+
+  .start-btn-main {
+    color: var(--orange-dark);
+    background: var(--yellow);
+    border-color: var(--wood-dark);
+    box-shadow: 0 8px 0 var(--orange-dark), 0 12px 0 var(--wood-dark);
+  }
+
+  .start-btn-main:hover {
+    background: var(--yellow-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 0 var(--orange-dark), 0 14px 0 var(--wood-dark);
+  }
+
+  .start-btn-main:active {
+    transform: translateY(5px);
+    box-shadow: 0 3px 0 var(--orange-dark), 0 6px 0 var(--wood-dark);
+  }
+
+  .start-btn-share {
+    color: var(--cream);
+    background: var(--leaf);
+    border-color: var(--wood-dark);
+    box-shadow: 0 8px 0 var(--leaf-dark), 0 12px 0 var(--wood-dark);
+    font-size: clamp(15px, 2vw, 18px);
+  }
+
+  .start-btn-share:hover {
+    background: #6FA247;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 0 var(--leaf-dark), 0 14px 0 var(--wood-dark);
+  }
+
+  .start-btn-share:active {
+    transform: translateY(5px);
+    box-shadow: 0 3px 0 var(--leaf-dark), 0 6px 0 var(--wood-dark);
+  }
+
+  .start-share-feedback {
+    min-height: 1.6em;
+    max-width: min(520px, 88vw);
+    color: var(--parchment-light);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    text-shadow: 2px 2px 0 var(--green-deep);
+  }
+
+  /* ============ 序章 ============ */
+
+  .intro-wrap {
+    width: min(1100px, 100%);
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .intro-board {
+    position: relative;
+    width: 100%;
+    padding: clamp(26px, 4.5vw, 42px) clamp(22px, 5vw, 56px) 30px;
+    text-align: left;
+    background-color: var(--parchment);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(143,63,28,.055) 0 2px, transparent 2px 7px);
+    border: 6px solid var(--wood-dark);
+    box-shadow:
+      inset 0 0 0 4px var(--wood-light),
+      inset 0 0 0 8px var(--parchment-light),
+      0 8px 0 var(--wood-dark);
+    transition: opacity .18s steps(2), transform .18s steps(2);
+  }
+
+  .intro-board::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 2px solid var(--wood-light);
+    pointer-events: none;
+    opacity: .55;
+  }
+
+  .intro-board.done {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+  }
+
+  .intro-kicker,
+  .ending-kicker {
+    display: inline-block;
+    padding: 6px 11px;
+    color: var(--yellow);
+    background: var(--green-deep);
+    border: 2px solid var(--wood-dark);
+    box-shadow: 0 3px 0 var(--wood-dark);
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .intro-title {
+    margin: 0 0 8px;
+    color: var(--orange-dark);
+    font-size: clamp(22px, 3vw, 30px);
+    line-height: 1.25;
+    letter-spacing: .06em;
+    font-weight: 900;
+    text-align: left;
+    text-shadow: 2px 2px 0 var(--yellow);
+  }
+
+  .intro-kicker {
+    margin-bottom: 14px;
+  }
+
+  .intro-text {
+    min-height: 12em;
+    display: block;
+    margin: 20px 0 0;
+    max-width: 900px;
+    color: var(--ink);
+    font-size: clamp(19px, 2.6vw, 24px);
+    line-height: 2;
+    font-weight: 700;
+    text-align: left;
+    transition: opacity .16s steps(2), transform .16s steps(2);
+  }
+
+  .intro-text.fade {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .intro-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 18px;
+  }
+
+  .intro-dots span {
+    width: 9px;
+    height: 9px;
+    background: var(--parchment-dark);
+    border: 2px solid var(--wood);
+    transition: .12s steps(2);
+  }
+
+  .intro-dots span.active {
+    background: var(--yellow);
+    border-color: var(--orange-dark);
+    transform: translateY(-2px);
+  }
+
+  .skip-btn {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    padding: 4px 8px;
+    border: 0;
+    background: transparent;
+    color: var(--wood);
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: underline dotted;
+  }
+
+  .skip-btn:hover { color: var(--orange-dark); }
+
+  .start-btn {
+    margin-top: 24px;
+    padding: 15px 42px;
+    font-size: clamp(17px, 2.4vw, 20px);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .2s steps(2), transform .2s steps(2);
+  }
+
+  .start-btn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  /* ============ 游戏主体 ============ */
+
+  .game-shell {
+    width: min(980px, 100%);
+    margin: 0 auto;
+    padding: 28px 18px 24px;
+  }
+
+  .game-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin-bottom: 14px;
+  }
+
+  .game-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 12px;
+    color: var(--cream);
+    background-color: var(--wood);
+    background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.055) 0 2px, transparent 2px 9px);
+    border: 4px solid var(--wood-dark);
+    box-shadow: inset 0 0 0 3px var(--wood-light), 0 5px 0 var(--wood-dark);
+  }
+
+  .brand-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 auto;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 2px 0 rgba(0,0,0,.25));
+  }
+
+  .brand-title { font-size: 15px; line-height: 1.15; letter-spacing: .04em; font-weight: 900; }
+  .brand-sub { margin-top: 3px; font-size: 10px; line-height: 1.2; opacity: .8; letter-spacing: .08em; }
+
+  .hud {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+
+  .round-badge,
+  .wit-badge {
+    padding: 7px 9px;
+    color: var(--ink);
+    background: var(--parchment);
+    border: 3px solid var(--wood-dark);
+    box-shadow: 0 3px 0 var(--wood);
+    font-size: clamp(10px, 1.5vw, 12px);
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  .round-badge { max-width: 100%; white-space: normal; text-align: left; }
+
+  .wit-badge {
+    white-space: nowrap;
+    background: var(--yellow-light);
+    color: var(--orange-dark);
+  }
+
+  .wit-badge.pulse { animation: witPulse .24s steps(2); }
+
+  .progress-track {
+    flex-basis: 100%;
+    height: 16px;
+    overflow: hidden;
+    background: var(--green-deep);
+    border: 3px solid var(--wood-dark);
+    box-shadow: inset 0 3px 0 rgba(0,0,0,.25), 0 3px 0 rgba(255,255,255,.18);
+  }
+
+  .progress-fill {
+    width: 0%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg, var(--yellow) 0 12px, var(--orange) 12px 15px, var(--leaf) 15px 27px);
+    transition: width .3s steps(6);
+  }
+
+  .stage { position: relative; margin-top: 16px; }
+
+  .portrait-area {
+    position: relative;
+    height: clamp(150px, 20vw, 214px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    pointer-events: none;
+  }
+
+  .portrait {
+    width: clamp(124px, 17vw, 168px);
+    height: clamp(124px, 17vw, 168px);
+    padding: 8px;
+    background-color: var(--green-deep);
+    background-image:
+      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%, transparent 75%, rgba(255,255,255,.05) 75%);
+    background-size: 8px 8px;
+    border: 4px solid var(--wood-dark);
+    box-shadow:
+      inset 0 0 0 4px var(--wood-light),
+      0 6px 0 var(--wood-dark);
+    image-rendering: pixelated;
+  }
+
+  .portrait .pixel-sprite {
+    width: 100%;
+    height: 100%;
+    animation: bob 2.4s steps(2) infinite;
+    filter: drop-shadow(0 4px 0 rgba(0,0,0,.18));
+  }
+
+  .portrait-shadow {
+    width: min(220px, 46vw);
+    height: 12px;
+    margin-top: 8px;
+    background: rgba(58, 36, 20, .28);
+    clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
+  }
+
+  .dialog-card {
+    position: relative;
+    width: 100%;
+    min-height: 190px;
+    padding: clamp(22px, 3.2vw, 32px);
+    color: var(--ink);
+    background-color: var(--parchment);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(143,63,28,.055) 0 2px, transparent 2px 7px);
+    border: 6px solid var(--wood-dark);
+    box-shadow:
+      inset 0 0 0 4px var(--wood-light),
+      inset 0 0 0 8px var(--parchment-light),
+      0 7px 0 var(--wood-dark);
+    cursor: pointer;
+    user-select: none;
+    transition: transform .08s steps(2), box-shadow .08s steps(2);
+  }
+
+  .dialog-card:hover { transform: translateY(-2px); }
+  .dialog-card:active { transform: translateY(1px); }
+  .dialog-card.choices-open { cursor: default; }
+  .dialog-card.choices-open:hover,
+  .dialog-card.choices-open:active { transform: none; }
+
+  .speaker-tag {
+    position: absolute;
+    top: -17px;
+    left: 16px;
+    max-width: calc(100% - 32px);
+    padding: 6px 12px;
+    color: var(--cream);
+    background: var(--wood);
+    border: 3px solid var(--wood-dark);
+    box-shadow: inset 0 0 0 2px var(--wood-light), 0 4px 0 var(--wood-dark);
+    font-size: clamp(12px, 1.7vw, 15px);
+    line-height: 1.3;
+    font-weight: 900;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dialog-text {
+    position: relative;
+    z-index: 1;
+    min-height: 5.2em;
+    padding-top: 4px;
+    color: var(--ink);
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: 1.9;
+    font-weight: 700;
+    white-space: pre-wrap;
+  }
+
+  .dialog-text.typing::after {
+    content: "▌";
+    margin-left: 2px;
+    color: var(--orange);
+    animation: blink .7s steps(1) infinite;
+  }
+
+  .continue-hint {
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+    color: var(--wood);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    animation: blink 1.4s steps(1) infinite;
+  }
+
+  .continue-hint.hidden { opacity: 0; animation: none; }
+
+  .choice-area { margin-top: 16px; animation: choiceIn .14s steps(2) both; }
+
+  .choice-prompt {
+    margin: 0 0 10px 2px;
+    color: var(--parchment-light);
+    font-size: clamp(12px, 1.7vw, 14px);
+    font-weight: 900;
+    letter-spacing: .03em;
+    text-shadow: 2px 2px 0 var(--green-deep);
+  }
+
+  .choices {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .choice-btn {
+    position: relative;
+    width: 100%;
+    min-height: 54px;
+    padding: 13px 15px;
+    color: var(--ink);
+    text-align: left;
+    background-color: var(--parchment);
+    background-image: repeating-linear-gradient(0deg, rgba(143,63,28,.05) 0 2px, transparent 2px 7px);
+    border: 4px solid var(--wood-dark);
+    box-shadow: inset 0 0 0 3px var(--parchment-light), 0 5px 0 var(--wood-dark);
+    font-size: clamp(14px, 1.9vw, 16px);
+    line-height: 1.6;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .06s steps(2), box-shadow .06s steps(2), background-color .06s steps(2);
+  }
+
+  .choice-btn:hover {
+    background-color: var(--parchment-light);
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 3px var(--parchment-light), 0 7px 0 var(--wood-dark);
+  }
+
+  .choice-btn:active {
+    transform: translateY(4px);
+    box-shadow: inset 0 0 0 3px var(--parchment-light), 0 1px 0 var(--wood-dark);
+  }
+
+  .choice-btn:disabled { cursor: default; opacity: .92; }
+
+  .choice-btn.correct {
+    color: var(--leaf-dark);
+    background-color: #C9E18A;
+    border-color: var(--leaf-dark);
+    box-shadow: inset 0 0 0 3px #E7F4B8, 0 5px 0 var(--leaf-dark);
+    animation: pop .2s steps(2);
+  }
+
+  .choice-btn.wrong {
+    color: #6A2515;
+    background-color: #F0A58A;
+    border-color: #8A3B22;
+    box-shadow: inset 0 0 0 3px #FFD8CC, 0 5px 0 #8A3B22;
+    animation: shake .24s steps(2);
+  }
+
+  .choice-btn.selected {
+    color: var(--wood-dark);
+    background-color: var(--yellow);
+    border-color: var(--orange-dark);
+    box-shadow: inset 0 0 0 3px var(--yellow-light), 0 5px 0 var(--orange-dark);
+    animation: pop .2s steps(2);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 4px solid var(--wood-dark);
+    font-size: clamp(14px, 1.8vw, 16px);
+    line-height: 1.3;
+    font-weight: 900;
+    letter-spacing: .02em;
+    cursor: pointer;
+    transition: transform .06s steps(2), box-shadow .06s steps(2), background-color .06s steps(2);
+  }
+
+  .btn-primary {
+    color: var(--cream);
+    background: var(--leaf);
+    box-shadow: inset 0 0 0 3px #78A64E, 0 6px 0 var(--leaf-dark);
+    text-shadow: 2px 2px 0 rgba(53, 92, 37, .55);
+  }
+
+  .btn-primary:hover {
+    background: #6FA247;
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 3px #78A64E, 0 8px 0 var(--leaf-dark);
+  }
+
+  .btn-primary:active {
+    transform: translateY(4px);
+    box-shadow: inset 0 0 0 3px #78A64E, 0 2px 0 var(--leaf-dark);
+  }
+
+  .btn-secondary {
+    color: var(--ink);
+    background: var(--parchment);
+    box-shadow: inset 0 0 0 3px var(--parchment-light), 0 6px 0 var(--wood);
+  }
+
+  .btn-secondary:hover {
+    background: var(--parchment-light);
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 0 3px var(--parchment-light), 0 8px 0 var(--wood);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(4px);
+    box-shadow: inset 0 0 0 3px var(--parchment-light), 0 2px 0 var(--wood);
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    z-index: 60;
+    max-width: min(90vw, 560px);
+    padding: 12px 16px;
+    color: var(--cream);
+    background: var(--green-deep);
+    border: 3px solid var(--wood-dark);
+    box-shadow: inset 0 0 0 2px var(--wood-light), 0 5px 0 var(--wood-dark);
+    font-size: clamp(12px, 1.8vw, 14px);
+    line-height: 1.5;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(-50%) translateY(18px);
+    transition: opacity .12s steps(2), transform .12s steps(2);
+    pointer-events: none;
+  }
+
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.wrong { background: #8A3B22; }
+  .toast.correct { background: var(--leaf-dark); }
+
+  /* ============ 结局卷轴 ============ */
+
+  .ending-wrap {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    padding: 28px 18px 40px;
+  }
+
+  .ending-scroll {
+    position: relative;
+    padding: clamp(26px, 4.4vw, 48px);
+    background-color: var(--parchment);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(143,63,28,.055) 0 2px, transparent 2px 7px);
+    border: 6px solid var(--wood-dark);
+    box-shadow:
+      inset 0 0 0 4px var(--wood-light),
+      inset 0 0 0 8px var(--parchment-light),
+      0 8px 0 var(--wood-dark);
+  }
+
+  .ending-scroll::before,
+  .ending-scroll::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    bottom: -6px;
+    width: 14px;
+    background: var(--wood);
+    border: 3px solid var(--wood-dark);
+    box-shadow: inset 0 0 0 3px var(--wood-light);
+  }
+
+  .ending-scroll::before { left: -13px; }
+  .ending-scroll::after { right: -13px; }
+
+  .ending-kicker { margin-bottom: 12px; }
+
+  .ending-meta {
+    margin: 4px 0 18px;
+    color: var(--wood);
+    font-size: 12px;
+    letter-spacing: .05em;
+  }
+
+  .ending-block {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .4s steps(3), transform .4s steps(3);
+  }
+
+  .ending-block.show { opacity: 1; transform: translateY(0); }
+
+  .ending-label {
+    margin-bottom: 8px;
+    color: var(--wood);
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  .ending-choice {
+    padding: 12px 14px;
+    color: var(--ink);
+    background: rgba(94, 140, 58, .12);
+    border-left: 6px solid var(--leaf);
+    font-size: clamp(14px, 1.9vw, 17px);
+    line-height: 1.7;
+    font-weight: 800;
+  }
+
+  .ending-text {
+    color: var(--ink);
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 2;
+    font-weight: 600;
+    white-space: pre-line;
+  }
+
+  .ending-divider {
+    height: 3px;
+    margin: 22px 0;
+    background: repeating-linear-gradient(90deg, var(--wood) 0 8px, transparent 8px 14px);
+    opacity: .5;
+  }
+
+  .ending-title-block { text-align: center; }
+
+  .ending-icon {
+    width: clamp(48px, 8vw, 72px);
+    height: clamp(48px, 8vw, 72px);
+    margin: 0 auto;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 4px 0 rgba(58, 36, 20, .2));
+  }
+
+  .ending-title {
+    margin-top: 10px;
+    color: var(--orange-dark);
+    font-size: clamp(23px, 3.6vw, 36px);
+    line-height: 1.35;
+    font-weight: 900;
+    letter-spacing: .03em;
+    text-shadow: 3px 3px 0 var(--yellow), -2px -2px 0 var(--parchment-light);
+  }
+
+  .ending-title.true {
+    color: var(--yellow);
+    text-shadow: 3px 3px 0 var(--leaf-dark), -2px -2px 0 var(--cream);
+  }
+
+  .ending-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 26px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .2s steps(2), transform .2s steps(2);
+    pointer-events: none;
+  }
+
+  .ending-actions.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .share-box {
+    margin-top: 18px;
+    padding: 12px 14px;
+    color: var(--wood);
+    background: rgba(107, 63, 31, .08);
+    border: 2px solid var(--wood-light);
+    font-size: 12px;
+    line-height: 1.7;
+    font-weight: 600;
+    word-break: break-all;
+    white-space: pre-wrap;
+    user-select: all;
+  }
+
+  .share-note {
+    margin-top: 8px;
+    color: var(--wood);
+    font-size: 11px;
+    line-height: 1.6;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  /* ============ 回合开场 ============ */
+
+  .round-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 35, 18, .86);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s steps(2);
+  }
+
+  .round-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(135deg, transparent 0 22px, rgba(244,197,66,.075) 22px 24px);
+  }
+
+  .round-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .round-overlay-content {
+    position: relative;
+    z-index: 1;
+    width: min(760px, 90vw);
+    padding: clamp(18px, 4vw, 34px);
+    text-align: center;
+    border-top: 6px solid var(--yellow);
+    border-bottom: 6px solid var(--yellow);
+    background: rgba(46, 74, 39, .86);
+    box-shadow: 0 0 0 4px var(--wood-dark);
+    transform: scale(.94);
+    transition: transform .18s steps(2);
+  }
+
+  .round-overlay.show .round-overlay-content { transform: scale(1); }
+
+  .round-word {
+    color: var(--yellow);
+    font-family: "Courier New", monospace;
+    font-size: clamp(18px, 3vw, 30px);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: .38em;
+    text-indent: .38em;
+    text-shadow: 3px 3px 0 var(--orange-dark);
+  }
+
+  .round-number {
+    color: var(--cream);
+    font-family: "Courier New", monospace;
+    font-size: clamp(112px, 21vw, 216px);
+    line-height: .9;
+    font-weight: 900;
+    letter-spacing: .04em;
+    text-shadow:
+      8px 8px 0 var(--orange-dark),
+      14px 14px 0 var(--wood-dark);
+  }
+
+  .round-overlay.show .round-number { animation: roundPop .3s steps(3); }
+
+  .round-rule {
+    width: min(520px, 80%);
+    height: 6px;
+    margin: 12px auto 10px;
+    background: repeating-linear-gradient(90deg, var(--yellow) 0 18px, transparent 18px 26px);
+  }
+
+  .round-fight {
+    color: var(--yellow-light);
+    font-family: "Courier New", monospace;
+    font-size: clamp(24px, 5vw, 48px);
+    line-height: 1.2;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-shadow: 4px 4px 0 var(--orange-dark);
+  }
+
+  .round-overlay.show .round-fight { animation: fightFlash .5s steps(2) infinite; }
+
+  /* ============ 动画 ============ */
+
+  @keyframes screenIn {
+    0% { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes choiceIn {
+    0% { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes blink {
+    0%, 48% { opacity: 1; }
+    49%, 100% { opacity: 0; }
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-3px); }
+  }
+
+  @keyframes witPulse {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes roundPop {
+    0% { transform: scale(.72); opacity: 0; }
+    55% { transform: scale(1.06); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes fightFlash {
+    0%, 45% { opacity: 1; }
+    46%, 100% { opacity: .35; }
+  }
+
+  @keyframes clawFallA {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 240px; }
+  }
+
+  @keyframes clawFallB {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 300px; }
+  }
+
+  @keyframes clawFallC {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 180px; }
+  }
+
+  /* ============ 响应式 ============ */
+
+  @media (min-width: 860px) {
+    .choices { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .choice-btn:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .dialog-card { min-height: 210px; }
+  }
+
+  @media (max-width: 680px) {
+    .round-overlay-content { width: 92vw; padding: 18px 12px; }
+    .round-word { font-size: 18px; letter-spacing: .3em; text-indent: .3em; }
+    .round-number { font-size: clamp(96px, 28vw, 150px); text-shadow: 6px 6px 0 var(--orange-dark), 10px 10px 0 var(--wood-dark); }
+    .round-fight { font-size: 28px; }
+
+    .start-content {
+      padding: 14px 12px calc(18px + env(safe-area-inset-bottom));
+    }
+
+    .start-title-card {
+      width: 94vw;
+      padding: 22px 16px 24px;
+    }
+
+    .start-title { font-size: clamp(36px, 11vw, 54px); }
+    .start-subtitle { font-size: 16px; }
+    .start-mascot { width: 54px; height: 54px; margin-top: 14px; }
+    .start-actions { gap: 12px; padding-bottom: 2vh; }
+    .start-btn-main, .start-btn-share { width: 88vw; min-height: 52px; }
+    .start-btn-main { font-size: 19px; }
+    .start-btn-share { font-size: 15px; }
+
+    .intro-wrap { padding: 14px 12px calc(22px + env(safe-area-inset-bottom)); }
+    .intro-board { padding: 22px 16px 26px; border-width: 5px; }
+    .intro-board::before { inset: 9px; }
+    .intro-text { min-height: 10em; font-size: 17px; line-height: 1.9; }
+    .intro-title { font-size: 24px; }
+
+    .game-shell { padding: 14px 12px calc(22px + env(safe-area-inset-bottom)); }
+    .game-brand { padding: 7px 9px; }
+    .brand-icon { width: 24px; height: 24px; }
+    .brand-title { font-size: 12px; }
+    .brand-sub { font-size: 9px; }
+    .hud { width: 100%; margin-left: 0; justify-content: space-between; }
+    .round-badge { flex: 1 1 auto; }
+    .wit-badge { flex: 0 0 auto; }
+
+    .portrait-area { height: 140px; }
+    .portrait { width: 116px; height: 116px; padding: 6px; }
+    .portrait-shadow { height: 10px; }
+
+    .dialog-card {
+      min-height: 218px;
+      padding: 22px 15px 26px;
+      border-width: 5px;
+    }
+
+    .speaker-tag {
+      top: -15px;
+      left: 10px;
+      padding: 5px 9px;
+      border-width: 3px;
+      font-size: 12px;
+    }
+
+    .dialog-text { min-height: 6.4em; font-size: 16px; line-height: 1.85; }
+    .continue-hint { right: 12px; bottom: 8px; font-size: 9px; }
+    .choice-btn { padding: 12px 12px; font-size: 14px; }
+
+    .ending-wrap { padding: 14px 12px 30px; }
+    .ending-scroll { padding: 24px 17px 26px; border-width: 5px; }
+    .ending-scroll::before, .ending-scroll::after { width: 9px; }
+    .ending-scroll::before { left: -8px; }
+    .ending-scroll::after { right: -8px; }
+    .ending-title { font-size: 23px; }
+    .ending-text { font-size: 15px; line-height: 1.9; }
+    .ending-actions .btn { flex: 1 1 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+
+<style id="text-editor-style">
+/* ================= TEXT EDITOR START ================= */
+  .text-editor {
+    position: fixed;
+    top: 80px;
+    right: 18px;
+    z-index: 1000;
+    width: min(390px, calc(100vw - 24px));
+    max-height: min(78vh, 640px);
+    display: flex;
+    flex-direction: column;
+    color: #e9e9e9;
+    background: rgba(18, 18, 18, .9);
+    border: 1px solid #5c5c5c;
+    border-radius: 10px;
+    box-shadow: 0 20px 52px rgba(0, 0, 0, .58);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+    font-weight: 600;
+  }
+
+  .text-editor[hidden] { display: none !important; }
+
+  .editor-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, .055);
+    border-bottom: 1px solid #444;
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+  }
+
+  .editor-title {
+    color: #f2f2f2;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: .08em;
+    font-weight: 700;
+  }
+
+  .editor-title small {
+    margin-left: 6px;
+    color: #8f8f8f;
+    font-family: "Microsoft YaHei", sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .02em;
+  }
+
+  .editor-icon-btn {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 24px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #ddd;
+    background: #252525;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .editor-icon-btn:hover { background: #3a3a3a; color: #fff; }
+
+  .editor-body {
+    padding: 11px 12px 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .editor-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .editor-toggle,
+  .editor-btn,
+  .editor-mini-btn {
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #dedede;
+    background: #272727;
+    padding: 6px 9px;
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+
+  .editor-toggle:hover,
+  .editor-btn:hover,
+  .editor-mini-btn:hover {
+    background: #3a3a3a;
+    border-color: #777;
+    color: #fff;
+  }
+
+  .editor-toggle[aria-pressed="true"] {
+    color: #111;
+    background: #e7e7e7;
+    border-color: #e7e7e7;
+  }
+
+  .editor-btn.primary {
+    color: #111;
+    background: #ececec;
+    border-color: #ececec;
+  }
+
+  .editor-btn.primary:hover { background: #fff; border-color: #fff; }
+
+  .editor-mini-btn { margin-left: auto; }
+
+  .editor-status {
+    min-height: 2.5em;
+    margin-bottom: 8px;
+    color: #ababab;
+    font-size: 11px;
+    line-height: 1.55;
+    word-break: break-all;
+  }
+
+  .editor-textarea {
+    width: 100%;
+    min-height: 150px;
+    max-height: 38vh;
+    padding: 10px;
+    color: #f1f1f1;
+    background: #0d0d0d;
+    border: 1px solid #555;
+    border-radius: 6px;
+    font: 12px/1.75 "Consolas", "Courier New", monospace;
+    resize: vertical;
+    outline: none;
+  }
+
+  .editor-textarea:focus {
+    border-color: #9a9a9a;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .12);
+  }
+
+  .editor-download {
+    display: block;
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    border: 1px solid #8a8a8a;
+    border-radius: 5px;
+    color: #111;
+    background: #ececec;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .editor-download:hover { background: #fff; }
+  .editor-download[hidden] { display: none !important; }
+
+  .editor-hint {
+    margin-top: 8px;
+    color: #777;
+    font-size: 10px;
+    line-height: 1.55;
+    font-weight: 500;
+  }
+
+  .editor-ball {
+    position: fixed;
+    right: 18px;
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    z-index: 1000;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #6a6a6a;
+    border-radius: 50%;
+    color: #f2f2f2;
+    background: rgba(18, 18, 18, .92);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .48);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    font: 700 20px/1 "Consolas", "Courier New", monospace;
+    cursor: pointer;
+    transition: background .15s, transform .15s;
+  }
+
+  .editor-ball:hover {
+    background: rgba(52, 52, 52, .96);
+    transform: translateY(-2px);
+  }
+
+  .editor-ball.is-paused::after {
+    content: "II";
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #111;
+    background: #e8e8e8;
+    font: 700 9px/1 "Consolas", monospace;
+  }
+
+  body.editor-pick { cursor: crosshair; }
+
+  .editor-hover {
+    outline: 2px dashed #bdbdbd !important;
+    outline-offset: 3px !important;
+    cursor: text !important;
+  }
+
+  .editor-selected {
+    outline: 3px solid #fff !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 2px #000 !important;
+  }
+
+  html.editor-paused #app,
+  html.editor-paused #app *,
+  html.editor-paused #roundOverlay,
+  html.editor-paused #roundOverlay *,
+  html.editor-paused #toast {
+    animation-play-state: paused !important;
+  }
+
+  @media (max-width: 680px) {
+    .text-editor {
+      top: 64px;
+      right: 10px;
+      width: calc(100vw - 20px);
+      max-height: 78vh;
+    }
+
+    .editor-textarea { max-height: 32vh; min-height: 130px; }
+    .editor-ball {
+      right: 14px;
+      bottom: calc(14px + env(safe-area-inset-bottom));
+      width: 48px;
+      height: 48px;
+    }
+  }
+/* ================== TEXT EDITOR END ================== */
+</style>
+</head>
+<body>
+  <svg class="sprite-sheet" width="0" height="0" aria-hidden="true">
+    <defs>
+      <g id="sprite-hengjia">
+        <rect x="4" y="2" width="8" height="2" fill="#B84A3A"/>
+        <rect x="3" y="3" width="2" height="6" fill="#B84A3A"/>
+        <rect x="11" y="3" width="2" height="6" fill="#B84A3A"/>
+        <rect x="5" y="4" width="6" height="2" fill="#C84B3A"/>
+        <rect x="5" y="5" width="6" height="6" fill="#F2C79A"/>
+        <rect x="6" y="7" width="1" height="2" fill="#3A2414"/>
+        <rect x="9" y="7" width="1" height="2" fill="#3A2414"/>
+        <rect x="7" y="9" width="2" height="1" fill="#B84A3A"/>
+        <rect x="4" y="11" width="8" height="5" fill="#F7E3A1"/>
+        <rect x="3" y="11" width="1" height="5" fill="#3A2414"/>
+        <rect x="12" y="11" width="1" height="5" fill="#3A2414"/>
+        <rect x="7" y="12" width="2" height="1" fill="#E86A4A"/>
+        <rect x="5" y="3" width="3" height="1" fill="#E86A4A"/>
+      </g>
+
+      <g id="sprite-dongge">
+        <rect x="4" y="1" width="8" height="2" fill="#E6B84A"/>
+        <rect x="3" y="3" width="10" height="2" fill="#C98A3E"/>
+        <rect x="5" y="4" width="6" height="7" fill="#F2C79A"/>
+        <rect x="5" y="8" width="6" height="3" fill="#E8E0D0"/>
+        <rect x="6" y="6" width="1" height="2" fill="#3A2414"/>
+        <rect x="9" y="6" width="1" height="2" fill="#3A2414"/>
+        <rect x="7" y="8" width="2" height="1" fill="#3A2414"/>
+        <rect x="4" y="11" width="8" height="5" fill="#5E8C3A"/>
+        <rect x="7" y="11" width="2" height="5" fill="#F7E3A1"/>
+        <rect x="3" y="4" width="1" height="1" fill="#FFF3C4"/>
+      </g>
+
+      <g id="sprite-lizhongke">
+        <rect x="4" y="2" width="8" height="3" fill="#2E2A28"/>
+        <rect x="5" y="5" width="6" height="6" fill="#F2C79A"/>
+        <rect x="4" y="6" width="3" height="3" fill="#3A2414"/>
+        <rect x="9" y="6" width="3" height="3" fill="#3A2414"/>
+        <rect x="5" y="7" width="1" height="1" fill="#FFF9E6"/>
+        <rect x="10" y="7" width="1" height="1" fill="#FFF9E6"/>
+        <rect x="7" y="7" width="2" height="1" fill="#3A2414"/>
+        <rect x="6" y="9" width="4" height="1" fill="#B84A3A"/>
+        <rect x="4" y="11" width="4" height="5" fill="#FFF9E6"/>
+        <rect x="8" y="11" width="4" height="5" fill="#2E2A28"/>
+      </g>
+
+      <g id="sprite-pengsha">
+        <rect x="3" y="2" width="10" height="4" fill="#E88BA0"/>
+        <rect x="2" y="4" width="2" height="5" fill="#E88BA0"/>
+        <rect x="12" y="4" width="2" height="5" fill="#E88BA0"/>
+        <rect x="5" y="5" width="6" height="6" fill="#F2C79A"/>
+        <rect x="5" y="4" width="2" height="2" fill="#E88BA0"/>
+        <rect x="9" y="4" width="2" height="2" fill="#E88BA0"/>
+        <rect x="6" y="7" width="2" height="2" fill="#F4C542"/>
+        <rect x="9" y="7" width="2" height="2" fill="#F4C542"/>
+        <rect x="7" y="10" width="2" height="1" fill="#B84A3A"/>
+        <rect x="4" y="11" width="8" height="5" fill="#F06A8A"/>
+        <rect x="7" y="12" width="2" height="3" fill="#FFD1DC"/>
+      </g>
+
+      <g id="sprite-lacai">
+        <rect x="3" y="2" width="10" height="10" fill="#2E2A28"/>
+        <rect x="5" y="4" width="6" height="7" fill="#FFF9E6"/>
+        <rect x="6" y="6" width="1" height="2" fill="#B84A3A"/>
+        <rect x="9" y="6" width="1" height="2" fill="#B84A3A"/>
+        <rect x="7" y="8" width="2" height="1" fill="#C84B3A"/>
+        <rect x="6" y="9" width="4" height="1" fill="#B84A3A"/>
+        <rect x="4" y="12" width="8" height="4" fill="#2E2A28"/>
+      </g>
+
+      <g id="sprite-naijiaren">
+        <rect x="4" y="2" width="8" height="3" fill="#F4C542"/>
+        <rect x="3" y="4" width="2" height="2" fill="#F4C542"/>
+        <rect x="11" y="4" width="2" height="2" fill="#F4C542"/>
+        <rect x="5" y="5" width="6" height="6" fill="#F2C79A"/>
+        <rect x="6" y="7" width="1" height="2" fill="#3A2414"/>
+        <rect x="9" y="7" width="1" height="2" fill="#3A2414"/>
+        <rect x="6" y="8" width="1" height="1" fill="#E88BA0"/>
+        <rect x="9" y="8" width="1" height="1" fill="#E88BA0"/>
+        <rect x="7" y="9" width="2" height="1" fill="#B84A3A"/>
+        <rect x="4" y="11" width="8" height="5" fill="#FFE58A"/>
+        <rect x="7" y="11" width="2" height="5" fill="#F4C542"/>
+        <rect x="12" y="9" width="2" height="5" fill="#FFF9E6"/>
+        <rect x="12" y="8" width="2" height="1" fill="#5F9EA0"/>
+      </g>
+
+      <g id="sprite-muyu">
+        <rect x="5" y="2" width="6" height="2" fill="#A9672E"/>
+        <rect x="3" y="4" width="10" height="8" fill="#6B3F1F"/>
+        <rect x="4" y="5" width="8" height="5" fill="#8A4B24"/>
+        <rect x="5" y="6" width="6" height="3" fill="#5F9EA0"/>
+        <rect x="6" y="6" width="1" height="1" fill="#FFF9E6"/>
+        <rect x="9" y="6" width="1" height="1" fill="#FFF9E6"/>
+        <rect x="6" y="8" width="4" height="1" fill="#3A2414"/>
+        <rect x="3" y="11" width="10" height="3" fill="#4A2A14"/>
+        <rect x="13" y="5" width="1" height="4" fill="#5E8C3A"/>
+        <rect x="13" y="8" width="2" height="1" fill="#5E8C3A"/>
+      </g>
+
+      <g id="sprite-king">
+        <rect x="4" y="1" width="8" height="2" fill="#F4C542"/>
+        <rect x="4" y="0" width="1" height="2" fill="#FFF3C4"/>
+        <rect x="7" y="0" width="2" height="2" fill="#FFF3C4"/>
+        <rect x="11" y="0" width="1" height="2" fill="#FFF3C4"/>
+        <rect x="5" y="3" width="6" height="6" fill="#F2C79A"/>
+        <rect x="6" y="5" width="1" height="2" fill="#3A2414"/>
+        <rect x="9" y="5" width="1" height="2" fill="#3A2414"/>
+        <rect x="5" y="7" width="6" height="2" fill="#E8E0D0"/>
+        <rect x="4" y="9" width="8" height="7" fill="#7B4B8A"/>
+        <rect x="7" y="10" width="2" height="2" fill="#F4C542"/>
+        <rect x="2" y="10" width="2" height="4" fill="#5F9EA0" opacity=".55"/>
+      </g>
+
+      <g id="sprite-chick">
+        <rect x="7" y="2" width="2" height="2" fill="#B84A3A"/>
+        <rect x="5" y="4" width="6" height="7" fill="#F4C542"/>
+        <rect x="6" y="5" width="4" height="5" fill="#FFE58A"/>
+        <rect x="6" y="7" width="1" height="1" fill="#3A2414"/>
+        <rect x="9" y="7" width="1" height="1" fill="#3A2414"/>
+        <rect x="7" y="8" width="2" height="1" fill="#C66A2B"/>
+        <rect x="4" y="6" width="1" height="3" fill="#F4C542"/>
+        <rect x="11" y="6" width="1" height="3" fill="#F4C542"/>
+        <rect x="5" y="11" width="2" height="2" fill="#C66A2B"/>
+        <rect x="9" y="11" width="2" height="2" fill="#C66A2B"/>
+      </g>
+
+      <g id="icon-claw">
+        <rect x="7" y="0" width="2" height="5" fill="#F4C542"/>
+        <rect x="6" y="5" width="4" height="3" fill="#E6A23C"/>
+        <rect x="3" y="8" width="2" height="5" fill="#F4C542"/>
+        <rect x="7" y="8" width="2" height="6" fill="#F4C542"/>
+        <rect x="11" y="8" width="2" height="5" fill="#F4C542"/>
+        <rect x="2" y="12" width="2" height="2" fill="#C66A2B"/>
+        <rect x="6" y="13" width="2" height="2" fill="#C66A2B"/>
+        <rect x="10" y="12" width="2" height="2" fill="#C66A2B"/>
+        <rect x="7" y="15" width="2" height="1" fill="#C66A2B"/>
+      </g>
+
+      <g id="icon-coin">
+        <rect x="5" y="3" width="6" height="10" fill="#C66A2B"/>
+        <rect x="4" y="5" width="8" height="6" fill="#C66A2B"/>
+        <rect x="5" y="4" width="6" height="8" fill="#F4C542"/>
+        <rect x="7" y="5" width="2" height="6" fill="#FFF3C4"/>
+      </g>
+
+      <g id="icon-key">
+        <rect x="3" y="6" width="5" height="4" fill="#F4C542"/>
+        <rect x="4" y="7" width="3" height="2" fill="#8F3F1C"/>
+        <rect x="8" y="7" width="6" height="2" fill="#F4C542"/>
+        <rect x="11" y="9" width="2" height="2" fill="#F4C542"/>
+        <rect x="13" y="9" width="1" height="1" fill="#F4C542"/>
+      </g>
+    </defs>
+  </svg>
+
+  <div id="app">
+    <section id="startScreen" class="screen active start-screen">
+      <div class="start-bg" aria-hidden="true">
+        <div class="claw-layer claw-layer-1"></div>
+        <div class="claw-layer claw-layer-2"></div>
+        <div class="claw-layer claw-layer-3"></div>
+      </div>
+      <div class="start-content">
+        <div class="start-hero">
+          <div class="start-title-card">
+            <div class="start-kicker">DULING · 串商测试</div>
+            <h1 class="start-title">穿越串串世界</h1>
+            <p class="start-subtitle">——敢不敢测测你的串商</p>
+            <svg class="start-mascot" viewBox="0 0 16 16" aria-hidden="true">
+              <use href="#sprite-chick"></use>
+            </svg>
+          </div>
+        </div>
+        <div class="start-actions">
+          <button id="startScreenBtn" class="btn start-btn-main" type="button">开始游戏</button>
+          <button id="startShareBtn" class="btn start-btn-share" type="button">邀请朋友测测串商</button>
+          <div id="startShareFeedback" class="start-share-feedback" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="introScreen" class="screen">
+      <div class="intro-wrap">
+        <div id="introBoard" class="intro-board">
+          <h1 class="intro-title">穿越串串世界</h1>
+          <div class="intro-kicker">序章 · PROLOGUE</div>
+          <div id="introText" class="intro-text"></div>
+          <div id="introDots" class="intro-dots" aria-hidden="true"></div>
+          <button id="skipIntro" class="skip-btn" type="button">跳过</button>
+        </div>
+        <button id="startBtn" class="btn btn-primary start-btn" type="button" hidden>救救佳佳桑！！！</button>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen">
+      <div class="game-shell">
+        <header class="game-topbar">
+          <div class="game-brand">
+            <svg class="brand-icon pixel-sprite" viewBox="0 0 16 16" aria-hidden="true">
+              <use href="#sprite-chick"></use>
+            </svg>
+            <div>
+              <div class="brand-title">穿越串串世界</div>
+              <div class="brand-sub">串商测试 · 回家指南</div>
+            </div>
+          </div>
+          <div class="hud">
+            <div id="roundBadge" class="round-badge">第一轮</div>
+            <div class="wit-badge" title="答对 +17；答错本题不计分">串商 <span id="witValue">0</span></div>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </header>
+
+        <main class="stage">
+          <div class="portrait-area">
+            <div id="portrait" class="portrait">
+              <svg class="pixel-sprite" viewBox="0 0 16 16" aria-hidden="true">
+                <use href="#sprite-dongge"></use>
+              </svg>
+            </div>
+            <div class="portrait-shadow"></div>
+          </div>
+
+          <div id="dialogCard" class="dialog-card" tabindex="0" role="button" aria-label="对话，点击继续">
+            <div id="speakerTag" class="speaker-tag">顺直懂哥·村口大爷</div>
+            <div id="dialogText" class="dialog-text"></div>
+            <div id="continueHint" class="continue-hint">点击继续 ▼</div>
+          </div>
+
+          <div id="choiceArea" class="choice-area" hidden>
+            <div id="choicePrompt" class="choice-prompt"></div>
+            <div id="choices" class="choices"></div>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <section id="endingScreen" class="screen">
+      <div class="ending-wrap">
+        <div class="ending-scroll">
+          <div class="ending-kicker">ENDING · 结局卷轴</div>
+          <div id="endingMeta" class="ending-meta"></div>
+
+          <div id="endingChoiceBlock" class="ending-block">
+            <div class="ending-label">你的选择</div>
+            <div id="endingChoice" class="ending-choice"></div>
+          </div>
+
+          <div class="ending-divider"></div>
+
+          <div id="endingTextBlock" class="ending-block">
+            <div class="ending-label">结局</div>
+            <div id="endingText" class="ending-text"></div>
+          </div>
+
+          <div class="ending-divider"></div>
+
+          <div id="endingTitleBlock" class="ending-block ending-title-block">
+            <div id="endingIcon" class="ending-icon"></div>
+            <div id="endingTitle" class="ending-title"></div>
+          </div>
+
+          <div id="endingActions" class="ending-actions">
+            <button id="shareBtn" class="btn btn-primary" type="button">邀请朋友测测串商</button>
+            <button id="replayBtn" class="btn btn-secondary" type="button">再玩一次</button>
+          </div>
+
+          <div id="shareBox" class="share-box" hidden></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="roundOverlay" class="round-overlay" aria-hidden="true">
+    <div class="round-overlay-content">
+      <div class="round-word">ROUND</div>
+      <div id="roundNumber" class="round-number">1</div>
+      <div class="round-rule"></div>
+      <div class="round-fight">FIGHT!</div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   1. 剧本数据
+   ============================================================ */
+
+/* ===== GAME DATA START ===== */
+const introTexts = [
+  "是夜，年轻活泼的女大学生，亨佳，打开了手机，撕开一袋鸡爪，她原本只打算吃完这袋鸡爪就睡。",
+  "她低头，从塑料袋里摸出一只鸡爪。",
+  "卤味的咸香混着塑料和香精的气味，在狭小的寝室里散开。",
+  "她咬住第一根趾骨，轻轻一扯，骨头和筋分离，发出很轻的一声“啵”。",
+  "她今天上了一节听完就忘的水课，排队买了一份不加香菜的烤冷面，和室友在群里因为空调温度吵了两句，多么平凡惬意的一天。",
+  "因此，到了深夜，她决定用一袋鸡爪，庄重的把这平凡惬意的一天收尾。",
+  "她吃鸡爪很熟练：先咬掌心的软肉，再把趾骨一节一节抿出来，掌中宝是她最喜欢的部位，不论吃多少次鸡爪，她都要仔细咀嚼这个部位。",
+  "她咀嚼鸡爪、刷着视频、在心里骂视频里的人，这三件事同时做，她做得不错，很不错，真不错。",
+  "她看得很专注，渐渐地，她吃了很多鸡爪，这不怪她，这家鸡爪的确好吃得像掺了*品。",
+  "亨佳被视频逗笑了，一块很小的很容易忽视的鸡脚趾骨头，卡在了气管口。",
+  "亨佳，笑死了。这也行？"
+];
+
+const rawScript = [
+  {
+    "id": "r1-0",
+    "type": "dialog",
+    "round": "第一轮：顺直懂哥·村口大爷",
+    "roundIndex": 0,
+    "sprite": "hengjia",
+    "speaker": "亨佳",
+    "text": "大爷，你知道我怎么能回家吗？",
+    "nextId": "r1-1"
+  },
+  {
+    "id": "r1-1",
+    "type": "dialog",
+    "round": "第一轮：顺直懂哥·村口大爷",
+    "roundIndex": 0,
+    "sprite": "dongge",
+    "speaker": "顺直懂哥·村口大爷",
+    "text": "哟，外乡人？兄弟，你这情况.......我嘞个冯冯，孩子你无敌了。吃鸡爪噎住的？你别搞兄弟，哥在这村口站了十年，什么人没见过？——就你这种人！回家啊，都兄弟，懂得都懂，找传送门就完事了呗！",
+    "nextId": "r1-2"
+  },
+  {
+    "id": "r1-2",
+    "type": "dialog",
+    "round": "第一轮：顺直懂哥·村口大爷",
+    "roundIndex": 0,
+    "sprite": "dongge",
+    "speaker": "顺直懂哥·村口大爷",
+    "text": "旋转门、防盗门、防火门、车门——还有食堂的门。神了兄弟，懂我意思吧？回家这事，只有天下第一的你哥我能帮你。哥最牛，不接受反驳。哟，你急了？我乐了！",
+    "nextId": "r1-3"
+  },
+  {
+    "id": "r1-3",
+    "type": "dialog",
+    "round": "第一轮：顺直懂哥·村口大爷",
+    "roundIndex": 0,
+    "sprite": "hengjia",
+    "speaker": "亨佳",
+    "text": "大爷，您这叽里呱啦说的，信息量简直高达0，祝您别串的脑子坏了。",
+    "nextId": "r1-4"
+  },
+  {
+    "id": "r1-4",
+    "type": "dialog",
+    "round": "第一轮：顺直懂哥·村口大爷",
+    "roundIndex": 0,
+    "sprite": "dongge",
+    "speaker": "顺直懂哥·村口大爷",
+    "text": "我超威，别搞兄弟，你这就没意思了。哥给你透个底：门不是用来开的，是用来打破的。懂我意思了？闹麻麻。",
+    "nextId": "r1-choice"
+  },
+  {
+    "id": "r1-choice",
+    "type": "choice",
+    "round": "第一轮：顺直懂哥·村口大爷",
+    "roundIndex": 0,
+    "prompt": "你从懂哥的废话里，听出了什么？",
+    "options": [
+      {
+        "text": "懂了，门是什么不知道，这老哥是啥子。",
+        "nextId": "r2-1"
+      },
+      {
+        "text": "懂了，门是回家的路，要找到传送门才能回家。",
+        "wrong": true,
+        "feedback": "懂哥摇头：门要是回家的路，村口早堵成早高峰了。",
+        "nextId": "r2-1"
+      },
+      {
+        "text": "懂了，其实传送门是最终BOSS，打破了就能回家。",
+        "wrong": true,
+        "feedback": "你一拳打向空气，传送门没碎，烧烤摊招牌碎了。",
+        "nextId": "r2-1"
+      }
+    ]
+  },
+  {
+    "id": "r2-1",
+    "type": "dialog",
+    "round": "第二轮：理中客·平心而论",
+    "roundIndex": 1,
+    "sprite": "lizhongke",
+    "speaker": "理中客·平心而论",
+    "text": "这位同学，平心而论，我建议你直接走传送门。有一说一，传送门是官方唯一指定回家通道。客观评价，不接受反驳。你看广告牌——“一键回家，秒回现实”。常规操作。我告诉你，任何投资都有风险，人生就是投资。我还在观望，等一个更好的入场点。不过要我说，你跟鸡爪啊，双方都有问题。不要信息茧房。",
+    "nextId": "r2-2"
+  },
+  {
+    "id": "r2-2",
+    "type": "dialog",
+    "round": "第二轮：理中客·平心而论",
+    "roundIndex": 1,
+    "sprite": "lizhongke",
+    "speaker": "理中客·平心而论",
+    "text": "欸，我没有推荐你走传送门，我只是说它是唯一指定通道，这两者之间有本质区别。你自己做决定，不关我事。",
+    "nextId": "r2-choice"
+  },
+  {
+    "id": "r2-choice",
+    "type": "choice",
+    "round": "第二轮：理中客·平心而论",
+    "roundIndex": 1,
+    "prompt": "理中客这一大段，你信哪句？",
+    "options": [
+      {
+        "text": "理中客......扯这么多，其实啥都不懂。",
+        "nextId": "r3-1"
+      },
+      {
+        "text": "懂了，传送门是官方指定，肯定靠谱。",
+        "wrong": true,
+        "feedback": "传送门上的小字亮了：“最终解释权归串串世界所有”。",
+        "nextId": "r3-1"
+      },
+      {
+        "text": "好想充个快速通。",
+        "wrong": true,
+        "feedback": "你掏出手机，发现这里只支持鸡爪支付。",
+        "nextId": "r3-1"
+      }
+    ]
+  },
+  {
+    "id": "r3-1",
+    "type": "dialog",
+    "round": "第三轮：捧杀串·天下第一 & 拉踩串·小丑竟是我",
+    "roundIndex": 2,
+    "sprite": "pengsha",
+    "speaker": "捧杀串·天下第一",
+    "text": "家人们谁懂啊！活的外乡人！佳佳桑的笑颜在我心里是第一位得咻~佳佳桑我跟你讲，回家方法就是——吃鸡！鸡门！鸡神！绝绝子！泰裤辣！yyds！封神！美食天花板！鸡杀疯了！鸡赢麻了！鸡遥遥领先！鸡断层第一！古希腊掌管鸡的神！从小吃到老！不接受任何反驳！任何说吃鸡不好的，都是眼红！都是嫉妒！都是没吃过鸡！",
+    "nextId": "r3-2"
+  },
+  {
+    "id": "r3-2",
+    "type": "dialog",
+    "round": "第三轮：捧杀串·天下第一 & 拉踩串·小丑竟是我",
+    "roundIndex": 2,
+    "sprite": "lacai",
+    "speaker": "拉踩串·小丑竟是我",
+    "text": "呵，吃鸡？只有傻子才吃鸡。正常人谁靠吃鸡回家？吃鸡的都是小丑，都是乐子，都是节目效果。别你破防了。什么档次，也敢来碰瓷哥？别来沾边，退退退。乐乐，外乡人，用你小脑想想，吃鸡跟回家有个鸡毛关系？",
+    "nextId": "r3-choice"
+  },
+  {
+    "id": "r3-choice",
+    "type": "choice",
+    "round": "第三轮：捧杀串·天下第一 & 拉踩串·小丑竟是我",
+    "roundIndex": 2,
+    "prompt": "两个串子一左一右夹击，你的判断是？",
+    "options": [
+      {
+        "text": "听完后好想养一只自己的小鸡呀~",
+        "nextId": "r4-1"
+      },
+      {
+        "text": "笑死，我什么档次，绝对不吃鸡。",
+        "wrong": true,
+        "feedback": "你宣布绝对不吃鸡，捧杀串和拉踩串当场把你架上了烤架。",
+        "nextId": "r4-1"
+      },
+      {
+        "text": "懂了，吃鸡天下第一，先买10086只鸡填满我的大胃袋。",
+        "wrong": true,
+        "feedback": "10086只鸡刚下单，捧杀串和拉踩串同时给你点了个踩。",
+        "nextId": "r4-1"
+      }
+    ]
+  },
+  {
+    "id": "r4-1",
+    "type": "dialog",
+    "round": "第四轮：奶家人·如果体",
+    "roundIndex": 3,
+    "sprite": "naijiaren",
+    "speaker": "奶家人·如果体",
+    "text": "呀，来客人啦，外乡人奶奶贴贴，亲亲。奶fufu的小鼻嘎一枚呀~奶奶哈特软软捏。宝宝你是一个一个香香软软的小蛋糕哦~如果……一只小外乡人从小养到老，会怎样？如果……它有一天不叫了，睡着了，你会哭吗？如果……给它取名叫佳佳桑，它会记得我吗？哈基米呢？曼波？奶fufu的小外乡人~奶奶肯定要举高高的哇，奶鼠奶鼠~~",
+    "nextId": "r4-choice"
+  },
+  {
+    "id": "r4-choice",
+    "type": "choice",
+    "round": "第四轮：奶家人·如果体",
+    "roundIndex": 3,
+    "prompt": "从可爱的奶家人嘴里，你了解到了什么？",
+    "options": [
+      {
+        "text": "养一只叫點點的宠物，狠狠宠。",
+        "nextId": "r5-1"
+      },
+      {
+        "text": "在传送门门口奶蛙大笑可以获得认可。",
+        "wrong": true,
+        "feedback": "你在门口笑到打鸣，奶家人默默递来一张“扰民罚单”。",
+        "nextId": "r5-1"
+      },
+      {
+        "text": "给最终BOSScosplay令人怜惜的香香软软小蛋糕。",
+        "wrong": true,
+        "feedback": "你端着蛋糕去找BOSS，国王一口吞了，还问有没有蜡烛。",
+        "nextId": "r5-1"
+      }
+    ]
+  },
+  {
+    "id": "r5-1",
+    "type": "dialog",
+    "round": "第五轮：赛博宠物·电子木鱼",
+    "roundIndex": 4,
+    "sprite": "muyu",
+    "speaker": "赛博宠物·电子木鱼",
+    "text": "施主，扣1送回家外挂。一键传送，秒回现实，功德+1，无需努力，无需打怪，只需扣1。本木鱼是赛博菩萨、赛博许愿池、赛博判官，信誉保证。首充6元送传送钥匙碎片，648直飞，3280尊享VIP。佛系，躺平，摆烂，内卷，算法，云端，算力，666，奥利给，瑞思拜。你看我功德条，都快满了，满了直接飞升！",
+    "nextId": "r5-2"
+  },
+  {
+    "id": "r5-2",
+    "type": "dialog",
+    "round": "第五轮：赛博宠物·电子木鱼",
+    "roundIndex": 4,
+    "sprite": "hengjia",
+    "speaker": "亨佳",
+    "text": "扣1送外挂，凭借我多年泡贴吧的经验，后面一般跟着封号大礼包。",
+    "nextId": "r5-3"
+  },
+  {
+    "id": "r5-3",
+    "type": "dialog",
+    "round": "第五轮：赛博宠物·电子木鱼",
+    "roundIndex": 4,
+    "sprite": "muyu",
+    "speaker": "赛博宠物·电子木鱼",
+    "text": "施主此言差矣。本木鱼不度你。你没活了可以咬打火机。本木鱼是电子设备，咬打火机会炸。你输了。功德-1。不充钱就没有功德！施主，你听懂了吗？",
+    "nextId": "r5-choice"
+  },
+  {
+    "id": "r5-choice",
+    "type": "choice",
+    "round": "第五轮：赛博宠物·电子木鱼",
+    "roundIndex": 4,
+    "prompt": "木鱼的“功德充值”，是什么意思。",
+    "options": [
+      {
+        "text": "封号大礼包。",
+        "nextId": "r6-1"
+      },
+      {
+        "text": "懂了，扣1就能回家。",
+        "wrong": true,
+        "feedback": "你扣了1，功德-6，系统提示：回家通道尚未购买。",
+        "nextId": "r6-1"
+      },
+      {
+        "text": "氪佬不管在哪里都是无敌的！氪门！",
+        "wrong": true,
+        "feedback": "你刚喊完氪门，系统提示：氪金通道已封，封号礼包到账。",
+        "nextId": "r6-1"
+      }
+    ]
+  },
+  {
+    "id": "r6-1",
+    "type": "dialog",
+    "round": "第六轮：老国王",
+    "roundIndex": 5,
+    "sprite": "king",
+    "speaker": "老国王",
+    "text": "勇者亨佳，你已到达最终关卡。请选择：A，什么破世界老子撕了你——撕裂串串之苍穹；B，没什么是砸钱解决不了的，如果有那就是还不够！——氪金；C，吾乃正气之主！找到传送钥匙开启传送大门。三选一，选对回家。朕是最终引导人。倒计时10、9、8……",
+    "nextId": "r6-2"
+  },
+  {
+    "id": "r6-2",
+    "type": "dialog",
+    "round": "第六轮：老国王",
+    "roundIndex": 5,
+    "sprite": "hengjia",
+    "speaker": "亨佳",
+    "text": "让我想想......",
+    "nextId": "r6-3"
+  },
+  {
+    "id": "r6-3",
+    "type": "dialog",
+    "round": "第六轮：老国王",
+    "roundIndex": 5,
+    "sprite": "king",
+    "speaker": "老国王",
+    "text": "做出选择吧，外乡人！",
+    "nextId": "r6-final"
+  },
+  {
+    "id": "r6-final",
+    "type": "final_choice",
+    "round": "第六轮：老国王",
+    "roundIndex": 5,
+    "prompt": "最终关：五选一。选对回家。",
+    "options": [
+      {
+        "letter": "A",
+        "text": "A，什么破世界老子撕了你——撕裂串串苍穹！",
+        "ending": "A"
+      },
+      {
+        "letter": "B",
+        "text": "B，没什么是砸钱解决不了的，如果有那就是还不够！——氪金",
+        "ending": "B"
+      },
+      {
+        "letter": "C",
+        "text": "C，我可是老实人。找到传送钥匙开启传送大门。",
+        "ending": "C"
+      },
+      {
+        "letter": "D",
+        "text": "D，打败最终BOSSaka幕后黑手——国王！",
+        "ending": "D"
+      },
+      {
+        "letter": "E",
+        "text": "E，养鸡。",
+        "ending": "E"
+      }
+    ]
+  }
+];
+
+const endings = {
+  "A": {
+    "choice": "A，什么破世界老子撕了你——撕裂串串苍穹！",
+    "title": "【结局 · 不如撒三勺糖】",
+    "kind": "BE",
+    "iconSprite": "sprite-claw",
+    "text": [
+      "“三十年河东三十年河西，莫欺少年穷！”",
+      "“先前你们串子用鬼话耍我，今日就别怪我不义！”",
+      "“看剑！”",
+      "鸡爪从亨佳手里飞出去，在半空变长，居然变成一柄长剑。剑柄是鸡爪的掌，剑身是四根趾骨。她双手握住，朝头顶劈下去。",
+      "天裂开一条缝。缝里没有光，只有一声鸡叫。",
+      "“咯咯咯——”",
+      "那声鸡叫很响。城堡的对话框一块一块往下掉。国王闪了两下，黑了。亨佳低头，看见自己的手正在变透明。",
+      "面板出现，亮了一行字：“你变出了一把鸡爪之剑劈开苍穹，引发鸡神之怒，你同这个世界一起消逝了。”"
+    ]
+  },
+  "B": {
+    "choice": "B，没什么是砸钱解决不了的，如果有那就是还不够！——氪金",
+    "title": "【结局 · 我画地为牢啊，RMB】",
+    "kind": "BE",
+    "iconSprite": "sprite-coin",
+    "text": [
+      "凭空出现下面弹出一个扫码框。氪佬亨佳掏出手机，对着框扫了一下。",
+      "“余额：0.00。”",
+      "“怎么可能，我可是大富婆！”她又扫了一次。还是0.00。",
+      "“我超威，破绷了。外乡人，本世界可不流通RMB。”",
+      "国王哈哈大笑，国王居然也是顺直男。",
+      "亨佳翻遍全身，只有一张纸巾，一根头绳，半只鸡爪。她把鸡爪放在扫码框前面。",
+      "“然鹅并没有什么卵用捏。”国王奶蛙大笑。国王居然也是奶家人，真不愧是国王。",
+      "很可惜，RMB在这个世界不流通。当氪佬当惯了的你现在兜里一分钱都没有。"
+    ]
+  },
+  "C": {
+    "choice": "C，我可是老实人。找到传送钥匙开启传送大门。",
+    "title": "【结局 · 国王的熟男少女心】",
+    "kind": "BE",
+    "iconSprite": "sprite-key",
+    "text": [
+      "国王掉出了一把钥匙。亨佳极速跑过去捡起来，走到城堡尽头那扇门前，把钥匙插进去，拧了一下。",
+      "门开了。",
+      "门后——",
+      "是一间衣帽间。永无止境的走廊中，荧光粉应援服挂在左边，小丑服饰挂在右边，草帽、金丝眼镜，一排一排，摆得很整齐。中间有一面镜子，镜子前放着一顶皇冠。",
+      "国王的声音传出来：“朕的衣柜，可是比朕的江山还大啊哈哈哈哈。”",
+      "国王，拥有一座串子梦想豪宅，是芭比狂热爱好者。",
+      "恭喜你是第一个发现的。",
+      "你在国王身上找到了钥匙，用它打开了一扇神秘的大门。门扉后，是国王的新衣帽间。"
+    ]
+  },
+  "D": {
+    "choice": "D，打败最终BOSSaka幕后黑手——国王！",
+    "title": "【结局 · 我有大胃袋】",
+    "kind": "BE",
+    "iconSprite": "sprite-king",
+    "text": [
+      "“根据我的判断，你就是幕后BOSS吧！”",
+      "“看招！”",
+      "亨佳朝国王扑过去。",
+      "然鹅，",
+      "国王没有躲。他的大肚腩先碰到她，她陷进去了，接着，她弹了回去。",
+      "亨佳震惊地坐在地上，看见国王从长袍里伸出一只脚。那是一只鸡脚，很大，很长，很顺滑，指甲修得很干净。",
+      "“你只配给本鸡舔脚！”",
+      "每天吃香喝辣的国王必然是个大肚腩，吨位十足，亨佳扑上去，只剩舔脚的份了。"
+    ]
+  },
+  "E": {
+    "choice": "E，养鸡。",
+    "title": "【真结局 · 霸道亨佳很很宠】",
+    "kind": "TRUE END",
+    "iconSprite": "sprite-chick",
+    "text": [
+      "国王问：“你确定？居然摆烂，这些年轻人啊...”",
+      "“确定。”你说。",
+      "亨佳手里出现了一枚鸡蛋，左看右看上看下看都很普通。",
+      "亨佳住进了城堡。",
+      "她把吃剩的半只鸡爪埋在城堡后面的空地上，在上面放了一只纸箱。箱子里铺着旧毛衣。她把鸡蛋放在毛衣上，给它取名叫點點。",
+      "亨佳每天都会给點點读书，给點點良好的胎教。",
+      "一个月后，蛋壳裂了。小點點从里面钻出来，站不稳，她伸手把它扶起来。小鸡啄了她一下，亨佳慈爱地笑了。",
+      "她每天喂小米，换水，扫鸡屎。點點渐渐长大，开始下蛋。",
+      "第七年，點點老了。羽毛发灰，走路很慢。",
+      "直到那天，它趴在纸箱里，眼睛闭上，没有再睁开。那天，亨佳把手放在它背上，放了很久。",
+      "“點點，享福去了。”她说。",
+      "亨佳幡然醒悟，作为一个鸡爪痴迷者她害死的鸡脚数不胜数！唯有亲自陪伴一只鸡走过它幸福安稳的一生，才能赎罪。",
+      "鸡神，终于原谅了她的亵渎。",
+      "面板下面开了一扇门。门后是她的寝室。桌上有一袋没吃完的鸡爪，地上有一只拖鞋。",
+      "她走进去，手里有一根鸡毛。",
+      "门在她身后关上。"
+    ]
+  }
+};
+/* ===== GAME DATA END ===== */
+
+/* 将 nextId 转换为数组 index，保持渲染层只认 index */
+const idIndex = {};
+rawScript.forEach(function (node, index) {
+  if (node.id) idIndex[node.id] = index;
+});
+rawScript.forEach(function (node) {
+  if (node.nextId) node.next = idIndex[node.nextId];
+  if (node.options) {
+    node.options.forEach(function (opt) {
+      if (opt.nextId) opt.next = idIndex[opt.nextId];
+    });
+  }
+});
+const script = rawScript;
+
+/* ============================================================
+   2. DOM / 状态
+   ============================================================ */
+
+const $ = function (selector) { return document.querySelector(selector); };
+
+const startScreen = $('#startScreen');
+const startScreenBtn = $('#startScreenBtn');
+const startShareBtn = $('#startShareBtn');
+const startShareFeedback = $('#startShareFeedback');
+const introScreen = $('#introScreen');
+const gameScreen = $('#gameScreen');
+const endingScreen = $('#endingScreen');
+const introBoard = $('#introBoard');
+const introText = $('#introText');
+const introDots = $('#introDots');
+const skipIntro = $('#skipIntro');
+const startBtn = $('#startBtn');
+
+const roundBadge = $('#roundBadge');
+const witValue = $('#witValue');
+const witBadge = document.querySelector('.wit-badge');
+const progressFill = $('#progressFill');
+const portrait = $('#portrait');
+const dialogCard = $('#dialogCard');
+const speakerTag = $('#speakerTag');
+const dialogText = $('#dialogText');
+const continueHint = $('#continueHint');
+const choiceArea = $('#choiceArea');
+const choicePrompt = $('#choicePrompt');
+const choices = $('#choices');
+
+const endingMeta = $('#endingMeta');
+const endingChoiceBlock = $('#endingChoiceBlock');
+const endingChoice = $('#endingChoice');
+const endingTextBlock = $('#endingTextBlock');
+const endingText = $('#endingText');
+const endingTitleBlock = $('#endingTitleBlock');
+const endingTitle = $('#endingTitle');
+const endingIcon = $('#endingIcon');
+const endingActions = $('#endingActions');
+const shareBtn = $('#shareBtn');
+const replayBtn = $('#replayBtn');
+const shareBox = $('#shareBox');
+const toast = $('#toast');
+const roundOverlay = $('#roundOverlay');
+const roundNumber = $('#roundNumber');
+
+const state = {
+  current: 0,
+  isTyping: false,
+  typeTimer: null,
+  typingChars: [],
+  typingIndex: 0,
+  choicesOpen: false,
+  locked: false,
+  wit: 0,
+  introIndex: 0,
+  introTimer: null,
+  introStopped: false,
+  introDone: false,
+  selectedEnding: null,
+  failedChoices: new Set(),
+  currentRoundShown: -1,
+  editorPaused: false,
+  editorTypingPaused: false,
+  editorIntroPaused: false,
+  toastTimer: null
+};
+
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const TYPE_SPEED = 30;
+const WIT_CORRECT = 17;
+const CHOICE_FEEDBACK_DELAY = 1600;
+
+/* ============================================================
+   3. 引入阶段
+   ============================================================ */
+
+function buildIntroDots() {
+  introDots.innerHTML = '';
+  introTexts.forEach(function (_, index) {
+    const dot = document.createElement('span');
+    dot.dataset.index = String(index);
+    introDots.appendChild(dot);
+  });
+}
+
+function updateIntroDots(index) {
+  Array.prototype.forEach.call(introDots.children, function (dot, dotIndex) {
+    dot.classList.toggle('active', dotIndex === index);
+  });
+}
+
+function getIntroDelay(index) {
+  const text = introTexts[index] || '';
+  // 每句话显示时间 = 本句总字符数 × 0.11 秒
+  return Array.from(text).length * 110;
+}
+
+function setIntroLine(index, animate) {
+  if (state.introStopped) return;
+  state.introIndex = index;
+
+  const apply = function () {
+    if (state.introStopped) return;
+    introText.textContent = introTexts[index];
+    introText.dataset.editorKey = 'intro.' + index;
+    introText.classList.remove('fade');
+    updateIntroDots(index);
+
+    window.clearTimeout(state.introTimer);
+    const delay = getIntroDelay(index);
+
+    if (index < introTexts.length - 1) {
+      state.introTimer = window.setTimeout(function () {
+        if (state.editorPaused) {
+          state.editorIntroPaused = true;
+          return;
+        }
+        setIntroLine(index + 1, true);
+      }, delay);
+    } else {
+      state.introTimer = window.setTimeout(function () {
+        if (state.editorPaused) {
+          state.editorIntroPaused = true;
+          return;
+        }
+        finishIntro();
+      }, delay);
+    }
+  };
+
+  if (animate) {
+    introText.classList.add('fade');
+    window.setTimeout(apply, 220);
+  } else {
+    apply();
+  }
+}
+
+function finishIntro() {
+  if (state.introDone) return;
+  state.introDone = true;
+  state.introStopped = true;
+  window.clearTimeout(state.introTimer);
+  skipIntro.hidden = true;
+  introBoard.classList.add('done');
+  startBtn.hidden = false;
+
+  window.setTimeout(function () {
+    introBoard.style.display = 'none';
+    startBtn.classList.add('show');
+  }, 420);
+}
+
+function skipIntroNow() {
+  state.introStopped = true;
+  window.clearTimeout(state.introTimer);
+  finishIntro();
+}
+
+function pauseIntroForEditor() {
+  if (introScreen.classList.contains('active') && !state.introDone && !state.introStopped) {
+    window.clearTimeout(state.introTimer);
+    state.editorIntroPaused = true;
+  }
+}
+
+function resumeIntroForEditor() {
+  if (!state.editorIntroPaused) return;
+  state.editorIntroPaused = false;
+  if (introScreen.classList.contains('active') && !state.introDone && !state.introStopped) {
+    setIntroLine(state.introIndex, false);
+  }
+}
+
+function startStory() {
+  window.clearTimeout(state.introTimer);
+  state.introStopped = false;
+  state.introDone = false;
+  state.introIndex = 0;
+  state.editorIntroPaused = false;
+
+  startScreen.classList.remove('active');
+  introScreen.classList.add('active');
+
+  introBoard.style.display = '';
+  introBoard.classList.remove('done');
+  introText.classList.remove('fade');
+  updateIntroDots(0);
+  skipIntro.hidden = false;
+  startBtn.hidden = true;
+  startBtn.classList.remove('show');
+  state.currentRoundShown = -1;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setIntroLine(0, false);
+}
+
+function startGame() {
+  window.clearTimeout(state.introTimer);
+  introScreen.classList.remove('active');
+  gameScreen.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  goTo(0);
+}
+
+/* ============================================================
+   4. 剧情渲染
+   ============================================================ */
+
+function showRoundOverlay(number, callback) {
+  state.locked = true;
+  roundNumber.textContent = String(number);
+  roundOverlay.classList.remove('show');
+  void roundOverlay.offsetWidth;
+  roundOverlay.classList.add('show');
+
+  window.setTimeout(function () {
+    roundOverlay.classList.remove('show');
+    window.setTimeout(function () {
+      state.locked = false;
+      callback();
+    }, 180);
+  }, 1200);
+}
+
+function goTo(index) {
+  if (index === undefined || index === null || !script[index]) return;
+  state.current = index;
+  state.choicesOpen = false;
+  state.locked = false;
+  clearChoices();
+  hideToast();
+  dialogCard.classList.remove('choices-open');
+  continueHint.classList.remove('hidden');
+
+  const node = script[index];
+  updateRound(node);
+
+  if (node.roundIndex !== state.currentRoundShown) {
+    state.currentRoundShown = node.roundIndex;
+    showRoundOverlay(node.roundIndex + 1, function () {
+      renderNode(node);
+    });
+  } else {
+    renderNode(node);
+  }
+}
+
+function renderNode(node) {
+  if (node.type === 'dialog') {
+    renderDialog(node);
+  } else if (node.type === 'choice') {
+    renderChoice(node);
+  } else if (node.type === 'final_choice') {
+    renderFinalChoice(node);
+  }
+}
+
+function updateRound(node) {
+  if (node.round) {
+    roundBadge.textContent = node.round;
+    roundBadge.dataset.editorKey = 'script.' + node.id + '.round';
+  }
+  const totalRounds = 6;
+  const progress = Math.max(0, Math.min(100, ((node.roundIndex + 1) / totalRounds) * 100));
+  progressFill.style.width = progress + '%';
+}
+
+function svgUse(id, className) {
+  return '<svg class="' + (className || 'pixel-sprite') + '" viewBox="0 0 16 16" aria-hidden="true"><use href="#' + id + '"></use></svg>';
+}
+
+function renderDialog(node) {
+  state.choicesOpen = false;
+  choiceArea.hidden = true;
+  choicePrompt.textContent = '';
+  choices.innerHTML = '';
+  dialogCard.classList.remove('choices-open');
+  continueHint.classList.remove('hidden');
+
+  speakerTag.textContent = node.speaker;
+  speakerTag.dataset.editorKey = 'script.' + node.id + '.speaker';
+  dialogText.dataset.editorKey = 'script.' + node.id + '.text';
+  portrait.innerHTML = svgUse('sprite-' + node.sprite, 'pixel-sprite');
+
+  startTyping(node.text);
+}
+
+function tickTyping() {
+  if (state.typingIndex >= state.typingChars.length) {
+    finishTyping();
+    return;
+  }
+  state.typingIndex += 1;
+  dialogText.textContent = state.typingChars.slice(0, state.typingIndex).join('');
+}
+
+function beginTypingInterval() {
+  window.clearInterval(state.typeTimer);
+  state.typeTimer = window.setInterval(tickTyping, TYPE_SPEED);
+}
+
+function startTyping(text) {
+  window.clearInterval(state.typeTimer);
+  state.isTyping = true;
+  state.editorTypingPaused = false;
+  state.typingChars = Array.from(text);
+  state.typingIndex = 0;
+  dialogText.textContent = '';
+  dialogText.classList.add('typing');
+  continueHint.textContent = '点击显示全句';
+
+  if (REDUCED_MOTION || state.editorPaused) {
+    finishTyping();
+    return;
+  }
+
+  beginTypingInterval();
+}
+
+function finishTyping() {
+  window.clearInterval(state.typeTimer);
+  state.typeTimer = null;
+  state.isTyping = false;
+  state.editorTypingPaused = false;
+  dialogText.textContent = state.typingChars.join('');
+  dialogText.classList.remove('typing');
+  continueHint.textContent = '点击继续 ▼';
+}
+
+function pauseTypingForEditor() {
+  if (state.isTyping && state.typeTimer) {
+    window.clearInterval(state.typeTimer);
+    state.typeTimer = null;
+    state.editorTypingPaused = true;
+  }
+}
+
+function resumeTypingForEditor() {
+  if (state.editorTypingPaused && state.isTyping) {
+    state.editorTypingPaused = false;
+    beginTypingInterval();
+  }
+}
+
+function onDialogClick() {
+  if (state.editorPaused || state.choicesOpen || state.locked) return;
+
+  if (state.isTyping) {
+    finishTyping();
+    return;
+  }
+
+  const node = script[state.current];
+  if (node && node.type === 'dialog' && node.next !== undefined) {
+    goTo(node.next);
+  }
+}
+
+function clearChoices() {
+  choices.innerHTML = '';
+  choicePrompt.textContent = '';
+  choiceArea.hidden = true;
+}
+
+function openChoiceArea(prompt) {
+  state.choicesOpen = true;
+  state.locked = false;
+  choicePrompt.textContent = prompt;
+  choices.innerHTML = '';
+  choiceArea.hidden = false;
+  dialogCard.classList.add('choices-open');
+  continueHint.classList.add('hidden');
+}
+
+function makeChoiceButton(option, extraClass) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'choice-btn' + (extraClass ? ' ' + extraClass : '');
+  btn.textContent = option.text;
+  return btn;
+}
+
+function lockChoiceButtons() {
+  const buttons = choices.querySelectorAll('button');
+  Array.prototype.forEach.call(buttons, function (btn) {
+    btn.disabled = true;
+  });
+}
+
+function renderChoice(node) {
+  openChoiceArea(node.prompt);
+  choicePrompt.dataset.editorKey = 'script.' + node.id + '.prompt';
+  node.options.forEach(function (option, index) {
+    const btn = makeChoiceButton(option);
+    btn.dataset.editorKey = 'script.' + node.id + '.options.' + index + '.text';
+    btn.addEventListener('click', function () {
+      handleChoice(option, node, btn);
+    });
+    choices.appendChild(btn);
+  });
+
+  if (window.innerWidth < 720) {
+    window.setTimeout(function () {
+      choiceArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 120);
+  }
+}
+
+function handleChoice(option, node, button) {
+  if (state.editorPaused || state.locked) return;
+
+  const destination = option.next !== undefined
+    ? option.next
+    : (node.options.find(function (item) { return !item.wrong && item.next !== undefined; }) || {}).next;
+
+  if (option.wrong) {
+    state.locked = true;
+    lockChoiceButtons();
+    const clicked = button || Array.prototype.find.call(choices.children, function (btn) {
+      return btn.textContent === option.text;
+    });
+    if (clicked) clicked.classList.add('wrong');
+    state.failedChoices.add(node.id);
+    showToast(option.feedback + '（本题已失分，进入下一题）', 'wrong');
+
+    window.setTimeout(function () {
+      if (destination !== undefined) goTo(destination);
+    }, CHOICE_FEEDBACK_DELAY);
+    return;
+  }
+
+  state.locked = true;
+  lockChoiceButtons();
+  const clicked = button || Array.prototype.find.call(choices.children, function (btn) {
+    return btn.textContent === option.text;
+  });
+  if (clicked) clicked.classList.add('correct');
+  const firstTry = !state.failedChoices.has(node.id);
+  if (firstTry) {
+    state.wit = Math.min(100, state.wit + WIT_CORRECT);
+  }
+  updateWit();
+  showToast(firstTry ? '判断正确，串商 +' + WIT_CORRECT : '判断正确，但这题已失分', firstTry ? 'correct' : 'wrong');
+
+  window.setTimeout(function () {
+    if (destination !== undefined) goTo(destination);
+  }, CHOICE_FEEDBACK_DELAY);
+}
+
+function renderFinalChoice(node) {
+  openChoiceArea(node.prompt);
+  choicePrompt.dataset.editorKey = 'script.' + node.id + '.prompt';
+  node.options.forEach(function (option, index) {
+    const btn = makeChoiceButton(option, 'final-choice');
+    btn.dataset.editorKey = 'script.' + node.id + '.options.' + index + '.text';
+    btn.addEventListener('click', function () {
+      handleFinalChoice(option, btn);
+    });
+    choices.appendChild(btn);
+  });
+
+  if (window.innerWidth < 720) {
+    window.setTimeout(function () {
+      choiceArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 120);
+  }
+}
+
+function handleFinalChoice(option, button) {
+  if (state.editorPaused || state.locked) return;
+  state.locked = true;
+  lockChoiceButtons();
+
+  const clicked = button || Array.prototype.find.call(choices.children, function (btn) {
+    return btn.textContent === option.text;
+  });
+  if (clicked) clicked.classList.add('selected');
+
+  if (option.ending === 'E') {
+    state.wit = Math.min(100, state.wit + WIT_CORRECT);
+    updateWit();
+  }
+
+  window.setTimeout(function () {
+    showEnding(option.ending);
+  }, 600);
+}
+
+function updateWit() {
+  witValue.textContent = String(state.wit);
+  witBadge.classList.remove('pulse');
+  void witBadge.offsetWidth;
+  witBadge.classList.add('pulse');
+}
+
+/* ============================================================
+   5. 提示条
+   ============================================================ */
+
+function showToast(message, type) {
+  window.clearTimeout(state.toastTimer);
+  toast.textContent = message;
+  toast.className = 'toast show ' + (type || '');
+  state.toastTimer = window.setTimeout(hideToast, 1500);
+}
+
+function hideToast() {
+  window.clearTimeout(state.toastTimer);
+  toast.className = 'toast';
+}
+
+/* ============================================================
+   6. 结局卷轴
+   ============================================================ */
+
+function showEnding(key) {
+  const ending = endings[key];
+  if (!ending) return;
+
+  window.clearInterval(state.typeTimer);
+  state.isTyping = false;
+  state.selectedEnding = key;
+
+  roundOverlay.classList.remove('show');
+  startScreen.classList.remove('active');
+  introScreen.classList.remove('active');
+  gameScreen.classList.remove('active');
+  endingScreen.classList.add('active');
+
+  const isTrue = key === 'E';
+  endingMeta.textContent = '本次串商：' + state.wit + ' · ' + (isTrue ? 'TRUE END' : 'BAD END');
+  endingChoice.textContent = ending.choice;
+  endingChoice.dataset.editorKey = 'endings.' + key + '.choice';
+  endingText.textContent = ending.text.join(String.fromCharCode(10, 10));
+  endingText.dataset.editorKey = 'endings.' + key + '.text';
+  endingTitle.textContent = ending.title;
+  endingTitle.dataset.editorKey = 'endings.' + key + '.title';
+  endingIcon.innerHTML = svgUse(ending.iconSprite, 'pixel-sprite');
+  endingTitle.classList.toggle('true', isTrue);
+
+  endingChoiceBlock.classList.remove('show');
+  endingTextBlock.classList.remove('show');
+  endingTitleBlock.classList.remove('show');
+  endingActions.classList.remove('show');
+  shareBox.hidden = true;
+  shareBox.textContent = '';
+  shareBtn.textContent = '邀请朋友测测串商';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  window.setTimeout(function () { endingChoiceBlock.classList.add('show'); }, 350);
+  window.setTimeout(function () { endingTextBlock.classList.add('show'); }, 850);
+  window.setTimeout(function () { endingTitleBlock.classList.add('show'); }, 1350);
+  window.setTimeout(function () { endingActions.classList.add('show'); }, 1800);
+}
+
+function buildShareText() {
+  const ending = endings[state.selectedEnding];
+  if (!ending) return '';
+  const url = location.href.split('#')[0];
+  return '我在《穿越串串世界》里测出了「' + ending.title + '」，串商 ' + state.wit + '。你敢来测测你的串商吗？ ' + url;
+}
+
+function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+
+  return new Promise(function (resolve, reject) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.left = '-9999px';
+    textarea.style.top = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      const ok = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      if (ok) resolve();
+      else reject(new Error('copy failed'));
+    } catch (error) {
+      document.body.removeChild(textarea);
+      reject(error);
+    }
+  });
+}
+
+function copyStartInvite() {
+  const url = location.href.split('#')[0];
+  const text = '我在《穿越串串世界》测串商：六轮对话，五个结局，你敢来试试吗？ ' + url;
+
+  copyText(text).then(function () {
+    startShareFeedback.textContent = '邀请语已复制，去发给朋友吧。';
+    startShareBtn.textContent = '已复制！';
+    window.setTimeout(function () {
+      startShareBtn.textContent = '邀请朋友测测串商';
+    }, 2400);
+  }).catch(function () {
+    startShareFeedback.textContent = '复制失败，请手动复制：' + text;
+  });
+}
+
+function shareResult() {
+  const text = buildShareText();
+  shareBox.hidden = false;
+  shareBox.textContent = text;
+
+  const note = document.createElement('div');
+  note.className = 'share-note';
+  note.textContent = '如果是在本地打开，把 index.html 一起发给朋友也能玩。';
+  shareBox.appendChild(note);
+
+  copyText(text).then(function () {
+    shareBtn.textContent = '已复制，去发给朋友';
+    showToast('邀请语已复制到剪贴板', 'correct');
+    window.setTimeout(function () {
+      shareBtn.textContent = '邀请朋友测测串商';
+    }, 2400);
+  }).catch(function () {
+    shareBtn.textContent = '请手动复制下方文字';
+    showToast('复制失败，请手动选中下方文字', 'wrong');
+  });
+}
+
+function replayGame() {
+  window.location.reload();
+}
+
+/* ============================================================
+   7. 事件绑定与启动
+   ============================================================ */
+
+dialogCard.addEventListener('click', onDialogClick);
+dialogCard.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    onDialogClick();
+  }
+});
+
+skipIntro.addEventListener('click', skipIntroNow);
+startBtn.addEventListener('click', startGame);
+startScreenBtn.addEventListener('click', startStory);
+startShareBtn.addEventListener('click', copyStartInvite);
+shareBtn.addEventListener('click', shareResult);
+replayBtn.addEventListener('click', replayGame);
+
+/* TEXT EDITOR SYNC START */
+function buildGameDataBlock() {
+  const cleanScript = rawScript.map(function (node) {
+    const copy = {};
+    Object.keys(node).forEach(function (key) {
+      if (key !== 'next') copy[key] = node[key];
+    });
+    if (copy.options) {
+      copy.options = copy.options.map(function (option) {
+        const opt = {};
+        Object.keys(option).forEach(function (key) {
+          if (key !== 'next') opt[key] = option[key];
+        });
+        return opt;
+      });
+    }
+    return copy;
+  });
+
+  let block = '/* ===== GAME DATA START ===== */\n' +
+    'const introTexts = ' + JSON.stringify(introTexts, null, 2) + ';\n\n' +
+    'const rawScript = ' + JSON.stringify(cleanScript, null, 2) + ';\n\n' +
+    'const endings = ' + JSON.stringify(endings, null, 2) + ';\n' +
+    '/* ===== GAME DATA END ===== */';
+
+  const closeTag = String.fromCharCode(60) + '/script';
+  const safeCloseTag = String.fromCharCode(60) + String.fromCharCode(92) + '/script';
+  return block.split(closeTag).join(safeCloseTag);
+}
+
+function applyGameEditorText(key, value) {
+  const parts = String(key || '').split('.');
+  if (!parts.length) return false;
+
+  if (parts[0] === 'intro') {
+    const index = Number(parts[1]);
+    if (!Number.isInteger(index) || index < 0 || index >= introTexts.length) return false;
+    introTexts[index] = value;
+    return true;
+  }
+
+  if (parts[0] === 'endings') {
+    const ending = endings[parts[1]];
+    if (!ending) return false;
+    if (parts[2] === 'text') {
+      ending.text = value.split(/\n{2,}/).map(function (paragraph) {
+        return paragraph.replace(/^\s+|\s+$/g, '');
+      }).filter(function (paragraph) {
+        return paragraph.length > 0;
+      });
+      if (!ending.text.length) ending.text = [''];
+      return true;
+    }
+    if (parts[2] === 'choice' || parts[2] === 'title') {
+      ending[parts[2]] = value;
+      if (parts[2] === 'choice') {
+        var finalNode = rawScript.find(function (item) { return item.type === 'final_choice'; });
+        if (finalNode && finalNode.options) {
+          var finalOption = finalNode.options.find(function (opt) { return opt.ending === parts[1]; });
+          if (finalOption) finalOption.text = value;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  if (parts[0] === 'script') {
+    const node = rawScript.find(function (item) { return item.id === parts[1]; });
+    if (!node) return false;
+
+    if (parts[2] === 'text' || parts[2] === 'speaker' || parts[2] === 'prompt' || parts[2] === 'round') {
+      node[parts[2]] = value;
+      return true;
+    }
+
+    if (parts[2] === 'options' && node.options) {
+      const index = Number(parts[3]);
+      if (!Number.isInteger(index) || index < 0 || index >= node.options.length) return false;
+      node.options[index].text = value;
+      if (node.type === 'final_choice' && node.options[index].ending) {
+        var targetEnding = endings[node.options[index].ending];
+        if (targetEnding) targetEnding.choice = value;
+      }
+      return true;
+    }
+  }
+
+  return false;
+}
+
+window.__gameEditorGetDataBlock = buildGameDataBlock;
+window.__gameEditorApplyText = applyGameEditorText;
+/* TEXT EDITOR SYNC END */
+
+/* TEXT EDITOR BRIDGE START */
+window.addEventListener('text-editor-pause', function () {
+  state.editorPaused = true;
+  pauseTypingForEditor();
+  pauseIntroForEditor();
+});
+
+window.addEventListener('text-editor-resume', function () {
+  state.editorPaused = false;
+  resumeTypingForEditor();
+  resumeIntroForEditor();
+});
+
+window.addEventListener('text-editor-text-applied', function (event) {
+  if (!event.detail || event.detail.target !== dialogText) return;
+  window.clearInterval(state.typeTimer);
+  state.typeTimer = null;
+  state.isTyping = false;
+  state.editorTypingPaused = false;
+  dialogText.classList.remove('typing');
+  continueHint.textContent = '点击继续 ▼';
+});
+/* TEXT EDITOR BRIDGE END */
+
+buildIntroDots();
+updateIntroDots(0);
+introText.textContent = introTexts[0];
+</script>
+
+<!-- ================= TEXT EDITOR START ================= -->
+<div id="textEditorPanel" class="text-editor" hidden>
+  <div class="editor-head" id="editorDrag">
+    <div class="editor-title">TEXT EDITOR <small>文字编辑器</small></div>
+    <button id="editorMinimize" class="editor-icon-btn" type="button" title="缩小为悬浮球" aria-label="缩小为悬浮球">—</button>
+  </div>
+  <div class="editor-body">
+    <div class="editor-row">
+      <button id="editorPick" class="editor-toggle" type="button" aria-pressed="false">拾取文字</button>
+      <button id="editorPause" class="editor-toggle" type="button" aria-pressed="false">暂停动画</button>
+      <button id="editorGrab" class="editor-mini-btn" type="button">抓当前文本</button>
+    </div>
+    <div id="editorStatus" class="editor-status">点“拾取文字”后，点击页面上的任意文字；或点“抓当前文本”。</div>
+    <div class="editor-row">
+      <button id="editorConnect" class="editor-btn" type="button">连接游戏文件</button>
+      <button id="editorSave" class="editor-btn primary" type="button">写入文件</button>
+      <input id="editorFileInput" type="file" accept=".html,.htm,text/html" hidden>
+    </div>
+    <div id="editorFileStatus" class="editor-status">文件：未连接。先点“连接游戏文件”选择 index.html。Chrome/Edge 会直接写回；其他浏览器会生成下载链接。</div>
+    <textarea id="editorTextarea" class="editor-textarea" spellcheck="false" placeholder="选中的文字会出现在这里……"></textarea>
+    <div class="editor-row">
+      <button id="editorApply" class="editor-btn primary" type="button">应用修改</button>
+      <button id="editorRestore" class="editor-btn" type="button">还原原句</button>
+    </div>
+    <a id="editorDownloadLink" class="editor-download" href="#" download="index.html" hidden>下载修改后的 index.html</a>
+    <div class="editor-hint">先连接游戏文件，再修改并“应用修改”：剧情文本写回 GAME DATA，界面文字按页面元素定位写回。未连接时只改当前页面，刷新会恢复。保存后若没有自动下载，点上方生成的下载链接。编辑动态文本时建议先暂停动画。</div>
+  </div>
+</div>
+<button id="editorBall" class="editor-ball" type="button" title="打开文字编辑器" aria-label="打开文字编辑器">T</button>
+<!-- ================== TEXT EDITOR END ================== -->
+
+<script>
+/* ================= TEXT EDITOR START ================= */
+(function () {
+  var panel = document.getElementById('textEditorPanel');
+  var ball = document.getElementById('editorBall');
+  if (!panel || !ball) return;
+
+  var editorDrag = document.getElementById('editorDrag');
+  var editorMinimize = document.getElementById('editorMinimize');
+  var editorPick = document.getElementById('editorPick');
+  var editorPause = document.getElementById('editorPause');
+  var editorGrab = document.getElementById('editorGrab');
+  var editorStatus = document.getElementById('editorStatus');
+  var editorTextarea = document.getElementById('editorTextarea');
+  var editorApply = document.getElementById('editorApply');
+  var editorRestore = document.getElementById('editorRestore');
+  var editorConnect = document.getElementById('editorConnect');
+  var editorSave = document.getElementById('editorSave');
+  var editorFileStatus = document.getElementById('editorFileStatus');
+  var editorFileInput = document.getElementById('editorFileInput');
+  var editorDownloadLink = document.getElementById('editorDownloadLink');
+
+  var TEXT_SELECTOR = [
+    '.start-title', '.start-subtitle', '.start-kicker', '.start-share-feedback',
+    '.intro-title', '.intro-kicker', '.intro-text',
+    '.dialog-text', '.speaker-tag', '.choice-prompt', '.choice-btn',
+    '.ending-title', '.ending-text', '.ending-choice', '.ending-label', '.ending-meta',
+    '.brand-title', '.brand-sub', '.round-badge',
+    '.round-word', '.round-number', '.round-fight',
+    '.btn', '.skip-btn', '.continue-hint'
+  ].join(',');
+
+  var ed = {
+    pick: false,
+    paused: false,
+    target: null,
+    key: '',
+    original: '',
+    hover: null,
+    drag: null,
+    staticEdits: [],
+    fileHandle: null,
+    sourceText: '',
+    fileName: '',
+    fileMode: '',
+    downloadUrl: '',
+    pendingSave: false
+  };
+
+  function setStatus(message) {
+    editorStatus.textContent = message;
+  }
+
+  function setFileStatus(message) {
+    editorFileStatus.textContent = message;
+  }
+
+  function isEditorNode(node) {
+    return !!(node && node.closest && node.closest('.text-editor, .editor-ball'));
+  }
+
+  function clearHover() {
+    if (ed.hover) {
+      ed.hover.classList.remove('editor-hover');
+      ed.hover = null;
+    }
+  }
+
+  function describe(el) {
+    var text = (el.textContent || '').trim().replace(/\s+/g, ' ');
+    if (text.length > 26) text = text.slice(0, 26) + '…';
+    var cls = '';
+    if (typeof el.className === 'string' && el.className.trim()) {
+      cls = '.' + el.className.trim().split(/\s+/)[0];
+    } else {
+      cls = el.tagName.toLowerCase();
+    }
+    return cls + '：' + text;
+  }
+
+  function selectElement(el) {
+    if (!el) return;
+    if (ed.target && ed.target !== el) {
+      ed.target.classList.remove('editor-selected');
+    }
+    ed.target = el;
+    ed.key = el.getAttribute('data-editor-key') || '';
+    ed.original = el.textContent;
+    el.classList.add('editor-selected');
+    editorTextarea.value = el.textContent;
+    setStatus('已选中 ' + describe(el) + (ed.key ? ' · 剧情文本（会写回）' : ' · 界面文字（尝试写回）'));
+    editorTextarea.focus();
+  }
+
+  function recordStaticEdit(text) {
+    if (!ed.target || ed.key) return;
+    var entry = null;
+    for (var i = 0; i < ed.staticEdits.length; i += 1) {
+      if (ed.staticEdits[i].el === ed.target) {
+        entry = ed.staticEdits[i];
+        break;
+      }
+    }
+    if (!entry) {
+      entry = {
+        el: ed.target,
+        original: ed.original,
+        newText: text,
+        tag: ed.target.tagName.toLowerCase(),
+        className: ed.target.getAttribute('class') || ''
+      };
+      ed.staticEdits.push(entry);
+    } else {
+      entry.newText = text;
+      entry.tag = ed.target.tagName.toLowerCase();
+      entry.className = ed.target.getAttribute('class') || '';
+    }
+  }
+
+  function updateBackingData(text) {
+    if (!ed.target) return false;
+    var ok = true;
+    if (ed.key) {
+      if (window.__gameEditorApplyText) {
+        ok = !!window.__gameEditorApplyText(ed.key, text);
+      } else {
+        ok = false;
+      }
+    } else {
+      recordStaticEdit(text);
+    }
+    window.dispatchEvent(new CustomEvent('text-editor-text-applied', {
+      detail: { target: ed.target }
+    }));
+    return ok;
+  }
+
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function replaceStaticByClass(source, edit) {
+    if (!edit.className) return null;
+    var marker = 'class="' + edit.className + '"';
+    var classIndex = source.indexOf(marker);
+    if (classIndex === -1) return null;
+    if (source.indexOf(marker, classIndex + 1) !== -1) return null;
+
+    var openEnd = source.indexOf('>', classIndex);
+    var closeTag = '</' + edit.tag + '>';
+    var closeStart = source.indexOf(closeTag, openEnd);
+    if (openEnd === -1 || closeStart === -1) return null;
+
+    return source.slice(0, openEnd + 1) + escapeHtml(edit.newText) + source.slice(closeStart);
+  }
+
+  function applyStaticEdits(source) {
+    var failures = [];
+    ed.staticEdits.forEach(function (edit) {
+      if (!edit || edit.original === edit.newText) return;
+
+      var byClass = replaceStaticByClass(source, edit);
+      if (byClass !== null) {
+        source = byClass;
+        edit.original = edit.newText;
+        return;
+      }
+
+      var first = source.indexOf(edit.original);
+      var escapedNew = escapeHtml(edit.newText);
+
+      if (first === -1) {
+        if (source.indexOf(escapedNew) !== -1) {
+          edit.original = edit.newText;
+          return;
+        }
+        failures.push(edit);
+        return;
+      }
+
+      if (source.indexOf(edit.original, first + 1) !== -1) {
+        failures.push(edit);
+        return;
+      }
+
+      source = source.slice(0, first) + escapedNew + source.slice(first + edit.original.length);
+      edit.original = edit.newText;
+    });
+    return { source: source, failures: failures };
+  }
+
+  function validateSource(text) {
+    return text.indexOf('/* ===== GAME DATA START ===== */') !== -1 &&
+      text.indexOf('/* ===== GAME DATA END ===== */') !== -1;
+  }
+
+  function finishPendingSave() {
+    if (!ed.pendingSave) return;
+    ed.pendingSave = false;
+    saveToFile();
+  }
+
+  async function connectFile() {
+    if (window.showOpenFilePicker) {
+      try {
+        var handles = await window.showOpenFilePicker({
+          multiple: false,
+          types: [{ description: 'HTML 游戏文件', accept: { 'text/html': ['.html', '.htm'] } }]
+        });
+        var handle = handles[0];
+        var file = await handle.getFile();
+        var text = await file.text();
+        if (!validateSource(text)) {
+          setFileStatus('这个文件里找不到 GAME DATA 标记，无法同步。');
+          return;
+        }
+        if (handle.requestPermission) {
+          try { await handle.requestPermission({ mode: 'readwrite' }); } catch (error) {}
+        }
+        ed.fileHandle = handle;
+        ed.sourceText = text;
+        ed.fileName = file.name;
+        ed.fileMode = 'fs';
+        revokeDownloadUrl();
+        editorDownloadLink.hidden = true;
+        setFileStatus('已连接：' + file.name + '。之后点“应用修改”会直接写回该文件。');
+        finishPendingSave();
+      } catch (error) {
+        if (error && error.name === 'AbortError') {
+          ed.pendingSave = false;
+          setFileStatus('已取消选择文件；修改目前只在当前页面。');
+          return;
+        }
+        setFileStatus('直接写回失败：' + (error && error.message ? error.message : '浏览器拒绝访问') + '。已切换为下载模式，请重新选择文件。');
+        editorFileInput.click();
+      }
+      return;
+    }
+
+    editorFileInput.click();
+  }
+
+  editorFileInput.addEventListener('change', async function () {
+    var file = editorFileInput.files && editorFileInput.files[0];
+    if (!file) return;
+    var text = await file.text();
+    if (!validateSource(text)) {
+      setFileStatus('这个文件里找不到 GAME DATA 标记，无法同步。');
+      editorFileInput.value = '';
+      return;
+    }
+    ed.fileHandle = null;
+    ed.sourceText = text;
+    ed.fileName = file.name;
+    ed.fileMode = 'download';
+    revokeDownloadUrl();
+    editorDownloadLink.hidden = true;
+    setFileStatus('已读取：' + file.name + '。当前为下载模式；点“应用修改”或“写入文件”后会生成下载链接。');
+    editorFileInput.value = '';
+    finishPendingSave();
+  });
+
+  function buildUpdatedSourceFromText(source) {
+    if (!source) throw new Error('还没有连接文件');
+
+    var dataBlock = window.__gameEditorGetDataBlock ? window.__gameEditorGetDataBlock() : '';
+    if (!dataBlock) throw new Error('游戏数据同步接口不可用');
+
+    var startMarker = '/* ===== GAME DATA START ===== */';
+    var endMarker = '/* ===== GAME DATA END ===== */';
+    var start = source.indexOf(startMarker);
+    var end = source.indexOf(endMarker);
+    if (start === -1 || end === -1 || end < start) {
+      throw new Error('文件里找不到 GAME DATA 标记');
+    }
+
+    source = source.slice(0, start) + dataBlock + source.slice(end + endMarker.length);
+    return applyStaticEdits(source);
+  }
+
+  async function buildUpdatedSource() {
+    var source = ed.sourceText;
+    if (ed.fileHandle) {
+      var latest = await ed.fileHandle.getFile();
+      source = await latest.text();
+    }
+    return buildUpdatedSourceFromText(source);
+  }
+
+  function revokeDownloadUrl() {
+    if (!ed.downloadUrl) return;
+    try { URL.revokeObjectURL(ed.downloadUrl); } catch (error) {}
+    ed.downloadUrl = '';
+  }
+
+  function offerDownload(source, autoClick) {
+    revokeDownloadUrl();
+
+    var blob = new Blob([source], { type: 'text/html;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var filename = ed.fileName || 'index.html';
+    ed.downloadUrl = url;
+
+    editorDownloadLink.href = url;
+    editorDownloadLink.download = filename;
+    editorDownloadLink.textContent = '下载修改后的 ' + filename;
+    editorDownloadLink.hidden = false;
+    try { editorDownloadLink.scrollIntoView({ block: 'nearest' }); } catch (error) {}
+
+    // 先尝试自动下载；如果浏览器拦截，下方链接仍可手动点击。
+    if (autoClick !== false) {
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.rel = 'noopener';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+  async function saveToFile() {
+    // 下载模式：全部同步执行，避免 await 之后丢失用户手势导致下载被拦截。
+    if (!ed.fileHandle && ed.sourceText) {
+      try {
+        var fallbackResult = buildUpdatedSourceFromText(ed.sourceText);
+        ed.sourceText = fallbackResult.source;
+        offerDownload(fallbackResult.source, true);
+        var fallbackSuffix = fallbackResult.failures.length
+          ? '（有 ' + fallbackResult.failures.length + ' 条界面文字在源文件中重复，未写回）'
+          : '';
+        setFileStatus('已生成下载：' + (ed.fileName || 'index.html') + '。如果没有自动下载，点下方“下载修改后的…”链接保存。' + fallbackSuffix);
+        return true;
+      } catch (error) {
+        setFileStatus('生成下载失败：' + (error && error.message ? error.message : '未知错误'));
+        return false;
+      }
+    }
+
+    if (!ed.fileHandle) {
+      ed.pendingSave = true;
+      setFileStatus('还没有连接文件。请选择 index.html；选择后会自动生成下载/写回。');
+      connectFile();
+      return false;
+    }
+
+    var builtSource = '';
+    try {
+      var result = await buildUpdatedSource();
+      builtSource = result.source;
+      var suffix = result.failures.length
+        ? '（有 ' + result.failures.length + ' 条界面文字在源文件中重复，未写回）'
+        : '';
+
+      var writable = await ed.fileHandle.createWritable();
+      await writable.write(builtSource);
+      await writable.close();
+
+      ed.sourceText = builtSource;
+      offerDownload(builtSource, false);
+      setFileStatus('已直接写回原文件：' + ed.fileName + ' · ' + new Date().toLocaleTimeString() + '（不是下载）；也可点下方链接下载副本。' + suffix);
+      return true;
+    } catch (error) {
+      if (builtSource) {
+        ed.sourceText = builtSource;
+        offerDownload(builtSource, true);
+        setFileStatus('直接写回失败：' + (error && error.message ? error.message : '未知错误') + '。已生成下载链接，点下方“下载修改后的…”保存。');
+      } else {
+        setFileStatus('写回失败：' + (error && error.message ? error.message : '未知错误'));
+      }
+      return false;
+    }
+  }
+
+  function applyText() {
+    if (!ed.target) {
+      setStatus('先在页面上选择一段文字。');
+      return;
+    }
+    ed.target.textContent = editorTextarea.value;
+    ed.target.classList.add('editor-selected');
+    var ok = updateBackingData(editorTextarea.value);
+
+    if (!ok && ed.key) {
+      setStatus('页面已修改，但这条文本没有匹配到可写回的数据。');
+    } else {
+      setStatus('已应用修改：' + describe(ed.target));
+    }
+
+    if (ed.fileHandle || ed.sourceText) {
+      saveToFile();
+    } else {
+      ed.pendingSave = true;
+      setFileStatus('文件未连接。请选择 index.html；选择后会自动生成下载/写回。');
+      connectFile();
+    }
+  }
+
+  function restoreText() {
+    if (!ed.target) {
+      setStatus('没有可还原的文字。');
+      return;
+    }
+    ed.target.textContent = ed.original;
+    updateBackingData(ed.original);
+    setStatus('已还原原句：' + describe(ed.target));
+
+    if (ed.fileHandle || ed.sourceText) {
+      saveToFile();
+    }
+  }
+
+  function setPick(on) {
+    ed.pick = !!on;
+    document.body.classList.toggle('editor-pick', ed.pick);
+    editorPick.setAttribute('aria-pressed', String(ed.pick));
+    editorPick.textContent = ed.pick ? '拾取中…' : '拾取文字';
+    if (!ed.pick) clearHover();
+  }
+
+  function setPaused(on) {
+    ed.paused = !!on;
+    document.documentElement.classList.toggle('editor-paused', ed.paused);
+    editorPause.setAttribute('aria-pressed', String(ed.paused));
+    editorPause.textContent = ed.paused ? '继续动画' : '暂停动画';
+    ball.classList.toggle('is-paused', ed.paused);
+
+    if (document.getAnimations) {
+      document.getAnimations().forEach(function (animation) {
+        try {
+          var target = animation.effect && animation.effect.target;
+          if (target && target.closest && target.closest('.text-editor')) return;
+          if (ed.paused) animation.pause();
+          else animation.play();
+        } catch (error) {
+          /* 忽略个别动画无法操作的情况 */
+        }
+      });
+    }
+
+    window.dispatchEvent(new CustomEvent(ed.paused ? 'text-editor-pause' : 'text-editor-resume'));
+  }
+
+  function openPanel() {
+    panel.hidden = false;
+    ball.hidden = true;
+    if (panel.style.left) {
+      var maxLeft = Math.max(8, window.innerWidth - panel.offsetWidth - 8);
+      var maxTop = Math.max(8, window.innerHeight - panel.offsetHeight - 8);
+      var left = Math.min(Math.max(8, parseFloat(panel.style.left) || 8), maxLeft);
+      var top = Math.min(Math.max(8, parseFloat(panel.style.top) || 8), maxTop);
+      panel.style.left = left + 'px';
+      panel.style.top = top + 'px';
+    }
+  }
+
+  function minimizePanel() {
+    panel.hidden = true;
+    ball.hidden = false;
+  }
+
+  ball.addEventListener('click', openPanel);
+  editorMinimize.addEventListener('click', minimizePanel);
+
+  editorPick.addEventListener('click', function () {
+    setPick(!ed.pick);
+    setStatus(ed.pick ? '拾取模式已开启：点击页面文字进行选择。' : '拾取模式已关闭。');
+  });
+
+  editorPause.addEventListener('click', function () {
+    setPaused(!ed.paused);
+    setStatus(ed.paused ? '动画与自动播放已暂停。' : '动画与自动播放已继续。');
+  });
+
+  editorGrab.addEventListener('click', function () {
+    var candidates = ['.dialog-text', '.intro-text', '.ending-text', '.start-title', '.ending-title'];
+    for (var i = 0; i < candidates.length; i += 1) {
+      var el = document.querySelector(candidates[i]);
+      if (el && el.getClientRects().length > 0 && (el.textContent || '').trim()) {
+        selectElement(el);
+        return;
+      }
+    }
+    setStatus('当前没有可抓取的可见文本。');
+  });
+
+  editorTextarea.addEventListener('input', function () {
+    if (!ed.target) return;
+    ed.target.textContent = editorTextarea.value;
+    updateBackingData(editorTextarea.value);
+    setStatus('实时修改已作用到页面；点“应用修改”写回文件。');
+    setFileStatus((ed.fileHandle || ed.sourceText)
+      ? '有未写入的修改。点“应用修改”或“写入文件”同步到文件。'
+      : '页面已改，但文件未连接。点“连接游戏文件”后写入。');
+  });
+
+  editorConnect.addEventListener('click', connectFile);
+  editorSave.addEventListener('click', saveToFile);
+  editorApply.addEventListener('click', applyText);
+  editorRestore.addEventListener('click', restoreText);
+
+  document.addEventListener('click', function (event) {
+    if (!ed.pick) return;
+    if (!event.target || !event.target.closest) return;
+    if (isEditorNode(event.target)) return;
+
+    var el = event.target.closest(TEXT_SELECTOR);
+    if (!el) {
+      if (event.target.closest('#dialogCard, .choice-area, .game-topbar, .ending-actions')) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    selectElement(el);
+  }, true);
+
+  document.addEventListener('mouseover', function (event) {
+    if (!ed.pick) return;
+    if (!event.target || !event.target.closest) return;
+    if (isEditorNode(event.target)) {
+      clearHover();
+      return;
+    }
+
+    var el = event.target.closest(TEXT_SELECTOR);
+    if (!el) {
+      clearHover();
+      return;
+    }
+    if (el === ed.hover) return;
+    clearHover();
+    ed.hover = el;
+    el.classList.add('editor-hover');
+  });
+
+  window.addEventListener('blur', clearHover);
+
+  editorDrag.addEventListener('pointerdown', function (event) {
+    if (event.target.closest('button')) return;
+    var rect = panel.getBoundingClientRect();
+    panel.style.left = rect.left + 'px';
+    panel.style.top = rect.top + 'px';
+    panel.style.right = 'auto';
+    ed.drag = {
+      dx: event.clientX - rect.left,
+      dy: event.clientY - rect.top
+    };
+    if (editorDrag.setPointerCapture) {
+      try { editorDrag.setPointerCapture(event.pointerId); } catch (error) {}
+    }
+    event.preventDefault();
+  });
+
+  window.addEventListener('pointermove', function (event) {
+    if (!ed.drag) return;
+    var left = event.clientX - ed.drag.dx;
+    var top = event.clientY - ed.drag.dy;
+    var maxLeft = Math.max(8, window.innerWidth - panel.offsetWidth - 8);
+    var maxTop = Math.max(8, window.innerHeight - panel.offsetHeight - 8);
+    left = Math.min(Math.max(8, left), maxLeft);
+    top = Math.min(Math.max(8, top), maxTop);
+    panel.style.left = left + 'px';
+    panel.style.top = top + 'px';
+  });
+
+  window.addEventListener('pointerup', function () { ed.drag = null; });
+  window.addEventListener('pointercancel', function () { ed.drag = null; });
+
+  window.addEventListener('resize', function () {
+    if (panel.hidden) return;
+    if (!panel.style.left) return;
+    var maxLeft = Math.max(8, window.innerWidth - panel.offsetWidth - 8);
+    var maxTop = Math.max(8, window.innerHeight - panel.offsetHeight - 8);
+    var left = Math.min(Math.max(8, parseFloat(panel.style.left) || 8), maxLeft);
+    var top = Math.min(Math.max(8, parseFloat(panel.style.top) || 8), maxTop);
+    panel.style.left = left + 'px';
+    panel.style.top = top + 'px';
+  });
+})();
+/* ================== TEXT EDITOR END ================== */
+</script>
+</body>
+</html>
