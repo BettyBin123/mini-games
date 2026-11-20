@@ -1178,267 +1178,7 @@
   }
 </style>
 
-<style id="text-editor-style">
-/* ================= TEXT EDITOR START ================= */
-  .text-editor {
-    position: fixed;
-    top: 80px;
-    right: 18px;
-    z-index: 1000;
-    width: min(390px, calc(100vw - 24px));
-    max-height: min(78vh, 640px);
-    display: flex;
-    flex-direction: column;
-    color: #e9e9e9;
-    background: rgba(18, 18, 18, .9);
-    border: 1px solid #5c5c5c;
-    border-radius: 10px;
-    box-shadow: 0 20px 52px rgba(0, 0, 0, .58);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    overflow: hidden;
-    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
-    font-weight: 600;
-  }
 
-  .text-editor[hidden] { display: none !important; }
-
-  .editor-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px 12px;
-    background: rgba(255, 255, 255, .055);
-    border-bottom: 1px solid #444;
-    cursor: move;
-    user-select: none;
-    touch-action: none;
-  }
-
-  .editor-title {
-    color: #f2f2f2;
-    font-family: "Consolas", "Courier New", monospace;
-    font-size: 12px;
-    line-height: 1.2;
-    letter-spacing: .08em;
-    font-weight: 700;
-  }
-
-  .editor-title small {
-    margin-left: 6px;
-    color: #8f8f8f;
-    font-family: "Microsoft YaHei", sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .02em;
-  }
-
-  .editor-icon-btn {
-    flex: 0 0 auto;
-    width: 26px;
-    height: 24px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    color: #ddd;
-    background: #252525;
-    font-size: 14px;
-    line-height: 1;
-    cursor: pointer;
-  }
-
-  .editor-icon-btn:hover { background: #3a3a3a; color: #fff; }
-
-  .editor-body {
-    padding: 11px 12px 12px;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
-
-  .editor-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
-  }
-
-  .editor-toggle,
-  .editor-btn,
-  .editor-mini-btn {
-    border: 1px solid #555;
-    border-radius: 5px;
-    color: #dedede;
-    background: #272727;
-    padding: 6px 9px;
-    font-size: 11px;
-    line-height: 1.2;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .15s, color .15s, border-color .15s;
-  }
-
-  .editor-toggle:hover,
-  .editor-btn:hover,
-  .editor-mini-btn:hover {
-    background: #3a3a3a;
-    border-color: #777;
-    color: #fff;
-  }
-
-  .editor-toggle[aria-pressed="true"] {
-    color: #111;
-    background: #e7e7e7;
-    border-color: #e7e7e7;
-  }
-
-  .editor-btn.primary {
-    color: #111;
-    background: #ececec;
-    border-color: #ececec;
-  }
-
-  .editor-btn.primary:hover { background: #fff; border-color: #fff; }
-
-  .editor-mini-btn { margin-left: auto; }
-
-  .editor-status {
-    min-height: 2.5em;
-    margin-bottom: 8px;
-    color: #ababab;
-    font-size: 11px;
-    line-height: 1.55;
-    word-break: break-all;
-  }
-
-  .editor-textarea {
-    width: 100%;
-    min-height: 150px;
-    max-height: 38vh;
-    padding: 10px;
-    color: #f1f1f1;
-    background: #0d0d0d;
-    border: 1px solid #555;
-    border-radius: 6px;
-    font: 12px/1.75 "Consolas", "Courier New", monospace;
-    resize: vertical;
-    outline: none;
-  }
-
-  .editor-textarea:focus {
-    border-color: #9a9a9a;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, .12);
-  }
-
-  .editor-download {
-    display: block;
-    margin: 0 0 8px;
-    padding: 8px 10px;
-    border: 1px solid #8a8a8a;
-    border-radius: 5px;
-    color: #111;
-    background: #ececec;
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1.4;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .editor-download:hover { background: #fff; }
-  .editor-download[hidden] { display: none !important; }
-
-  .editor-hint {
-    margin-top: 8px;
-    color: #777;
-    font-size: 10px;
-    line-height: 1.55;
-    font-weight: 500;
-  }
-
-  .editor-ball {
-    position: fixed;
-    right: 18px;
-    bottom: calc(18px + env(safe-area-inset-bottom));
-    z-index: 1000;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #6a6a6a;
-    border-radius: 50%;
-    color: #f2f2f2;
-    background: rgba(18, 18, 18, .92);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .48);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    font: 700 20px/1 "Consolas", "Courier New", monospace;
-    cursor: pointer;
-    transition: background .15s, transform .15s;
-  }
-
-  .editor-ball:hover {
-    background: rgba(52, 52, 52, .96);
-    transform: translateY(-2px);
-  }
-
-  .editor-ball.is-paused::after {
-    content: "II";
-    position: absolute;
-    right: -3px;
-    top: -3px;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: #111;
-    background: #e8e8e8;
-    font: 700 9px/1 "Consolas", monospace;
-  }
-
-  body.editor-pick { cursor: crosshair; }
-
-  .editor-hover {
-    outline: 2px dashed #bdbdbd !important;
-    outline-offset: 3px !important;
-    cursor: text !important;
-  }
-
-  .editor-selected {
-    outline: 3px solid #fff !important;
-    outline-offset: 3px !important;
-    box-shadow: 0 0 0 2px #000 !important;
-  }
-
-  html.editor-paused #app,
-  html.editor-paused #app *,
-  html.editor-paused #roundOverlay,
-  html.editor-paused #roundOverlay *,
-  html.editor-paused #toast {
-    animation-play-state: paused !important;
-  }
-
-  @media (max-width: 680px) {
-    .text-editor {
-      top: 64px;
-      right: 10px;
-      width: calc(100vw - 20px);
-      max-height: 78vh;
-    }
-
-    .editor-textarea { max-height: 32vh; min-height: 130px; }
-    .editor-ball {
-      right: 14px;
-      bottom: calc(14px + env(safe-area-inset-bottom));
-      width: 48px;
-      height: 48px;
-    }
-  }
-/* ================== TEXT EDITOR END ================== */
-</style>
 </head>
 <body>
   <svg class="sprite-sheet" width="0" height="0" aria-hidden="true">
@@ -2238,9 +1978,6 @@ const state = {
   selectedEnding: null,
   failedChoices: new Set(),
   currentRoundShown: -1,
-  editorPaused: false,
-  editorTypingPaused: false,
-  editorIntroPaused: false,
   toastTimer: null
 };
 
@@ -2282,7 +2019,6 @@ function setIntroLine(index, animate) {
   const apply = function () {
     if (state.introStopped) return;
     introText.textContent = introTexts[index];
-    introText.dataset.editorKey = 'intro.' + index;
     introText.classList.remove('fade');
     updateIntroDots(index);
 
@@ -2291,18 +2027,10 @@ function setIntroLine(index, animate) {
 
     if (index < introTexts.length - 1) {
       state.introTimer = window.setTimeout(function () {
-        if (state.editorPaused) {
-          state.editorIntroPaused = true;
-          return;
-        }
         setIntroLine(index + 1, true);
       }, delay);
     } else {
       state.introTimer = window.setTimeout(function () {
-        if (state.editorPaused) {
-          state.editorIntroPaused = true;
-          return;
-        }
         finishIntro();
       }, delay);
     }
@@ -2337,27 +2065,11 @@ function skipIntroNow() {
   finishIntro();
 }
 
-function pauseIntroForEditor() {
-  if (introScreen.classList.contains('active') && !state.introDone && !state.introStopped) {
-    window.clearTimeout(state.introTimer);
-    state.editorIntroPaused = true;
-  }
-}
-
-function resumeIntroForEditor() {
-  if (!state.editorIntroPaused) return;
-  state.editorIntroPaused = false;
-  if (introScreen.classList.contains('active') && !state.introDone && !state.introStopped) {
-    setIntroLine(state.introIndex, false);
-  }
-}
-
 function startStory() {
   window.clearTimeout(state.introTimer);
   state.introStopped = false;
   state.introDone = false;
   state.introIndex = 0;
-  state.editorIntroPaused = false;
 
   startScreen.classList.remove('active');
   introScreen.classList.add('active');
@@ -2439,7 +2151,6 @@ function renderNode(node) {
 function updateRound(node) {
   if (node.round) {
     roundBadge.textContent = node.round;
-    roundBadge.dataset.editorKey = 'script.' + node.id + '.round';
   }
   const totalRounds = 6;
   const progress = Math.max(0, Math.min(100, ((node.roundIndex + 1) / totalRounds) * 100));
@@ -2459,8 +2170,6 @@ function renderDialog(node) {
   continueHint.classList.remove('hidden');
 
   speakerTag.textContent = node.speaker;
-  speakerTag.dataset.editorKey = 'script.' + node.id + '.speaker';
-  dialogText.dataset.editorKey = 'script.' + node.id + '.text';
   portrait.innerHTML = svgUse('sprite-' + node.sprite, 'pixel-sprite');
 
   startTyping(node.text);
@@ -2483,14 +2192,13 @@ function beginTypingInterval() {
 function startTyping(text) {
   window.clearInterval(state.typeTimer);
   state.isTyping = true;
-  state.editorTypingPaused = false;
   state.typingChars = Array.from(text);
   state.typingIndex = 0;
   dialogText.textContent = '';
   dialogText.classList.add('typing');
   continueHint.textContent = '点击显示全句';
 
-  if (REDUCED_MOTION || state.editorPaused) {
+  if (REDUCED_MOTION) {
     finishTyping();
     return;
   }
@@ -2502,29 +2210,13 @@ function finishTyping() {
   window.clearInterval(state.typeTimer);
   state.typeTimer = null;
   state.isTyping = false;
-  state.editorTypingPaused = false;
   dialogText.textContent = state.typingChars.join('');
   dialogText.classList.remove('typing');
   continueHint.textContent = '点击继续 ▼';
 }
 
-function pauseTypingForEditor() {
-  if (state.isTyping && state.typeTimer) {
-    window.clearInterval(state.typeTimer);
-    state.typeTimer = null;
-    state.editorTypingPaused = true;
-  }
-}
-
-function resumeTypingForEditor() {
-  if (state.editorTypingPaused && state.isTyping) {
-    state.editorTypingPaused = false;
-    beginTypingInterval();
-  }
-}
-
 function onDialogClick() {
-  if (state.editorPaused || state.choicesOpen || state.locked) return;
+  if (state.choicesOpen || state.locked) return;
 
   if (state.isTyping) {
     finishTyping();
@@ -2570,10 +2262,8 @@ function lockChoiceButtons() {
 
 function renderChoice(node) {
   openChoiceArea(node.prompt);
-  choicePrompt.dataset.editorKey = 'script.' + node.id + '.prompt';
-  node.options.forEach(function (option, index) {
+  node.options.forEach(function (option) {
     const btn = makeChoiceButton(option);
-    btn.dataset.editorKey = 'script.' + node.id + '.options.' + index + '.text';
     btn.addEventListener('click', function () {
       handleChoice(option, node, btn);
     });
@@ -2588,7 +2278,7 @@ function renderChoice(node) {
 }
 
 function handleChoice(option, node, button) {
-  if (state.editorPaused || state.locked) return;
+  if (state.locked) return;
 
   const destination = option.next !== undefined
     ? option.next
@@ -2630,10 +2320,8 @@ function handleChoice(option, node, button) {
 
 function renderFinalChoice(node) {
   openChoiceArea(node.prompt);
-  choicePrompt.dataset.editorKey = 'script.' + node.id + '.prompt';
-  node.options.forEach(function (option, index) {
+  node.options.forEach(function (option) {
     const btn = makeChoiceButton(option, 'final-choice');
-    btn.dataset.editorKey = 'script.' + node.id + '.options.' + index + '.text';
     btn.addEventListener('click', function () {
       handleFinalChoice(option, btn);
     });
@@ -2648,7 +2336,7 @@ function renderFinalChoice(node) {
 }
 
 function handleFinalChoice(option, button) {
-  if (state.editorPaused || state.locked) return;
+  if (state.locked) return;
   state.locked = true;
   lockChoiceButtons();
 
@@ -2711,11 +2399,8 @@ function showEnding(key) {
   const isTrue = key === 'E';
   endingMeta.textContent = '本次串商：' + state.wit + ' · ' + (isTrue ? 'TRUE END' : 'BAD END');
   endingChoice.textContent = ending.choice;
-  endingChoice.dataset.editorKey = 'endings.' + key + '.choice';
   endingText.textContent = ending.text.join(String.fromCharCode(10, 10));
-  endingText.dataset.editorKey = 'endings.' + key + '.text';
   endingTitle.textContent = ending.title;
-  endingTitle.dataset.editorKey = 'endings.' + key + '.title';
   endingIcon.innerHTML = svgUse(ending.iconSprite, 'pixel-sprite');
   endingTitle.classList.toggle('true', isTrue);
 
@@ -2827,748 +2512,17 @@ startShareBtn.addEventListener('click', copyStartInvite);
 shareBtn.addEventListener('click', shareResult);
 replayBtn.addEventListener('click', replayGame);
 
-/* TEXT EDITOR SYNC START */
-function buildGameDataBlock() {
-  const cleanScript = rawScript.map(function (node) {
-    const copy = {};
-    Object.keys(node).forEach(function (key) {
-      if (key !== 'next') copy[key] = node[key];
-    });
-    if (copy.options) {
-      copy.options = copy.options.map(function (option) {
-        const opt = {};
-        Object.keys(option).forEach(function (key) {
-          if (key !== 'next') opt[key] = option[key];
-        });
-        return opt;
-      });
-    }
-    return copy;
-  });
 
-  let block = '/* ===== GAME DATA START ===== */\n' +
-    'const introTexts = ' + JSON.stringify(introTexts, null, 2) + ';\n\n' +
-    'const rawScript = ' + JSON.stringify(cleanScript, null, 2) + ';\n\n' +
-    'const endings = ' + JSON.stringify(endings, null, 2) + ';\n' +
-    '/* ===== GAME DATA END ===== */';
 
-  const closeTag = String.fromCharCode(60) + '/script';
-  const safeCloseTag = String.fromCharCode(60) + String.fromCharCode(92) + '/script';
-  return block.split(closeTag).join(safeCloseTag);
-}
 
-function applyGameEditorText(key, value) {
-  const parts = String(key || '').split('.');
-  if (!parts.length) return false;
-
-  if (parts[0] === 'intro') {
-    const index = Number(parts[1]);
-    if (!Number.isInteger(index) || index < 0 || index >= introTexts.length) return false;
-    introTexts[index] = value;
-    return true;
-  }
-
-  if (parts[0] === 'endings') {
-    const ending = endings[parts[1]];
-    if (!ending) return false;
-    if (parts[2] === 'text') {
-      ending.text = value.split(/\n{2,}/).map(function (paragraph) {
-        return paragraph.replace(/^\s+|\s+$/g, '');
-      }).filter(function (paragraph) {
-        return paragraph.length > 0;
-      });
-      if (!ending.text.length) ending.text = [''];
-      return true;
-    }
-    if (parts[2] === 'choice' || parts[2] === 'title') {
-      ending[parts[2]] = value;
-      if (parts[2] === 'choice') {
-        var finalNode = rawScript.find(function (item) { return item.type === 'final_choice'; });
-        if (finalNode && finalNode.options) {
-          var finalOption = finalNode.options.find(function (opt) { return opt.ending === parts[1]; });
-          if (finalOption) finalOption.text = value;
-        }
-      }
-      return true;
-    }
-    return false;
-  }
-
-  if (parts[0] === 'script') {
-    const node = rawScript.find(function (item) { return item.id === parts[1]; });
-    if (!node) return false;
-
-    if (parts[2] === 'text' || parts[2] === 'speaker' || parts[2] === 'prompt' || parts[2] === 'round') {
-      node[parts[2]] = value;
-      return true;
-    }
-
-    if (parts[2] === 'options' && node.options) {
-      const index = Number(parts[3]);
-      if (!Number.isInteger(index) || index < 0 || index >= node.options.length) return false;
-      node.options[index].text = value;
-      if (node.type === 'final_choice' && node.options[index].ending) {
-        var targetEnding = endings[node.options[index].ending];
-        if (targetEnding) targetEnding.choice = value;
-      }
-      return true;
-    }
-  }
-
-  return false;
-}
-
-window.__gameEditorGetDataBlock = buildGameDataBlock;
-window.__gameEditorApplyText = applyGameEditorText;
-/* TEXT EDITOR SYNC END */
-
-/* TEXT EDITOR BRIDGE START */
-window.addEventListener('text-editor-pause', function () {
-  state.editorPaused = true;
-  pauseTypingForEditor();
-  pauseIntroForEditor();
-});
-
-window.addEventListener('text-editor-resume', function () {
-  state.editorPaused = false;
-  resumeTypingForEditor();
-  resumeIntroForEditor();
-});
-
-window.addEventListener('text-editor-text-applied', function (event) {
-  if (!event.detail || event.detail.target !== dialogText) return;
-  window.clearInterval(state.typeTimer);
-  state.typeTimer = null;
-  state.isTyping = false;
-  state.editorTypingPaused = false;
-  dialogText.classList.remove('typing');
-  continueHint.textContent = '点击继续 ▼';
-});
-/* TEXT EDITOR BRIDGE END */
 
 buildIntroDots();
 updateIntroDots(0);
 introText.textContent = introTexts[0];
 </script>
 
-<!-- ================= TEXT EDITOR START ================= -->
-<div id="textEditorPanel" class="text-editor" hidden>
-  <div class="editor-head" id="editorDrag">
-    <div class="editor-title">TEXT EDITOR <small>文字编辑器</small></div>
-    <button id="editorMinimize" class="editor-icon-btn" type="button" title="缩小为悬浮球" aria-label="缩小为悬浮球">—</button>
-  </div>
-  <div class="editor-body">
-    <div class="editor-row">
-      <button id="editorPick" class="editor-toggle" type="button" aria-pressed="false">拾取文字</button>
-      <button id="editorPause" class="editor-toggle" type="button" aria-pressed="false">暂停动画</button>
-      <button id="editorGrab" class="editor-mini-btn" type="button">抓当前文本</button>
-    </div>
-    <div id="editorStatus" class="editor-status">点“拾取文字”后，点击页面上的任意文字；或点“抓当前文本”。</div>
-    <div class="editor-row">
-      <button id="editorConnect" class="editor-btn" type="button">连接游戏文件</button>
-      <button id="editorSave" class="editor-btn primary" type="button">写入文件</button>
-      <input id="editorFileInput" type="file" accept=".html,.htm,text/html" hidden>
-    </div>
-    <div id="editorFileStatus" class="editor-status">文件：未连接。先点“连接游戏文件”选择 index.html。Chrome/Edge 会直接写回；其他浏览器会生成下载链接。</div>
-    <textarea id="editorTextarea" class="editor-textarea" spellcheck="false" placeholder="选中的文字会出现在这里……"></textarea>
-    <div class="editor-row">
-      <button id="editorApply" class="editor-btn primary" type="button">应用修改</button>
-      <button id="editorRestore" class="editor-btn" type="button">还原原句</button>
-    </div>
-    <a id="editorDownloadLink" class="editor-download" href="#" download="index.html" hidden>下载修改后的 index.html</a>
-    <div class="editor-hint">先连接游戏文件，再修改并“应用修改”：剧情文本写回 GAME DATA，界面文字按页面元素定位写回。未连接时只改当前页面，刷新会恢复。保存后若没有自动下载，点上方生成的下载链接。编辑动态文本时建议先暂停动画。</div>
-  </div>
-</div>
-<button id="editorBall" class="editor-ball" type="button" title="打开文字编辑器" aria-label="打开文字编辑器">T</button>
-<!-- ================== TEXT EDITOR END ================== -->
 
-<script>
-/* ================= TEXT EDITOR START ================= */
-(function () {
-  var panel = document.getElementById('textEditorPanel');
-  var ball = document.getElementById('editorBall');
-  if (!panel || !ball) return;
 
-  var editorDrag = document.getElementById('editorDrag');
-  var editorMinimize = document.getElementById('editorMinimize');
-  var editorPick = document.getElementById('editorPick');
-  var editorPause = document.getElementById('editorPause');
-  var editorGrab = document.getElementById('editorGrab');
-  var editorStatus = document.getElementById('editorStatus');
-  var editorTextarea = document.getElementById('editorTextarea');
-  var editorApply = document.getElementById('editorApply');
-  var editorRestore = document.getElementById('editorRestore');
-  var editorConnect = document.getElementById('editorConnect');
-  var editorSave = document.getElementById('editorSave');
-  var editorFileStatus = document.getElementById('editorFileStatus');
-  var editorFileInput = document.getElementById('editorFileInput');
-  var editorDownloadLink = document.getElementById('editorDownloadLink');
 
-  var TEXT_SELECTOR = [
-    '.start-title', '.start-subtitle', '.start-kicker', '.start-share-feedback',
-    '.intro-title', '.intro-kicker', '.intro-text',
-    '.dialog-text', '.speaker-tag', '.choice-prompt', '.choice-btn',
-    '.ending-title', '.ending-text', '.ending-choice', '.ending-label', '.ending-meta',
-    '.brand-title', '.brand-sub', '.round-badge',
-    '.round-word', '.round-number', '.round-fight',
-    '.btn', '.skip-btn', '.continue-hint'
-  ].join(',');
-
-  var ed = {
-    pick: false,
-    paused: false,
-    target: null,
-    key: '',
-    original: '',
-    hover: null,
-    drag: null,
-    staticEdits: [],
-    fileHandle: null,
-    sourceText: '',
-    fileName: '',
-    fileMode: '',
-    downloadUrl: '',
-    pendingSave: false
-  };
-
-  function setStatus(message) {
-    editorStatus.textContent = message;
-  }
-
-  function setFileStatus(message) {
-    editorFileStatus.textContent = message;
-  }
-
-  function isEditorNode(node) {
-    return !!(node && node.closest && node.closest('.text-editor, .editor-ball'));
-  }
-
-  function clearHover() {
-    if (ed.hover) {
-      ed.hover.classList.remove('editor-hover');
-      ed.hover = null;
-    }
-  }
-
-  function describe(el) {
-    var text = (el.textContent || '').trim().replace(/\s+/g, ' ');
-    if (text.length > 26) text = text.slice(0, 26) + '…';
-    var cls = '';
-    if (typeof el.className === 'string' && el.className.trim()) {
-      cls = '.' + el.className.trim().split(/\s+/)[0];
-    } else {
-      cls = el.tagName.toLowerCase();
-    }
-    return cls + '：' + text;
-  }
-
-  function selectElement(el) {
-    if (!el) return;
-    if (ed.target && ed.target !== el) {
-      ed.target.classList.remove('editor-selected');
-    }
-    ed.target = el;
-    ed.key = el.getAttribute('data-editor-key') || '';
-    ed.original = el.textContent;
-    el.classList.add('editor-selected');
-    editorTextarea.value = el.textContent;
-    setStatus('已选中 ' + describe(el) + (ed.key ? ' · 剧情文本（会写回）' : ' · 界面文字（尝试写回）'));
-    editorTextarea.focus();
-  }
-
-  function recordStaticEdit(text) {
-    if (!ed.target || ed.key) return;
-    var entry = null;
-    for (var i = 0; i < ed.staticEdits.length; i += 1) {
-      if (ed.staticEdits[i].el === ed.target) {
-        entry = ed.staticEdits[i];
-        break;
-      }
-    }
-    if (!entry) {
-      entry = {
-        el: ed.target,
-        original: ed.original,
-        newText: text,
-        tag: ed.target.tagName.toLowerCase(),
-        className: ed.target.getAttribute('class') || ''
-      };
-      ed.staticEdits.push(entry);
-    } else {
-      entry.newText = text;
-      entry.tag = ed.target.tagName.toLowerCase();
-      entry.className = ed.target.getAttribute('class') || '';
-    }
-  }
-
-  function updateBackingData(text) {
-    if (!ed.target) return false;
-    var ok = true;
-    if (ed.key) {
-      if (window.__gameEditorApplyText) {
-        ok = !!window.__gameEditorApplyText(ed.key, text);
-      } else {
-        ok = false;
-      }
-    } else {
-      recordStaticEdit(text);
-    }
-    window.dispatchEvent(new CustomEvent('text-editor-text-applied', {
-      detail: { target: ed.target }
-    }));
-    return ok;
-  }
-
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-  }
-
-  function replaceStaticByClass(source, edit) {
-    if (!edit.className) return null;
-    var marker = 'class="' + edit.className + '"';
-    var classIndex = source.indexOf(marker);
-    if (classIndex === -1) return null;
-    if (source.indexOf(marker, classIndex + 1) !== -1) return null;
-
-    var openEnd = source.indexOf('>', classIndex);
-    var closeTag = '</' + edit.tag + '>';
-    var closeStart = source.indexOf(closeTag, openEnd);
-    if (openEnd === -1 || closeStart === -1) return null;
-
-    return source.slice(0, openEnd + 1) + escapeHtml(edit.newText) + source.slice(closeStart);
-  }
-
-  function applyStaticEdits(source) {
-    var failures = [];
-    ed.staticEdits.forEach(function (edit) {
-      if (!edit || edit.original === edit.newText) return;
-
-      var byClass = replaceStaticByClass(source, edit);
-      if (byClass !== null) {
-        source = byClass;
-        edit.original = edit.newText;
-        return;
-      }
-
-      var first = source.indexOf(edit.original);
-      var escapedNew = escapeHtml(edit.newText);
-
-      if (first === -1) {
-        if (source.indexOf(escapedNew) !== -1) {
-          edit.original = edit.newText;
-          return;
-        }
-        failures.push(edit);
-        return;
-      }
-
-      if (source.indexOf(edit.original, first + 1) !== -1) {
-        failures.push(edit);
-        return;
-      }
-
-      source = source.slice(0, first) + escapedNew + source.slice(first + edit.original.length);
-      edit.original = edit.newText;
-    });
-    return { source: source, failures: failures };
-  }
-
-  function validateSource(text) {
-    return text.indexOf('/* ===== GAME DATA START ===== */') !== -1 &&
-      text.indexOf('/* ===== GAME DATA END ===== */') !== -1;
-  }
-
-  function finishPendingSave() {
-    if (!ed.pendingSave) return;
-    ed.pendingSave = false;
-    saveToFile();
-  }
-
-  async function connectFile() {
-    if (window.showOpenFilePicker) {
-      try {
-        var handles = await window.showOpenFilePicker({
-          multiple: false,
-          types: [{ description: 'HTML 游戏文件', accept: { 'text/html': ['.html', '.htm'] } }]
-        });
-        var handle = handles[0];
-        var file = await handle.getFile();
-        var text = await file.text();
-        if (!validateSource(text)) {
-          setFileStatus('这个文件里找不到 GAME DATA 标记，无法同步。');
-          return;
-        }
-        if (handle.requestPermission) {
-          try { await handle.requestPermission({ mode: 'readwrite' }); } catch (error) {}
-        }
-        ed.fileHandle = handle;
-        ed.sourceText = text;
-        ed.fileName = file.name;
-        ed.fileMode = 'fs';
-        revokeDownloadUrl();
-        editorDownloadLink.hidden = true;
-        setFileStatus('已连接：' + file.name + '。之后点“应用修改”会直接写回该文件。');
-        finishPendingSave();
-      } catch (error) {
-        if (error && error.name === 'AbortError') {
-          ed.pendingSave = false;
-          setFileStatus('已取消选择文件；修改目前只在当前页面。');
-          return;
-        }
-        setFileStatus('直接写回失败：' + (error && error.message ? error.message : '浏览器拒绝访问') + '。已切换为下载模式，请重新选择文件。');
-        editorFileInput.click();
-      }
-      return;
-    }
-
-    editorFileInput.click();
-  }
-
-  editorFileInput.addEventListener('change', async function () {
-    var file = editorFileInput.files && editorFileInput.files[0];
-    if (!file) return;
-    var text = await file.text();
-    if (!validateSource(text)) {
-      setFileStatus('这个文件里找不到 GAME DATA 标记，无法同步。');
-      editorFileInput.value = '';
-      return;
-    }
-    ed.fileHandle = null;
-    ed.sourceText = text;
-    ed.fileName = file.name;
-    ed.fileMode = 'download';
-    revokeDownloadUrl();
-    editorDownloadLink.hidden = true;
-    setFileStatus('已读取：' + file.name + '。当前为下载模式；点“应用修改”或“写入文件”后会生成下载链接。');
-    editorFileInput.value = '';
-    finishPendingSave();
-  });
-
-  function buildUpdatedSourceFromText(source) {
-    if (!source) throw new Error('还没有连接文件');
-
-    var dataBlock = window.__gameEditorGetDataBlock ? window.__gameEditorGetDataBlock() : '';
-    if (!dataBlock) throw new Error('游戏数据同步接口不可用');
-
-    var startMarker = '/* ===== GAME DATA START ===== */';
-    var endMarker = '/* ===== GAME DATA END ===== */';
-    var start = source.indexOf(startMarker);
-    var end = source.indexOf(endMarker);
-    if (start === -1 || end === -1 || end < start) {
-      throw new Error('文件里找不到 GAME DATA 标记');
-    }
-
-    source = source.slice(0, start) + dataBlock + source.slice(end + endMarker.length);
-    return applyStaticEdits(source);
-  }
-
-  async function buildUpdatedSource() {
-    var source = ed.sourceText;
-    if (ed.fileHandle) {
-      var latest = await ed.fileHandle.getFile();
-      source = await latest.text();
-    }
-    return buildUpdatedSourceFromText(source);
-  }
-
-  function revokeDownloadUrl() {
-    if (!ed.downloadUrl) return;
-    try { URL.revokeObjectURL(ed.downloadUrl); } catch (error) {}
-    ed.downloadUrl = '';
-  }
-
-  function offerDownload(source, autoClick) {
-    revokeDownloadUrl();
-
-    var blob = new Blob([source], { type: 'text/html;charset=utf-8' });
-    var url = URL.createObjectURL(blob);
-    var filename = ed.fileName || 'index.html';
-    ed.downloadUrl = url;
-
-    editorDownloadLink.href = url;
-    editorDownloadLink.download = filename;
-    editorDownloadLink.textContent = '下载修改后的 ' + filename;
-    editorDownloadLink.hidden = false;
-    try { editorDownloadLink.scrollIntoView({ block: 'nearest' }); } catch (error) {}
-
-    // 先尝试自动下载；如果浏览器拦截，下方链接仍可手动点击。
-    if (autoClick !== false) {
-      var link = document.createElement('a');
-      link.href = url;
-      link.download = filename;
-      link.rel = 'noopener';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-  }
-
-  async function saveToFile() {
-    // 下载模式：全部同步执行，避免 await 之后丢失用户手势导致下载被拦截。
-    if (!ed.fileHandle && ed.sourceText) {
-      try {
-        var fallbackResult = buildUpdatedSourceFromText(ed.sourceText);
-        ed.sourceText = fallbackResult.source;
-        offerDownload(fallbackResult.source, true);
-        var fallbackSuffix = fallbackResult.failures.length
-          ? '（有 ' + fallbackResult.failures.length + ' 条界面文字在源文件中重复，未写回）'
-          : '';
-        setFileStatus('已生成下载：' + (ed.fileName || 'index.html') + '。如果没有自动下载，点下方“下载修改后的…”链接保存。' + fallbackSuffix);
-        return true;
-      } catch (error) {
-        setFileStatus('生成下载失败：' + (error && error.message ? error.message : '未知错误'));
-        return false;
-      }
-    }
-
-    if (!ed.fileHandle) {
-      ed.pendingSave = true;
-      setFileStatus('还没有连接文件。请选择 index.html；选择后会自动生成下载/写回。');
-      connectFile();
-      return false;
-    }
-
-    var builtSource = '';
-    try {
-      var result = await buildUpdatedSource();
-      builtSource = result.source;
-      var suffix = result.failures.length
-        ? '（有 ' + result.failures.length + ' 条界面文字在源文件中重复，未写回）'
-        : '';
-
-      var writable = await ed.fileHandle.createWritable();
-      await writable.write(builtSource);
-      await writable.close();
-
-      ed.sourceText = builtSource;
-      offerDownload(builtSource, false);
-      setFileStatus('已直接写回原文件：' + ed.fileName + ' · ' + new Date().toLocaleTimeString() + '（不是下载）；也可点下方链接下载副本。' + suffix);
-      return true;
-    } catch (error) {
-      if (builtSource) {
-        ed.sourceText = builtSource;
-        offerDownload(builtSource, true);
-        setFileStatus('直接写回失败：' + (error && error.message ? error.message : '未知错误') + '。已生成下载链接，点下方“下载修改后的…”保存。');
-      } else {
-        setFileStatus('写回失败：' + (error && error.message ? error.message : '未知错误'));
-      }
-      return false;
-    }
-  }
-
-  function applyText() {
-    if (!ed.target) {
-      setStatus('先在页面上选择一段文字。');
-      return;
-    }
-    ed.target.textContent = editorTextarea.value;
-    ed.target.classList.add('editor-selected');
-    var ok = updateBackingData(editorTextarea.value);
-
-    if (!ok && ed.key) {
-      setStatus('页面已修改，但这条文本没有匹配到可写回的数据。');
-    } else {
-      setStatus('已应用修改：' + describe(ed.target));
-    }
-
-    if (ed.fileHandle || ed.sourceText) {
-      saveToFile();
-    } else {
-      ed.pendingSave = true;
-      setFileStatus('文件未连接。请选择 index.html；选择后会自动生成下载/写回。');
-      connectFile();
-    }
-  }
-
-  function restoreText() {
-    if (!ed.target) {
-      setStatus('没有可还原的文字。');
-      return;
-    }
-    ed.target.textContent = ed.original;
-    updateBackingData(ed.original);
-    setStatus('已还原原句：' + describe(ed.target));
-
-    if (ed.fileHandle || ed.sourceText) {
-      saveToFile();
-    }
-  }
-
-  function setPick(on) {
-    ed.pick = !!on;
-    document.body.classList.toggle('editor-pick', ed.pick);
-    editorPick.setAttribute('aria-pressed', String(ed.pick));
-    editorPick.textContent = ed.pick ? '拾取中…' : '拾取文字';
-    if (!ed.pick) clearHover();
-  }
-
-  function setPaused(on) {
-    ed.paused = !!on;
-    document.documentElement.classList.toggle('editor-paused', ed.paused);
-    editorPause.setAttribute('aria-pressed', String(ed.paused));
-    editorPause.textContent = ed.paused ? '继续动画' : '暂停动画';
-    ball.classList.toggle('is-paused', ed.paused);
-
-    if (document.getAnimations) {
-      document.getAnimations().forEach(function (animation) {
-        try {
-          var target = animation.effect && animation.effect.target;
-          if (target && target.closest && target.closest('.text-editor')) return;
-          if (ed.paused) animation.pause();
-          else animation.play();
-        } catch (error) {
-          /* 忽略个别动画无法操作的情况 */
-        }
-      });
-    }
-
-    window.dispatchEvent(new CustomEvent(ed.paused ? 'text-editor-pause' : 'text-editor-resume'));
-  }
-
-  function openPanel() {
-    panel.hidden = false;
-    ball.hidden = true;
-    if (panel.style.left) {
-      var maxLeft = Math.max(8, window.innerWidth - panel.offsetWidth - 8);
-      var maxTop = Math.max(8, window.innerHeight - panel.offsetHeight - 8);
-      var left = Math.min(Math.max(8, parseFloat(panel.style.left) || 8), maxLeft);
-      var top = Math.min(Math.max(8, parseFloat(panel.style.top) || 8), maxTop);
-      panel.style.left = left + 'px';
-      panel.style.top = top + 'px';
-    }
-  }
-
-  function minimizePanel() {
-    panel.hidden = true;
-    ball.hidden = false;
-  }
-
-  ball.addEventListener('click', openPanel);
-  editorMinimize.addEventListener('click', minimizePanel);
-
-  editorPick.addEventListener('click', function () {
-    setPick(!ed.pick);
-    setStatus(ed.pick ? '拾取模式已开启：点击页面文字进行选择。' : '拾取模式已关闭。');
-  });
-
-  editorPause.addEventListener('click', function () {
-    setPaused(!ed.paused);
-    setStatus(ed.paused ? '动画与自动播放已暂停。' : '动画与自动播放已继续。');
-  });
-
-  editorGrab.addEventListener('click', function () {
-    var candidates = ['.dialog-text', '.intro-text', '.ending-text', '.start-title', '.ending-title'];
-    for (var i = 0; i < candidates.length; i += 1) {
-      var el = document.querySelector(candidates[i]);
-      if (el && el.getClientRects().length > 0 && (el.textContent || '').trim()) {
-        selectElement(el);
-        return;
-      }
-    }
-    setStatus('当前没有可抓取的可见文本。');
-  });
-
-  editorTextarea.addEventListener('input', function () {
-    if (!ed.target) return;
-    ed.target.textContent = editorTextarea.value;
-    updateBackingData(editorTextarea.value);
-    setStatus('实时修改已作用到页面；点“应用修改”写回文件。');
-    setFileStatus((ed.fileHandle || ed.sourceText)
-      ? '有未写入的修改。点“应用修改”或“写入文件”同步到文件。'
-      : '页面已改，但文件未连接。点“连接游戏文件”后写入。');
-  });
-
-  editorConnect.addEventListener('click', connectFile);
-  editorSave.addEventListener('click', saveToFile);
-  editorApply.addEventListener('click', applyText);
-  editorRestore.addEventListener('click', restoreText);
-
-  document.addEventListener('click', function (event) {
-    if (!ed.pick) return;
-    if (!event.target || !event.target.closest) return;
-    if (isEditorNode(event.target)) return;
-
-    var el = event.target.closest(TEXT_SELECTOR);
-    if (!el) {
-      if (event.target.closest('#dialogCard, .choice-area, .game-topbar, .ending-actions')) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      return;
-    }
-
-    event.preventDefault();
-    event.stopPropagation();
-    selectElement(el);
-  }, true);
-
-  document.addEventListener('mouseover', function (event) {
-    if (!ed.pick) return;
-    if (!event.target || !event.target.closest) return;
-    if (isEditorNode(event.target)) {
-      clearHover();
-      return;
-    }
-
-    var el = event.target.closest(TEXT_SELECTOR);
-    if (!el) {
-      clearHover();
-      return;
-    }
-    if (el === ed.hover) return;
-    clearHover();
-    ed.hover = el;
-    el.classList.add('editor-hover');
-  });
-
-  window.addEventListener('blur', clearHover);
-
-  editorDrag.addEventListener('pointerdown', function (event) {
-    if (event.target.closest('button')) return;
-    var rect = panel.getBoundingClientRect();
-    panel.style.left = rect.left + 'px';
-    panel.style.top = rect.top + 'px';
-    panel.style.right = 'auto';
-    ed.drag = {
-      dx: event.clientX - rect.left,
-      dy: event.clientY - rect.top
-    };
-    if (editorDrag.setPointerCapture) {
-      try { editorDrag.setPointerCapture(event.pointerId); } catch (error) {}
-    }
-    event.preventDefault();
-  });
-
-  window.addEventListener('pointermove', function (event) {
-    if (!ed.drag) return;
-    var left = event.clientX - ed.drag.dx;
-    var top = event.clientY - ed.drag.dy;
-    var maxLeft = Math.max(8, window.innerWidth - panel.offsetWidth - 8);
-    var maxTop = Math.max(8, window.innerHeight - panel.offsetHeight - 8);
-    left = Math.min(Math.max(8, left), maxLeft);
-    top = Math.min(Math.max(8, top), maxTop);
-    panel.style.left = left + 'px';
-    panel.style.top = top + 'px';
-  });
-
-  window.addEventListener('pointerup', function () { ed.drag = null; });
-  window.addEventListener('pointercancel', function () { ed.drag = null; });
-
-  window.addEventListener('resize', function () {
-    if (panel.hidden) return;
-    if (!panel.style.left) return;
-    var maxLeft = Math.max(8, window.innerWidth - panel.offsetWidth - 8);
-    var maxTop = Math.max(8, window.innerHeight - panel.offsetHeight - 8);
-    var left = Math.min(Math.max(8, parseFloat(panel.style.left) || 8), maxLeft);
-    var top = Math.min(Math.max(8, parseFloat(panel.style.top) || 8), maxTop);
-    panel.style.left = left + 'px';
-    panel.style.top = top + 'px';
-  });
-})();
-/* ================== TEXT EDITOR END ================== */
-</script>
 </body>
 </html>
