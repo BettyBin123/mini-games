@@ -2248,6 +2248,7 @@ const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 const TYPE_SPEED = 30;
 const WIT_CORRECT = 17;
 const CHOICE_FEEDBACK_DELAY = 1600;
+const GAME_URL = 'https://bettybin123.github.io/mini-games/chuanchuan-world/';
 
 /* ============================================================
    3. 引入阶段
@@ -2737,8 +2738,7 @@ function showEnding(key) {
 function buildShareText() {
   const ending = endings[state.selectedEnding];
   if (!ending) return '';
-  const url = location.href.split('#')[0];
-  return '我在《穿越串串世界》里测出了「' + ending.title + '」，串商 ' + state.wit + '。你敢来测测你的串商吗？ ' + url;
+  return '我在《穿越串串世界》里测出了「' + ending.title + '」，串商 ' + state.wit + '。你敢来测测你的串商吗？ ' + GAME_URL;
 }
 
 function copyText(text) {
@@ -2769,8 +2769,7 @@ function copyText(text) {
 }
 
 function copyStartInvite() {
-  const url = location.href.split('#')[0];
-  const text = '我在《穿越串串世界》测串商：六轮对话，五个结局，你敢来试试吗？ ' + url;
+  const text = '我在《穿越串串世界》测串商：六轮对话，五个结局，你敢来试试吗？ ' + GAME_URL;
 
   copyText(text).then(function () {
     startShareFeedback.textContent = '邀请语已复制，去发给朋友吧。';
@@ -2790,7 +2789,7 @@ function shareResult() {
 
   const note = document.createElement('div');
   note.className = 'share-note';
-  note.textContent = '如果是在本地打开，把 index.html 一起发给朋友也能玩。';
+  note.textContent = '邀请语里已带在线地址，朋友点开就能玩。';
   shareBox.appendChild(note);
 
   copyText(text).then(function () {
