@@ -4,10 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#8FBC8F">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="description" content="穿越串串世界：一个关于鸡爪、串子和一只鸡的荒诞互动视觉小说。六轮对话，五个结局，测测你的串商。">
 <meta property="og:title" content="穿越串串世界">
 <meta property="og:description" content="敢不敢测测你的串商：六轮对话，五个结局，一只鸡。">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://bettybin123.github.io/mini-games/chuanchuan-world/">
 <title>穿越串串世界 | 串商测试</title>
 <style>
   :root {
@@ -2427,29 +2431,54 @@ function buildShareText() {
 }
 
 function copyText(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    return navigator.clipboard.writeText(text);
-  }
-
   return new Promise(function (resolve, reject) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.setAttribute('readonly', '');
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    textarea.style.top = '0';
-    document.body.appendChild(textarea);
-    textarea.select();
+    let finished = false;
 
-    try {
-      const ok = document.execCommand('copy');
-      document.body.removeChild(textarea);
-      if (ok) resolve();
-      else reject(new Error('copy failed'));
-    } catch (error) {
-      document.body.removeChild(textarea);
-      reject(error);
+    function finish(error) {
+      if (finished) return;
+      finished = true;
+      if (error) reject(error);
+      else resolve();
     }
+
+    function fallbackCopy() {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '0';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+
+      try {
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, text.length);
+        const ok = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        if (ok) finish();
+        else finish(new Error('copy failed'));
+      } catch (error) {
+        document.body.removeChild(textarea);
+        finish(error);
+      }
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        navigator.clipboard.writeText(text).then(function () {
+          finish();
+        }).catch(function () {
+          fallbackCopy();
+        });
+      } catch (error) {
+        fallbackCopy();
+      }
+      return;
+    }
+
+    fallbackCopy();
   });
 }
 
